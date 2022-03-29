@@ -1,19 +1,107 @@
 @page "/createtrain"
-<h3>CreateTrain</h3>
+@using Model.Entities.OwnPattern
 
-<table style="float:left; border:0px;" cellpadding="3" cellspacing="3">
-    <tr>
-        @foreach (var imageLing in Enumerable.Range(0,3)) {
-            <td style="height:60px; width:60px; vertical-align:middle;">
-                <img src="/cards/add1.png" alt=""/>
-            </td>
+<h2> Current Train </h2>
+
+<MudGrid Justify="Justify.FlexStart">
+    @if (_trucks[0] != null){
+        <MudItem xs="3" @onclick="() => RemoveTruck(0)">
+            <div class="d-flex flex-column align-center justify-center mud-width-full py-4">
+                <img src="/cards/@(_trucks[0].ImageUrl).png" width="350px" alt=""/>
+            </div>
+        </MudItem>
+    }
+    @for (int i = 0; i < _wagons.Count; i++){
+        // This is needed because otherwise C# do be confused
+        int local = i;
+        <MudItem xs="3" @onclick="() => { _wagons.Remove(_wagons[local]); }">
+            <div class="d-flex flex-column align-center justify-center mud-width-full py-4">
+                <img src="/cards/@(_wagons[local].ImageUrl).png" width="350px" alt=""/>
+            </div>
+        </MudItem>
+    }
+    @if (_trucks[1] != null){
+        <MudItem xs="3" @onclick="() => RemoveTruck(1)">
+            <div class="d-flex flex-column align-center justify-center mud-width-full py-4">
+                <img src="/cards/@(_trucks[1].ImageUrl).png" width="350px" alt=""/>
+            </div>
+        </MudItem>
+    }
+</MudGrid>
+
+<h2 style="padding-top: 30px"> Select your parts </h2>
+
+<MudGrid Justify="Justify.FlexStart">
+    @for (int i = 0; i < VehicleFactory.Trucks.Count; i++){
+        // This is needed because otherwise C# do be confused
+        int local = i;
+        <MudItem xs="3" @onclick="async () => await TryAddSetTruckAsync(local)">
+            <div class="d-flex flex-column align-center justify-center mud-width-full">
+                <img src="/cards/@(VehicleFactory.Trucks[local].ImageUrl).png" width="350px" alt=""/>
+            </div>
+        </MudItem>
+    }
+    @for (int i = 0; i < VehicleFactory.Wagons.Count; i++){
+        // This is needed because otherwise C# do be confused
+        int local = i;
+        <MudItem xs="3" @onclick="async () => await TryAddWagonAsync(local)">
+            <div class="d-flex flex-column align-center justify-center mud-width-full">
+                <img src="/cards/@(VehicleFactory.Wagons[local].ImageUrl).png" width="350px" alt=""/>
+            </div>
+        </MudItem>
+    }
+</MudGrid>
+
+@code{
+    // First and last can be a truck
+    private readonly Truck[] _trucks = new Truck[2];
+    private readonly List<Wagon> _wagons = new();
+
+    [Inject]
+    private IDialogService DialogService { get; set; }
+
+    protected override void OnInitialized(){
+    //_trucks[0] = VehicleFactory.CreateCzolgTesli();
+    }
+
+    private async Task TryAddWagonAsync(int wagonIndex){
+        if (_trucks[0] == null){
+            await DialogService.ShowMessageBox("Warning", "You need to select a Truck first!");
+            StateHasChanged();
         }
-    </tr>
-</table>
+        else if (_wagons.Contains(VehicleFactory.Wagons[wagonIndex])){
+            await DialogService.ShowMessageBox("Warning", "You have already added this wagon!");
+            StateHasChanged();
+        }
+        else if (_trucks[0].MaxContainer > _wagons.Count)
+            _wagons.Add(VehicleFactory.Wagons[wagonIndex]);
+        else{
+            await DialogService.ShowMessageBox("Warning", "You have reached the maximum amount of wagons!");
+            StateHasChanged();
+        }
+    }
 
+    private async Task TryAddSetTruckAsync(int truckIndex){
+        if (_trucks[0] == null){
+            _trucks[0] = VehicleFactory.Trucks[truckIndex];
+        }
+        else if (_trucks[1] == null){
+            _trucks[1] = VehicleFactory.Trucks[truckIndex];
+        }
+        else{
+            await DialogService.ShowMessageBox("Warning", "You have reached the maximum amount of trucks!");
+            StateHasChanged();
+        }
+    }
 
-@code {
-
-    public List<string> Images { get; set; } = new();
+    private void RemoveTruck(int index){
+        if (index == 0){
+            _wagons.Clear();
+            _trucks[0] = null;
+            _trucks[1] = null;
+        }
+        else
+            _trucks[1] = null;
+    }
 
 }

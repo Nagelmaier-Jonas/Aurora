@@ -32,4 +32,12 @@ public class Tests {
         Assert.AreEqual(vehicle.Speed, 3);
         Assert.AreEqual(vehicle.MaxContainer, 3);
     }
+
+    [Test]
+    public void WagonTest(){
+        var wagon = new Wagon("Tobis Anhänger", 100, 3);
+        Assert.AreEqual(wagon.Code, "Tobis Anhänger");
+        Assert.AreEqual(wagon.Price, 100);
+        Assert.AreEqual(wagon.CargoList.Length, 3);
+    }
 }
