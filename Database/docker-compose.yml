@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+  rusteze-db:
+    image: mysql
+    container_name: aurora-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: aurora
+      MYSQL_DATABASE: aurora
+      MYSQL_USER: aurora
+      MYSQL_PASSWORD: aurora
+    ports:
+      - 2000:3306
+    volumes:
+      - ./aurora_data:/var/lib/mysql
