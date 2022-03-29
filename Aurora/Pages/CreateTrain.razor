@@ -1,0 +1,19 @@
+@page "/createtrain"
+<h3>CreateTrain</h3>
+
+<table style="float:left; border:0px;" cellpadding="3" cellspacing="3">
+    <tr>
+        @foreach (var imageLing in Enumerable.Range(0,3)) {
+            <td style="height:60px; width:60px; vertical-align:middle;">
+                <img src="/cards/add1.png" alt=""/>
+            </td>
+        }
+    </tr>
+</table>
+
+
+@code {
+
+    public List<string> Images { get; set; } = new();
+
+}
