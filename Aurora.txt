@@ -1,0 +1,28 @@
+CZOLG TESLI - Heavy Tesla Tank
+TURBO CIEZAROWKA NA BIO-PALIWO - Turbo lastmaschine with biofuel
+OP ANCERZONA PRZYCEPA - Reinforced wagon
+PRZYCZEPA - Wagon
+UZBROJONA CYSERNA - Reinforced Fuel wagon
+OP ANCERZONA PRZYCZEPA - Reinforced wagon
+PRZYCZEPA A SAINTARNA - Medical Wagon
+OP ANCERZONA CYSTERNA - Double Reinforced Fuel wagon
+APC - APC
+CZOLG IMPULSOWY - Railgun truck
+CIEZAROWKA - Truck
+NUKLEARNA CIEZAROWKA - Atom truck
+KARABIN MASZYNOWY - Machine gun
+DZIALKO VULCAN - Vulcan gun
+MALY BAGAZNIK - Small storage
+REAKTOR NUKLEARNY - Nuclear reactor
+DZIALO - Heavy gun
+PANCERZ - Armor
+DUZY BAGAZINK - Large storage
+SZTUCZNY EKOSYSTEM - Greenhouse
+CIEZKI PANCERZ - Heavy armor
+PRZETWARZACY BIOMASY - Biofuel generator
+OP ANCERZONY BAGAZNIK - Heavy Large storage
+DZIALKO GAUSSA - Gaussa gun (hits every enemy)
+MIKROREAKTOR NUKLEARNY - Small nuclear reactor 
+DRONY ZAPRAWCZE - Maintenance drones
+ZURAW - Crane
+TURBO KOBZIARZ - Turbo bagpiper

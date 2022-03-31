@@ -60,17 +60,9 @@
     [Inject]
     private IDialogService DialogService { get; set; }
 
-    protected override void OnInitialized(){
-    //_trucks[0] = VehicleFactory.CreateCzolgTesli();
-    }
-
     private async Task TryAddWagonAsync(int wagonIndex){
         if (_trucks[0] == null){
             await DialogService.ShowMessageBox("Warning", "You need to select a Truck first!");
-            StateHasChanged();
-        }
-        else if (_wagons.Contains(VehicleFactory.Wagons[wagonIndex])){
-            await DialogService.ShowMessageBox("Warning", "You have already added this wagon!");
             StateHasChanged();
         }
         else if (_trucks[0].MaxContainer > _wagons.Count)
