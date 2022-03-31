@@ -1015,19 +1015,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tobias\\.nuget\\packages\\": {}
+    "C:\\Users\\luke2\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tobias\\Desktop\\Aurora\\Aurora\\Aurora.csproj",
+      "projectUniqueName": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Aurora\\Aurora.csproj",
       "projectName": "Aurora",
-      "projectPath": "C:\\Users\\Tobias\\Desktop\\Aurora\\Aurora\\Aurora.csproj",
-      "packagesPath": "C:\\Users\\Tobias\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tobias\\Desktop\\Aurora\\Aurora\\obj\\",
+      "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Aurora\\Aurora.csproj",
+      "packagesPath": "C:\\Users\\luke2\\.nuget\\packages\\",
+      "outputPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Aurora\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Tobias\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\luke2\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1039,11 +1039,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Tobias\\Desktop\\Aurora\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\Tobias\\Desktop\\Aurora\\Domain\\Domain.csproj"
+            "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Domain\\Domain.csproj": {
+              "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Domain\\Domain.csproj"
             },
-            "C:\\Users\\Tobias\\Desktop\\Aurora\\Model\\Model.csproj": {
-              "projectPath": "C:\\Users\\Tobias\\Desktop\\Aurora\\Model\\Model.csproj"
+            "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj": {
+              "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj"
             }
           }
         }
@@ -1091,7 +1091,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

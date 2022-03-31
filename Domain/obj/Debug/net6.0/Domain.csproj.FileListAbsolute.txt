@@ -28,3 +28,18 @@ C:\Users\Tobias\Desktop\Aurora\Domain\obj\Debug\net6.0\Domain.csproj.CopyComplet
 C:\Users\Tobias\Desktop\Aurora\Domain\obj\Debug\net6.0\Domain.dll
 C:\Users\Tobias\Desktop\Aurora\Domain\obj\Debug\net6.0\ref\Domain.dll
 C:\Users\Tobias\Desktop\Aurora\Domain\obj\Debug\net6.0\Domain.pdb
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\bin\Debug\net6.0\Domain.deps.json
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\bin\Debug\net6.0\Domain.dll
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\bin\Debug\net6.0\ref\Domain.dll
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\bin\Debug\net6.0\Domain.pdb
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\bin\Debug\net6.0\Model.dll
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\bin\Debug\net6.0\Model.pdb
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\Domain.csproj.AssemblyReference.cache
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\Domain.csproj.CopyComplete
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\Domain.dll
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\ref\Domain.dll
+T:\SCHULE\4. Jahrgang\SEW\Aurora\Domain\obj\Debug\net6.0\Domain.pdb

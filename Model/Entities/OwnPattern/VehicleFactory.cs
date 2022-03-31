@@ -32,6 +32,11 @@ public class VehicleFactory{
         // TODO: price and Addons
         return new Truck("Turbo Ciezarowka na Bio-Paliwo", 10, 4, 4, 3, "truck2");
     }
+    
+    public static Truck CreateAPC() {
+        // TODO: price and Addons
+        return new Truck("APC", 10, 4, 2, 3, "truck3");
+    }
     // <summary>
     // All methods to create wagons
     // </summary>
