@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tobia\\Desktop\\Aurora\\Aurora\\Aurora.csproj": {}
+    "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Aurora\\Aurora.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tobia\\Desktop\\Aurora\\Aurora\\Aurora.csproj": {
+    "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Aurora\\Aurora.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tobia\\Desktop\\Aurora\\Aurora\\Aurora.csproj",
+        "projectUniqueName": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Aurora\\Aurora.csproj",
         "projectName": "Aurora",
-        "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Aurora\\Aurora.csproj",
-        "packagesPath": "C:\\Users\\tobia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Aurora\\obj\\",
+        "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Aurora\\Aurora.csproj",
+        "packagesPath": "C:\\Users\\luke2\\.nuget\\packages\\",
+        "outputPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Aurora\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tobia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\luke2\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -26,11 +26,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\tobia\\Desktop\\Aurora\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Domain\\Domain.csproj"
+              "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Domain\\Domain.csproj": {
+                "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj": {
-                "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj"
+              "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj": {
+                "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj"
               }
             }
           }
@@ -78,21 +78,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\tobia\\Desktop\\Aurora\\Domain\\Domain.csproj": {
+    "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tobia\\Desktop\\Aurora\\Domain\\Domain.csproj",
+        "projectUniqueName": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\tobia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Domain\\obj\\",
+        "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\luke2\\.nuget\\packages\\",
+        "outputPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tobia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\luke2\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -104,8 +104,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj": {
-                "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj"
+              "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj": {
+                "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj"
               }
             }
           }
@@ -134,21 +134,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj": {
+    "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj",
+        "projectUniqueName": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj",
         "projectName": "Model",
-        "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj",
-        "packagesPath": "C:\\Users\\tobia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\obj\\",
+        "projectPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\Model.csproj",
+        "packagesPath": "C:\\Users\\luke2\\.nuget\\packages\\",
+        "outputPath": "T:\\SCHULE\\4. Jahrgang\\SEW\\Aurora\\Model\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\tobia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\luke2\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -202,7 +202,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }
