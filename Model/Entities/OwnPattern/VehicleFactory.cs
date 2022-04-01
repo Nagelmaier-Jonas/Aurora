@@ -36,7 +36,7 @@ public class VehicleFactory{
         CreateMaintenanceDrone(),
         CreateZuraw(),
         CreateTurboBagpiper()
-    };
+};
     // <summary>
     // All methods to create trucks
     // </summary>
@@ -51,10 +51,12 @@ public class VehicleFactory{
         // TODO: price and Addons
         return new Truck("Turbo Truck with Biofuel", 10, 4, 4, 3, "truck2");
     }
+    
     public static Truck CreateAPC() {
         // TODO: price and Addons
         return new Truck("APC", 10, 4, 2, 3, "truck3");
     }
+    
     public static Truck CreateRailgunTruck() {
         // TODO: price and Addons
         return new Truck("Railgun Truck", 10, 4, 4, 3, "truck4");
@@ -69,6 +71,7 @@ public class VehicleFactory{
         // TODO: price and Addons
         return new Truck("Atom Truck", 10, 4, 4, 3, "truck6");
     }
+    
     // <summary>
     // All methods to create wagons
     // </summary>
