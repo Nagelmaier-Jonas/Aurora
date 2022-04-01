@@ -1,3 +1,4 @@
+using System.Data;
 using Domain.LogicHandlers.Exceptions;
 using Model.Entities.OwnPattern;
 using MudBlazor;
@@ -5,47 +6,34 @@ using MudBlazor;
 namespace Domain.LogicHandlers;
 
 public static class ConvoyExtension {
-    /*
-     
-    private async Task TryAddWagonAsync(int wagonIndex) {
-
-        else if (_trucks[0].MaxContainer > _wagons.Count)
-            _wagons.Add(VehicleFactory.Wagons[wagonIndex]);
-        else {
-            await DialogService.ShowMessageBox("Warning", "You have reached the maximum amount of wagons!");
-            StateHasChanged();
-        }
+    public static void CanAddTruck(this Convoy convoy, Truck truck) {
+        if (IsFrontTruckPresent(convoy))
+            if (IsTailTruckPresent(convoy))
+                throw new ConvoyManagementException("Both trucks occupied!");
+            else
+                convoy.TailTruck = truck;
+        else convoy.FrontTruck = truck;
     }
 
-    private async Task TryAddSetTruckAsync(int truckIndex) {
-        if (_trucks[0] == null) {
-            _trucks[0] = VehicleFactory.Trucks[truckIndex];
-        }
-        else if (_trucks[1] == null) {
-            _trucks[1] = VehicleFactory.Trucks[truckIndex];
-        }
-        else {
-            await DialogService.ShowMessageBox("Warning", "You have reached the maximum amount of trucks!");
-            StateHasChanged();
-        }
+    public static void CanAddWagon(this Convoy convoy, Wagon wagon) {
+        if (!IsFrontTruckPresent(convoy))
+            throw new ConvoyManagementException("Missing front truck!");
+        if (!HasEmptySpaces(convoy))
+            throw new ConvoyManagementException("Convoy already full!");
+        convoy.Wagons.Add(wagon);
     }
 
-    private void RemoveTruck(int index) {
-        if (index == 0) {
-            _wagons.Clear();
-            _trucks[0] = null;
-            _trucks[1] = null;
-        }
-        else
-            _trucks[1] = null;
+    public static void RemoveFrontTruck(this Convoy convoy) {
+        convoy.FrontTruck = null;
+        convoy.Wagons.Clear();
     }
-    */
-
-    public static void CanAddElement(this Convoy convoy) {
-        if (!IsTruckPresent(convoy))
-            throw new ConvoyManagementException("No truck present!");
-    }
-
-    public static bool IsTruckPresent(this Convoy convoy) =>
-        convoy.Trucks[0] == null;
+    public static void RemoveTailTruck(this Convoy convoy) => convoy.TailTruck = null;
+    public static void RemoveWagon(this Convoy convoy, Wagon wagon) => convoy.Wagons.Remove(wagon); 
+    private static bool IsFrontTruckPresent(this Convoy convoy) => convoy.FrontTruck == null;
+    private static bool IsTailTruckPresent(this Convoy convoy) => convoy.TailTruck == null;
+    
+    private static bool HasEmptySpaces(this Convoy convoy) =>
+        convoy.FrontTruck.MaxContainer + (IsTailTruckPresent(convoy) ? convoy.TailTruck.MaxContainer : 0) >
+        convoy.Wagons.Count;
+    //TODO: unsure about the calculation
 }
