@@ -4781,19 +4781,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tobia\\.nuget\\packages\\": {}
+    "C:\\Users\\magen\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tobia\\Desktop\\Aurora\\TestProject\\TestProject.csproj",
+      "projectUniqueName": "D:\\GitRepos\\Aurora\\TestProject\\TestProject.csproj",
       "projectName": "TestProject",
-      "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\TestProject\\TestProject.csproj",
-      "packagesPath": "C:\\Users\\tobia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tobia\\Desktop\\Aurora\\TestProject\\obj\\",
+      "projectPath": "D:\\GitRepos\\Aurora\\TestProject\\TestProject.csproj",
+      "packagesPath": "C:\\Users\\magen\\.nuget\\packages\\",
+      "outputPath": "D:\\GitRepos\\Aurora\\TestProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\tobia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\magen\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -4805,8 +4805,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj": {
-              "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj"
+            "D:\\GitRepos\\Aurora\\Model\\Model.csproj": {
+              "projectPath": "D:\\GitRepos\\Aurora\\Model\\Model.csproj"
             }
           }
         }
@@ -4853,7 +4853,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

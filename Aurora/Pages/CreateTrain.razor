@@ -2,55 +2,194 @@
 @using Model.Entities.OwnPattern
 
 <h2> Current Train </h2>
+<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.NavigateNext" Color="Color.Primary" OnClick="NextStep">@_stepper</MudButton>
+<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" OnClick="StateHasChanged">Restart</MudButton> @* TODO geht nd *@
 
-<MudGrid Justify="Justify.FlexStart">
-    @if (_trucks[0] != null){
-        <MudItem xs="3" @onclick="() => RemoveTruck(0)">
-            <div class="d-flex flex-column align-center justify-center mud-width-full py-4">
-                <img src="/cards/@(_trucks[0].ImageUrl).png" width="350px" alt=""/>
-            </div>
-        </MudItem>
-    }
-    @for (int i = 0; i < _wagons.Count; i++){
-        // This is needed because otherwise C# do be confused
-        int local = i;
-        <MudItem xs="3" @onclick="() => { _wagons.Remove(_wagons[local]); }">
-            <div class="d-flex flex-column align-center justify-center mud-width-full py-4">
-                <img src="/cards/@(_wagons[local].ImageUrl).png" width="350px" alt=""/>
-            </div>
-        </MudItem>
-    }
-    @if (_trucks[1] != null){
-        <MudItem xs="3" @onclick="() => RemoveTruck(1)">
-            <div class="d-flex flex-column align-center justify-center mud-width-full py-4">
-                <img src="/cards/@(_trucks[1].ImageUrl).png" width="350px" alt=""/>
-            </div>
-        </MudItem>
-    }
-</MudGrid>
 
-<h2 style="padding-top: 30px"> Select your parts </h2>
+<MudTimeline TimelineOrientation="TimelineOrientation.Horizontal" TimelinePosition="TimelinePosition.Bottom">
+    <MudTimelineItem @bind-Color="_truckDot">
+        <MudText Align="Align.Center">Choose Truck</MudText>
+    </MudTimelineItem>
+    <MudTimelineItem @bind-Color="_wagonDot">
+        <MudText Align="Align.Center">Choose Wagons</MudText>
+    </MudTimelineItem>
+    <MudTimelineItem @bind-Color="_addonDot">
+        <MudText Align="Align.Center">Choose Addons</MudText>
+    </MudTimelineItem>
+</MudTimeline>
 
-<MudGrid Justify="Justify.FlexStart">
-    @for (int i = 0; i < VehicleFactory.Trucks.Count; i++){
-        // This is needed because otherwise C# do be confused
-        int local = i;
-        <MudItem xs="3" @onclick="async () => await TryAddSetTruckAsync(local)">
+<MudDropContainer T="DropItem" Items="_items" ApplyDropClassesOnDragStarted="true" ItemsSelector="@((item, dropzone) => item.Identifier == dropzone)" ItemDropped="ItemUpdated" CanDropClass="mud-border-success" NoDropClass="mud-border-error">
+    <ChildContent>
+        <MudText Typo="Typo.h6" Class="mb-4">Your Train</MudText>
+        <MudDropZone T="DropItem" Identifier="CreateTrain" Class="d-flex justify-center align-center docs-gray-bg mud-border-lines-default rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+        </MudDropZone>
+        <MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" @bind-ActivePanelIndex="_activeIndex">
+            <MudTabPanel Text="Truck" Disabled="@_truckTab">
+                <MudText>Choose your Truck</MudText>
+                <MudDropZone T="DropItem" Identifier="Trucks" CanDrop="@((item) => item.Identifier == "Trucks")" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                    <MudText Typo="Typo.h6" Class="mb-4"></MudText>
+                </MudDropZone>
+            </MudTabPanel>
+            <MudTabPanel Text="Wagon" Disabled="@_wagonTab">
+                <MudText>Choose your Wagons</MudText> @* TODO CanDrop geht nd ganz. mann kann sie nicht mehr zuückgeben. *@
+                <MudDropZone T="DropItem" Identifier="Wagons" CanDrop="@((item) => item.Identifier == "Wagons")" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                    <MudText Typo="Typo.h6" Class="mb-4"></MudText>
+                </MudDropZone>
+            </MudTabPanel>
+            <MudTabPanel Text="Addon" Disabled="@_addonTab">
+                <MudText>Choose your Addons</MudText>
+                <MudDropZone T="DropItem" Identifier="Addons" CanDrop="@((item) => item.Identifier == "Addons")" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+                    <MudText Typo="Typo.h6" Class="mb-4"></MudText>
+                </MudDropZone>
+            </MudTabPanel>
+        </MudTabs>
+    </ChildContent>
+    <ItemRenderer>
+        <MudItem xs="3">
             <div class="d-flex flex-column align-center justify-center mud-width-full">
-                <img src="/cards/@(VehicleFactory.Trucks[local].ImageUrl).png" width="350px" alt=""/>
+                <img src="/cards/@(context.ImageUrl).png" width="300px" alt=""/>
             </div>
         </MudItem>
+    </ItemRenderer>
+</MudDropContainer>
+
+@*<MudDropContainer T="DropItem" Items="_items" ApplyDropClassesOnDragStarted="_applyDropClassesOnDragStarted" ItemsSelector="@((item,dropzone) => item.Place == dropzone)" CanDropClass="mud-border-success" NoDropClass="mud-border-error" ItemDropped="ItemUpdated" Class="d-flex flex-column flex-grow-1">
+    <ChildContent>
+        <div class="d-flex flex-wrap justify-space-between">
+            <MudDropZone T="DropItem" Identifier="Fridge" CanDrop="@((item) => false)" Class="rounded-lg border-2 border-solid mud-border-lines-default pa-6 ma-8">
+                <MudText Typo="Typo.h6" Class="mb-4">Fridge</MudText>
+            </MudDropZone>
+            <MudDropZone T="DropItem" Identifier="Dinner" CanDrop="@((item) => item.IsPicked == false && item.IsRotten == false)" Class="rounded-lg border-2 border-solid mud-border-lines-default pa-6 ma-8 flex-grow-1">
+                <MudText Typo="Typo.h6" Class="mb-4">Soup</MudText>
+            </MudDropZone>
+            <MudDropZone T="DropItem" Identifier="Trash" CanDrop="@((item) => item.IsPicked == false && item.IsRotten == true)" Class="rounded-lg border-2 border-dashed mud-border-lines-default pa-6 ma-8 flex-grow-1">
+                <MudText Typo="Typo.h6" Class="mb-4">Trash</MudText>
+            </MudDropZone>
+        </div>
+        <MudToolBar>
+            <MudCheckBox @bind-Checked="_applyDropClassesOnDragStarted" Label="Apply Drop Classes On Drag Started" />
+            <MudSpacer/>
+            <MudButton OnClick="Reset">Reset</MudButton>
+        </MudToolBar>
+    </ChildContent>
+    <ItemRenderer>
+        <MudPaper Height="54px" Width="54px" Class="pa-2" Elevation="0">
+            <MudBadge Visible="@(context.IsRotten ? true : false)" Overlap="true" Icon="@Icons.Custom.Uncategorized.Bacteria" Color="Color.Dark">
+                <MudIcon Icon="@context.Icon" Color="@context.Color" Size="Size.Large"/>
+            </MudBadge>
+        </MudPaper>
+    </ItemRenderer>
+</MudDropContainer>
+
+@code {
+	private bool _applyDropClassesOnDragStarted = false;
+
+	private void Reset()
+	{
+		foreach (var item in _items)
+		{
+			item.Place = "Fridge";
+			item.IsPicked = false;
+		}
+	}
+
+	private void ItemUpdated(MudItemDropInfo<DropItem> dropItem)
+	{
+		dropItem.Item.IsPicked = true;
+		dropItem.Item.Place = dropItem.DropzoneIdentifier;
+	}
+
+	private List<DropItem> _items = new()
+		{
+			new DropItem() { Icon = @Icons.Custom.Uncategorized.FoodApple, Color = Color.Error, IsRotten = false, Place = "Fridge" },
+		    new DropItem() { Icon = @Icons.Custom.Uncategorized.Baguette, Color = Color.Warning, IsRotten = false, Place = "Fridge" },
+		    new DropItem() { Icon = @Icons.Custom.Uncategorized.Sausage, Color = Color.Secondary, IsRotten = true, Place = "Fridge" },
+		    new DropItem() { Icon = @Icons.Custom.Uncategorized.WaterMelon, Color = Color.Success, IsRotten = false, Place = "Fridge" },
+		    new DropItem() { Icon = @Icons.Custom.Uncategorized.Fish, Color = Color.Info, IsRotten = true, Place = "Fridge" },
+		};
+
+	public class DropItem
+	{
+		public string Icon { get; init; }
+	    public Color Color { get; init; }
+	    public bool IsRotten { get; set; }
+		public bool IsPicked { get; set; }
+		public string Place { get; set; }
+	}
+}*@
+
+@code {
+
+    private void ItemUpdated(MudItemDropInfo<DropItem> dropItem) {
+        dropItem.Item.Identifier = dropItem.DropzoneIdentifier;
     }
-    @for (int i = 0; i < VehicleFactory.Wagons.Count; i++){
-        // This is needed because otherwise C# do be confused
-        int local = i;
-        <MudItem xs="3" @onclick="async () => await TryAddWagonAsync(local)">
-            <div class="d-flex flex-column align-center justify-center mud-width-full">
-                <img src="/cards/@(VehicleFactory.Wagons[local].ImageUrl).png" width="350px" alt=""/>
-            </div>
-        </MudItem>
+
+    private List<DropItem> _items = new();
+
+    private bool _truckTab = false;
+    private bool _wagonTab = true;
+    private bool _addonTab = true;
+    private string _stepper = "Next";
+    private int _activeIndex = 0;
+    private Color _truckDot = Color.Primary;
+    private Color _wagonDot = Color.Default;
+    private Color _addonDot = Color.Default;
+
+    public class DropItem {
+        public string Name { get; init; }
+        public string Identifier { get; set; }
+        public string ImageUrl { get; set; }
     }
-</MudGrid>
+
+    protected override void OnInitialized() {
+        InitTrucks();
+        InitWagons();
+        InitAddons();
+    }
+
+    private void InitTrucks() {
+        for (int i = 0; i < VehicleFactory.Trucks.Count; i++) {
+            _items.Add(new DropItem() {Identifier = "Trucks", Name = VehicleFactory.Trucks[i].Code, ImageUrl = VehicleFactory.Trucks[i].ImageUrl});
+        }
+    }
+
+    private void InitWagons() {
+        for (int i = 0; i < VehicleFactory.Trucks.Count; i++) {
+            _items.Add(new DropItem() {Identifier = "Wagons", Name = VehicleFactory.Wagons[i].Code, ImageUrl = VehicleFactory.Wagons[i].ImageUrl});
+        }
+    }
+
+    private void InitAddons() {
+        for (int i = 0; i < VehicleFactory.Trucks.Count; i++) {
+            _items.Add(new DropItem() {Identifier = "Addons", Name = VehicleFactory.Wagons[i].Code, ImageUrl = VehicleFactory.Wagons[i].ImageUrl});
+        }
+    }
+
+    private void NextStep() {
+        if (!_truckTab) {
+            _truckTab = true;
+            _wagonTab = false;
+            _truckDot = Color.Default;
+            _wagonDot = Color.Primary;
+            _activeIndex = 1;
+        }
+        else if (!_wagonTab) {
+            _wagonTab = true;
+            _addonTab = false;
+            _wagonDot = Color.Default;
+            _addonDot = Color.Primary;
+            _activeIndex = 2;
+            _stepper = "Finish";
+        }
+        else if(_stepper == "Finish") {
+            Save();
+        }
+    }
+
+    private void Save() { @* TODO *@
+    }
+
+}
 
 @code{
     // First and last can be a truck
@@ -60,34 +199,34 @@
     [Inject]
     private IDialogService DialogService { get; set; }
 
-    private async Task TryAddWagonAsync(int wagonIndex){
-        if (_trucks[0] == null){
+    private async Task TryAddWagonAsync(int wagonIndex) {
+        if (_trucks[0] == null) {
             await DialogService.ShowMessageBox("Warning", "You need to select a Truck first!");
             StateHasChanged();
         }
         else if (_trucks[0].MaxContainer > _wagons.Count)
             _wagons.Add(VehicleFactory.Wagons[wagonIndex]);
-        else{
+        else {
             await DialogService.ShowMessageBox("Warning", "You have reached the maximum amount of wagons!");
             StateHasChanged();
         }
     }
 
-    private async Task TryAddSetTruckAsync(int truckIndex){
-        if (_trucks[0] == null){
+    private async Task TryAddSetTruckAsync(int truckIndex) {
+        if (_trucks[0] == null) {
             _trucks[0] = VehicleFactory.Trucks[truckIndex];
         }
-        else if (_trucks[1] == null){
+        else if (_trucks[1] == null) {
             _trucks[1] = VehicleFactory.Trucks[truckIndex];
         }
-        else{
+        else {
             await DialogService.ShowMessageBox("Warning", "You have reached the maximum amount of trucks!");
             StateHasChanged();
         }
     }
 
-    private void RemoveTruck(int index){
-        if (index == 0){
+    private void RemoveTruck(int index) {
+        if (index == 0) {
             _wagons.Clear();
             _trucks[0] = null;
             _trucks[1] = null;

@@ -1015,19 +1015,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tobia\\.nuget\\packages\\": {}
+    "C:\\Users\\magen\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tobia\\Desktop\\Aurora\\Aurora\\Aurora.csproj",
+      "projectUniqueName": "D:\\GitRepos\\Aurora\\Aurora\\Aurora.csproj",
       "projectName": "Aurora",
-      "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Aurora\\Aurora.csproj",
-      "packagesPath": "C:\\Users\\tobia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Aurora\\obj\\",
+      "projectPath": "D:\\GitRepos\\Aurora\\Aurora\\Aurora.csproj",
+      "packagesPath": "C:\\Users\\magen\\.nuget\\packages\\",
+      "outputPath": "D:\\GitRepos\\Aurora\\Aurora\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\tobia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\magen\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1039,11 +1039,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\tobia\\Desktop\\Aurora\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Domain\\Domain.csproj"
+            "D:\\GitRepos\\Aurora\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\GitRepos\\Aurora\\Domain\\Domain.csproj"
             },
-            "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj": {
-              "projectPath": "C:\\Users\\tobia\\Desktop\\Aurora\\Model\\Model.csproj"
+            "D:\\GitRepos\\Aurora\\Model\\Model.csproj": {
+              "projectPath": "D:\\GitRepos\\Aurora\\Model\\Model.csproj"
             }
           }
         }
@@ -1091,7 +1091,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
