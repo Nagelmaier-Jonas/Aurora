@@ -584,7 +584,7 @@
           "build/netcoreapp2.1/Microsoft.TestPlatform.TestHost.props": {}
         }
       },
-      "MudBlazor/6.0.8": {
+      "MudBlazor/6.0.9": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Components": "6.0.3",
@@ -1235,7 +1235,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "MudBlazor": "6.0.8",
+          "MudBlazor": "6.0.9",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.1"
         },
         "compile": {
@@ -2350,10 +2350,10 @@
         "microsoft.testplatform.testhost.nuspec"
       ]
     },
-    "MudBlazor/6.0.8": {
-      "sha512": "d6DbU00IQ74Wy7/vEt8C9BIjzXB9TkzjXFoWn58qXms2ltr42KyiaC+zCCL1zzB5oUpyOGCo/VG/rWh7tzbHnQ==",
+    "MudBlazor/6.0.9": {
+      "sha512": "PDBCp76JjU6JPTECPrVh4eHySgBuuTiDN9sd0YFlhIRuKs4X5/5nePqPIm5pfZiCHscRHeTfSRLs2Kjv40u6uw==",
       "type": "package",
-      "path": "mudblazor/6.0.8",
+      "path": "mudblazor/6.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2365,7 +2365,7 @@
         "buildTransitive/MudBlazor.props",
         "lib/net6.0/MudBlazor.dll",
         "lib/net6.0/MudBlazor.xml",
-        "mudblazor.6.0.8.nupkg.sha512",
+        "mudblazor.6.0.9.nupkg.sha512",
         "mudblazor.nuspec",
         "staticwebassets/MudBlazor.min.css",
         "staticwebassets/MudBlazor.min.js"

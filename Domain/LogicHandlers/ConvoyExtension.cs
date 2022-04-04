@@ -1,4 +1,5 @@
 using System.Data;
+using System.Runtime.CompilerServices;
 using Domain.LogicHandlers.Exceptions;
 using Model.Entities.OwnPattern;
 using MudBlazor;
@@ -27,11 +28,12 @@ public static class ConvoyExtension {
         convoy.FrontTruck = null;
         convoy.Wagons.Clear();
     }
+
     public static void RemoveTailTruck(this Convoy convoy) => convoy.TailTruck = null;
-    public static void RemoveWagon(this Convoy convoy, Wagon wagon) => convoy.Wagons.Remove(wagon); 
-    private static bool IsFrontTruckPresent(this Convoy convoy) => convoy.FrontTruck == null;
-    private static bool IsTailTruckPresent(this Convoy convoy) => convoy.TailTruck == null;
-    
+    public static void RemoveWagon(this Convoy convoy, Wagon wagon) => convoy.Wagons.Remove(wagon);
+    private static bool IsFrontTruckPresent(this Convoy convoy) => convoy.FrontTruck != null;
+    private static bool IsTailTruckPresent(this Convoy convoy) => convoy.TailTruck != null;
+
     private static bool HasEmptySpaces(this Convoy convoy) =>
         convoy.FrontTruck.MaxContainer + (IsTailTruckPresent(convoy) ? convoy.TailTruck.MaxContainer : 0) >
         convoy.Wagons.Count;

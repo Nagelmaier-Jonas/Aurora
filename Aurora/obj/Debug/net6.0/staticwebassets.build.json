@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OL+Zkut1KAOJzhD/5YITal2OqLOqZ2mFJY7sxnLiy/U=",
+  "Hash": "2D9jhBtnq3wnKd0VWll2QpUHKgjNYXua28/jf5acBAs=",
   "Source": "Aurora",
   "BasePath": "_content/Aurora",
   "Mode": "Default",
@@ -17,10 +17,10 @@
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.8\\staticwebassets\\MudBlazor.min.css",
+      "Identity": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.9\\staticwebassets\\MudBlazor.min.css",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.8\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.9\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.8\\staticwebassets\\MudBlazor.min.css"
+      "OriginalItemSpec": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.9\\staticwebassets\\MudBlazor.min.css"
     },
     {
-      "Identity": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.8\\staticwebassets\\MudBlazor.min.js",
+      "Identity": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.9\\staticwebassets\\MudBlazor.min.js",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.8\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.9\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.js",
       "AssetKind": "All",
@@ -48,41 +48,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.8\\staticwebassets\\MudBlazor.min.js"
-    },
-    {
-      "Identity": "D:\\GitRepos\\Aurora\\Aurora\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Aurora.styles.css",
-      "SourceId": "Aurora",
-      "SourceType": "Computed",
-      "ContentRoot": "D:\\GitRepos\\Aurora\\Aurora\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
-      "BasePath": "_content/Aurora",
-      "RelativePath": "Aurora.styles.css",
-      "AssetKind": "All",
-      "AssetMode": "CurrentProject",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "ScopedCss",
-      "AssetTraitValue": "ApplicationBundle",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\GitRepos\\Aurora\\Aurora\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Aurora.styles.css"
-    },
-    {
-      "Identity": "D:\\GitRepos\\Aurora\\Aurora\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Aurora.bundle.scp.css",
-      "SourceId": "Aurora",
-      "SourceType": "Computed",
-      "ContentRoot": "D:\\GitRepos\\Aurora\\Aurora\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
-      "BasePath": "_content/Aurora",
-      "RelativePath": "Aurora.bundle.scp.css",
-      "AssetKind": "All",
-      "AssetMode": "Reference",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "ScopedCss",
-      "AssetTraitValue": "ProjectBundle",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\GitRepos\\Aurora\\Aurora\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Aurora.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.9\\staticwebassets\\MudBlazor.min.js"
     },
     {
       "Identity": "D:\\GitRepos\\Aurora\\Aurora\\wwwroot\\cards\\add1.png",

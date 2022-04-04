@@ -19,12 +19,28 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/GitRepos/Aurora/Aurora/Pages/CreateConvoy.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlQ29udm95LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/GitRepos/Aurora/Aurora/Pages/CreateTrain.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlVHJhaW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/GitRepos/Aurora/Aurora/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/GitRepos/Aurora/Aurora/Shared/DataInitializer.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXERhdGFJbml0aWFsaXplci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/GitRepos/Aurora/Aurora/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/GitRepos/Aurora/Aurora/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/GitRepos/Aurora/Aurora/Shared/SurveyPrompt.razor]
@@ -34,14 +50,6 @@ build_metadata.AdditionalFiles.CssScope =
 [D:/GitRepos/Aurora/Aurora/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
-
-[D:/GitRepos/Aurora/Aurora/Shared/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-998iekcbr9
-
-[D:/GitRepos/Aurora/Aurora/Shared/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-d6v6iv7i6k
 
 [D:/GitRepos/Aurora/Aurora/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s

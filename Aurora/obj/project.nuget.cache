@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tZ6M3dJbVH1+K5kzkmGTjF8mXKCQp6JCea5OIhdoACYCSQwsFoVUg5idRbgWasmjgVTq4Pzx4i7qxHKZnsH9qg==",
+  "dgSpecHash": "nPAc4PjC6q5HGEIFOHIqu4EGy2NNuV1mOiB+a/OYXpJY9/RuWd/RZFc6nlWfR6HNKnJUo+nqD+Sw+6RXyKcIiQ==",
   "success": true,
   "projectFilePath": "D:\\GitRepos\\Aurora\\Aurora\\Aurora.csproj",
   "expectedPackageFiles": [
@@ -26,7 +26,7 @@
     "C:\\Users\\magen\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\microsoft.jsinterop\\6.0.3\\microsoft.jsinterop.6.0.3.nupkg.sha512",
-    "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.8\\mudblazor.6.0.8.nupkg.sha512",
+    "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.9\\mudblazor.6.0.9.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\6.0.1\\pomelo.entityframeworkcore.mysql.6.0.1.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",

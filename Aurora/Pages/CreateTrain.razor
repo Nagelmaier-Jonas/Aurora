@@ -1,180 +1,120 @@
 @page "/createtrain"
 @using Model.Entities.OwnPattern
+@using Domain.LogicHandlers
 
-<h2> Current Train </h2>
-<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.NavigateNext" Color="Color.Primary" OnClick="NextStep">@_stepper</MudButton>
-<MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Cancel" Color="Color.Error" OnClick="StateHasChanged">Restart</MudButton> @* TODO geht nd *@
+<MudText Typo="Typo.h2">Your Convoy</MudText>
+<MudText Typo="Typo.h4">Your Money: @_money €</MudText>
 
+<MudContainer Class="d-flex">
+    <DataInitializer Data="Convoy.FrontTruck">
+        <ChildComponent>
+            <MudCard Class="m-2 w-25">
+                <MudCardMedia Image=@("cards/" + @Convoy.FrontTruck.ImageUrl + ".png") Height="200"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">@Convoy.FrontTruck.Code</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => _isOpen = !_isOpen)">Addon</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveFrontTruck">Delete</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </ChildComponent>
+    </DataInitializer>
+    @foreach (var wagon in Convoy.Wagons) {
+        <MudCard Class="m-2 w-25">
+            <MudCardMedia Image=@("cards/" + wagon.ImageUrl + ".png") Height="200"/>
+            <MudCardContent>
+                <MudText Typo="Typo.h5">@wagon.Code</MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => _isOpen = !_isOpen)">Addon</MudButton>
+                <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Convoy.RemoveWagon(wagon))">Delete</MudButton>
+            </MudCardActions>
+        </MudCard>
+    }
+    <DataInitializer Data="Convoy.TailTruck">
+        <ChildComponent>
+            <MudCard Class="m-2 w-25">
+                <MudCardMedia Image=@("cards/" + @Convoy.TailTruck.ImageUrl + ".png") Height="200"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">@Convoy.TailTruck.Code</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => _isOpen = !_isOpen)">Addon</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </ChildComponent>
+    </DataInitializer>
+</MudContainer>
 
-<MudTimeline TimelineOrientation="TimelineOrientation.Horizontal" TimelinePosition="TimelinePosition.Bottom">
-    <MudTimelineItem @bind-Color="_truckDot">
-        <MudText Align="Align.Center">Choose Truck</MudText>
-    </MudTimelineItem>
-    <MudTimelineItem @bind-Color="_wagonDot">
-        <MudText Align="Align.Center">Choose Wagons</MudText>
-    </MudTimelineItem>
-    <MudTimelineItem @bind-Color="_addonDot">
-        <MudText Align="Align.Center">Choose Addons</MudText>
-    </MudTimelineItem>
-</MudTimeline>
+<MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+    <MudTabPanel Text="Truck">
+        <MudText>Choose your Truck</MudText>
+        <MudContainer Class="d-flex">
+            @foreach (var truck in VehicleFactory.Trucks) {
+                <MudCard Class="w-25 m-2">
+                    <MudCardMedia Image=@("cards/" + truck.ImageUrl + ".png") Height="200"/>
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@truck.Code</MudText>
+                        <MudText Typo="Typo.body2">@truck.Price €</MudText>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Euro" OnClick="() => Convoy.CanAddTruck(truck)">Buy</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            }
+        </MudContainer>
+    </MudTabPanel>
+    <MudTabPanel Text="Wagon">
+        <MudText>Choose your Wagons</MudText>
+        <MudContainer Class="d-flex">
+            @foreach (var wagon in VehicleFactory.Wagons) {
+                <MudCard Class="w-25 m-2">
+                    <MudCardMedia Image=@("cards/" + wagon.ImageUrl + ".png") Height="200"/>
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@wagon.Code</MudText>
+                        <MudText Typo="Typo.body2">@wagon.Price €</MudText>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Euro" OnClick="() => Convoy.CanAddWagon(wagon)">Buy</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            }
+        </MudContainer>
+    </MudTabPanel>
+</MudTabs>
 
-<MudDropContainer T="DropItem" Items="_items" ApplyDropClassesOnDragStarted="true" ItemsSelector="@((item, dropzone) => item.Identifier == dropzone)" ItemDropped="ItemUpdated" CanDropClass="mud-border-success" NoDropClass="mud-border-error">
-    <ChildContent>
-        <MudText Typo="Typo.h6" Class="mb-4">Your Train</MudText>
-        <MudDropZone T="DropItem" Identifier="FirstTrain" CanDrop="@((item) => item.Type == "Truck")"  Class="rounded-lg border-2 border-solid mud-border-lines-default pa-6 ma-8 flex-grow-1">
-        </MudDropZone>
-        <MudDropZone T="DropItem" Identifier="WagonFirst" CanDrop="@((item) => item.Type == "Wagon")" Class="rounded-lg border-2 border-solid mud-border-lines-default pa-6 ma-8 flex-grow-1">
-        </MudDropZone>
-        <MudDropZone T="DropItem" Identifier="WagonTwo" CanDrop="@((item) => item.Type == "Wagon")" Class="rounded-lg border-2 border-solid mud-border-lines-default pa-6 ma-8 flex-grow-1">
-        </MudDropZone>
-        <MudDropZone T="DropItem" Identifier="WagonThree" CanDrop="@((item) => item.Type == "Wagon")" Class="d-flex justify-center align-center docs-gray-bg mud-border-lines-default rounded mud-background-gray pa-6 ma-8 flex-grow-1">
-        </MudDropZone>
-        <MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" @bind-ActivePanelIndex="_activeIndex">
-            <MudTabPanel Text="Truck" Disabled="@_truckTab">
-                <MudText>Choose your Truck</MudText>
-                <MudDropZone T="DropItem" Identifier="Trucks" CanDrop="@((item) => item.Type == "Truck")" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
-                    <MudText Typo="Typo.h6" Class="mb-4"></MudText>
-                </MudDropZone>
-            </MudTabPanel>
-            <MudTabPanel Text="Wagon" Disabled="@_wagonTab">
-                <MudText>Choose your Wagons</MudText>
-                <MudDropZone T="DropItem" Identifier="Wagons" CanDrop="@((item) => item.Type == "Wagon")" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
-                    <MudText Typo="Typo.h6" Class="mb-4"></MudText>
-                </MudDropZone>
-            </MudTabPanel>
-            <MudTabPanel Text="Addon" Disabled="@_addonTab">
-                <MudText>Choose your Addons</MudText>
-                <MudDropZone T="DropItem" Identifier="Addons" CanDrop="@((item) => item.Type == "Addon")" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
-                    <MudText Typo="Typo.h6" Class="mb-4"></MudText>
-                </MudDropZone>
-            </MudTabPanel>
-        </MudTabs>
-    </ChildContent>
-    <ItemRenderer>
-        <MudItem xs="3">
-            <div class="d-flex flex-column align-center justify-center mud-width-full">
-                <img src="/cards/@(context.ImageUrl).png" width="300px" alt=""/>
-            </div>
-        </MudItem>
-    </ItemRenderer>
-</MudDropContainer>
+<MudDrawer @bind-Open="@_isOpen" Anchor="Anchor.Bottom" Elevation="1" Variant="@DrawerVariant.Temporary">
+    <MudDrawerHeader>
+        <MudText Typo="Typo.h6">Addons</MudText>
+    </MudDrawerHeader>
+    <MudDrawerContainer Class="d-flex">
+        @foreach (var addon in VehicleFactory.Addon) {
+            <MudCard Class="w-25 m-2">
+                <MudCardMedia Image=@("cards/" + addon.ImageUrl + ".png") Height="200"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">@addon.Code</MudText>
+                    <MudText Typo="Typo.body2">@addon.Price €</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Euro" OnClick="() => Convoy.(wagon)">Buy</MudButton>
+                </MudCardActions>
+            </MudCard>
+        }
+    </MudDrawerContainer>
+</MudDrawer>
+
 
 @code {
+    public Convoy Convoy { get; set; } = new();
 
-    private void ItemUpdated(MudItemDropInfo<DropItem> dropItem) {
-        dropItem.Item.Identifier = dropItem.DropzoneIdentifier;
-    }
-
-    private List<DropItem> _items = new();
-
-    private bool _truckTab = false;
-    private bool _wagonTab = true;
-    private bool _addonTab = true;
-    private string _stepper = "Next";
-    private int _activeIndex = 0;
-    private Color _truckDot = Color.Primary;
-    private Color _wagonDot = Color.Default;
-    private Color _addonDot = Color.Default;
-
-    public class DropItem {
-        public string Name { get; init; }
-        public string Identifier { get; set; }
-        public string ImageUrl { get; set; }
-        public string Type { get; set; }
-    }
+    private bool _isOpen;
+    private int _money = 400;
 
     protected override void OnInitialized() {
-        InitTrucks();
-        InitWagons();
-        InitAddons();
+        base.OnInitialized();
     }
 
-    private void InitTrucks() {
-        for (int i = 0; i < VehicleFactory.Trucks.Count; i++) {
-            _items.Add(new DropItem() {Identifier = "Trucks", Name = VehicleFactory.Trucks[i].Code, ImageUrl = VehicleFactory.Trucks[i].ImageUrl, Type = "Truck"});
-        }
-    }
-
-    private void InitWagons() {
-        for (int i = 0; i < VehicleFactory.Trucks.Count; i++) {
-            _items.Add(new DropItem() {Identifier = "Wagons", Name = VehicleFactory.Wagons[i].Code, ImageUrl = VehicleFactory.Wagons[i].ImageUrl, Type = "Wagon"});
-        }
-    }
-
-    private void InitAddons() {
-        for (int i = 0; i < VehicleFactory.Trucks.Count; i++) {
-            _items.Add(new DropItem() {Identifier = "Addons", Name = VehicleFactory.Wagons[i].Code, ImageUrl = VehicleFactory.Wagons[i].ImageUrl, Type = "Addon"});
-        }
-    }
-
-    private void NextStep() {
-        if (!_truckTab && _wagonTab) {
-            _wagonTab = false;
-            _truckDot = Color.Default;
-            _wagonDot = Color.Primary;
-            _activeIndex = 1;
-        }
-        else if (!_wagonTab) {
-            _truckTab = true;
-            _wagonTab = true;
-            _addonTab = false;
-            _wagonDot = Color.Default;
-            _addonDot = Color.Primary;
-            _activeIndex = 2;
-            _stepper = "Finish";
-        }
-        else if(_stepper == "Finish") {
-            Save();
-        }
-    }
-
-    private void Save() { @* TODO *@
-    }
-
-}
-
-@code{
-    // First and last can be a truck
-    private readonly Truck[] _trucks = new Truck[2];
-    private readonly List<Wagon> _wagons = new();
-
-    [Inject]
-    private IDialogService DialogService { get; set; }
-
-    private async Task TryAddWagonAsync(int wagonIndex) {
-        if (_trucks[0] == null) {
-            await DialogService.ShowMessageBox("Warning", "You need to select a Truck first!");
-            StateHasChanged();
-        }
-        else if (_trucks[0].MaxContainer > _wagons.Count)
-            _wagons.Add(VehicleFactory.Wagons[wagonIndex]);
-        else {
-            await DialogService.ShowMessageBox("Warning", "You have reached the maximum amount of wagons!");
-            StateHasChanged();
-        }
-    }
-
-    private async Task TryAddSetTruckAsync(int truckIndex) {
-        if (_trucks[0] == null) {
-            _trucks[0] = VehicleFactory.Trucks[truckIndex];
-        }
-        else if (_trucks[1] == null) {
-            _trucks[1] = VehicleFactory.Trucks[truckIndex];
-        }
-        else {
-            await DialogService.ShowMessageBox("Warning", "You have reached the maximum amount of trucks!");
-            StateHasChanged();
-        }
-    }
-
-    private void RemoveTruck(int index) {
-        if (index == 0) {
-            _wagons.Clear();
-            _trucks[0] = null;
-            _trucks[1] = null;
-        }
-        else
-            _trucks[1] = null;
-    }
 
 }

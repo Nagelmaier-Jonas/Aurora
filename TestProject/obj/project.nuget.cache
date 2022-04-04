@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AAf6K0ZWPDof1oGHm9MfnM0+xKaCsTkUbL4iuf4KXToLd/6R3k8t9O8meTJRpCbPChLFD+/Yq8q9wm36rZm+OA==",
+  "dgSpecHash": "DQCXSmtiYIw0j0eXVevD0N7LznaZ7eVGIVGf7+LDr5SA+tISGGC9FO/dEeZpaPfnjzZZz/5aJV1fEZLsa5UU9A==",
   "success": true,
   "projectFilePath": "D:\\GitRepos\\Aurora\\TestProject\\TestProject.csproj",
   "expectedPackageFiles": [
@@ -32,7 +32,7 @@
     "C:\\Users\\magen\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\microsoft.testplatform.objectmodel\\16.11.0\\microsoft.testplatform.objectmodel.16.11.0.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\microsoft.testplatform.testhost\\16.11.0\\microsoft.testplatform.testhost.16.11.0.nupkg.sha512",
-    "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.8\\mudblazor.6.0.8.nupkg.sha512",
+    "C:\\Users\\magen\\.nuget\\packages\\mudblazor\\6.0.9\\mudblazor.6.0.9.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\mysqlconnector\\2.1.2\\mysqlconnector.2.1.2.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
     "C:\\Users\\magen\\.nuget\\packages\\newtonsoft.json\\9.0.1\\newtonsoft.json.9.0.1.nupkg.sha512",

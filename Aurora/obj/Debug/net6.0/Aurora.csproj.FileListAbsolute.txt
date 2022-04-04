@@ -132,10 +132,7 @@ D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\Aurora.RazorAssemblyInfo.cache
 D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\Aurora.RazorAssemblyInfo.cs
 D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\staticwebassets.build.json
 D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\staticwebassets.development.json
-D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\scopedcss\bundle\Aurora.styles.css
-D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\scopedcss\projectbundle\Aurora.bundle.scp.css
 D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\Aurora.csproj.CopyComplete
 D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\Aurora.dll
 D:\GitRepos\Aurora\Aurora\obj\Debug\net6.0\refint\Aurora.dll
