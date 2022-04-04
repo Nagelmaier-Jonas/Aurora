@@ -8,5 +8,5 @@ public class Truck : Vehicle {
 
     public Convoy Convoy { get; set; }
 
-    public List<Wagon> Wagons { get; set; }
+    //public List<Wagon> Wagons { get; set; }
 }

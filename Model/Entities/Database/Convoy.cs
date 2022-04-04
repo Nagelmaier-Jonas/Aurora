@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities.Database; 
-
+[Table("CONVOYS")]
 public class Convoy {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Column]
     public int Id { get; set; }
@@ -13,5 +13,5 @@ public class Convoy {
     [Column]
     public int UserId { get; set; }
     
-    public List<Truck> Trucks { get; set; }
+    //public List<Truck> Trucks { get; set; }
 }
