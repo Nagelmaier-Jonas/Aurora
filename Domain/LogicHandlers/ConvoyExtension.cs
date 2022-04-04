@@ -30,8 +30,8 @@ public static class ConvoyExtension {
     
     public static void RemoveTailTruck(this Convoy convoy) => convoy.TailTruck = null;
     public static void RemoveWagon(this Convoy convoy, Wagon wagon) => convoy.Wagons.Remove(wagon);
-    private static bool IsFrontTruckPresent(this Convoy convoy) => convoy.FrontTruck == null;
-    private static bool IsTailTruckPresent(this Convoy convoy) => convoy.TailTruck == null;
+    private static bool IsFrontTruckPresent(this Convoy convoy) => convoy.FrontTruck != null;
+    private static bool IsTailTruckPresent(this Convoy convoy) => convoy.TailTruck != null;
     
     private static bool HasEmptySpaces(this Convoy convoy) =>
         convoy.FrontTruck.MaxContainer + (IsTailTruckPresent(convoy) ? convoy.TailTruck.MaxContainer : 0) >
