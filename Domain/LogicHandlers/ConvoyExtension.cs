@@ -1,5 +1,4 @@
 using System.Data;
-using System.Runtime.CompilerServices;
 using Domain.LogicHandlers.Exceptions;
 using Model.Entities.OwnPattern;
 using MudBlazor;
@@ -7,7 +6,7 @@ using MudBlazor;
 namespace Domain.LogicHandlers;
 
 public static class ConvoyExtension {
-    public static void CanAddTruck(this Convoy convoy, Truck truck) {
+    public static void AddTruck(this Convoy convoy, Truck truck) {
         if (IsFrontTruckPresent(convoy))
             if (IsTailTruckPresent(convoy))
                 throw new ConvoyManagementException("Both trucks occupied!");
@@ -16,7 +15,7 @@ public static class ConvoyExtension {
         else convoy.FrontTruck = truck;
     }
 
-    public static void CanAddWagon(this Convoy convoy, Wagon wagon) {
+    public static void AddWagon(this Convoy convoy, Wagon wagon) {
         if (!IsFrontTruckPresent(convoy))
             throw new ConvoyManagementException("Missing front truck!");
         if (!HasEmptySpaces(convoy))
@@ -28,12 +27,12 @@ public static class ConvoyExtension {
         convoy.FrontTruck = null;
         convoy.Wagons.Clear();
     }
-
+    
     public static void RemoveTailTruck(this Convoy convoy) => convoy.TailTruck = null;
     public static void RemoveWagon(this Convoy convoy, Wagon wagon) => convoy.Wagons.Remove(wagon);
-    private static bool IsFrontTruckPresent(this Convoy convoy) => convoy.FrontTruck != null;
-    private static bool IsTailTruckPresent(this Convoy convoy) => convoy.TailTruck != null;
-
+    private static bool IsFrontTruckPresent(this Convoy convoy) => convoy.FrontTruck == null;
+    private static bool IsTailTruckPresent(this Convoy convoy) => convoy.TailTruck == null;
+    
     private static bool HasEmptySpaces(this Convoy convoy) =>
         convoy.FrontTruck.MaxContainer + (IsTailTruckPresent(convoy) ? convoy.TailTruck.MaxContainer : 0) >
         convoy.Wagons.Count;
