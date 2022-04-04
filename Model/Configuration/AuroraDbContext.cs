@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Model.Configuration; 
+namespace Model.Configuration;
 
 public class AuroraDbContext : DbContext{
     public AuroraDbContext(DbContextOptions<AuroraDbContext> options) : base(options){
