@@ -25,7 +25,7 @@ public class Tests {
 
     [Test]
     public void VehicleFactoryTest() {
-        var vehicle = VehicleFactory.CreateCzolgTesli();
+        var vehicle = VehicleFactory.CreateHeavyTeslaTank();
         Assert.AreEqual(vehicle.Code, "Czolg Tesli");
         Assert.AreEqual(vehicle.Price, 10);
         Assert.AreEqual(vehicle.CargoList.Length, 4);
