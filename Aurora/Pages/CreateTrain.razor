@@ -252,7 +252,7 @@
 
     private void AddAddon(Addon addon){
         if (CurrentTruck is not null){
-            CurrentTruck.Addon = addon;
+            CurrentTruck.AddAddon(addon);
             CurrentTruck = null;
             _isOpen = false;
         }

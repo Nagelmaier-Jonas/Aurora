@@ -12,9 +12,4 @@ public class Truck : AUpgradableElement{
 
     [Column("SPEED"), Required]
     public int Speed{ get; set; }
-
-    public void AddWagon(Wagon wagon) {
-        Wagons.Add(wagon);
-        wagon.Truck = this;
-    }
 }
