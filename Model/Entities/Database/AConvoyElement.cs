@@ -13,9 +13,9 @@ public abstract class AConvoyElement {
     [Required]
     [StringLength(100)]
     [Column("CODE")]
-    public string Code { get; set; }
+    public string Code { get; init; }
 
     [Column("PRICE")]
     [Range(0, Int32.MaxValue)]
-    public int Price { get; set; }
+    public int Price { get; init; }
 }

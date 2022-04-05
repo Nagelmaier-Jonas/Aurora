@@ -10,7 +10,7 @@ public class Convoy {
     public int Id { get; set; }
 
     [Column("CODE", TypeName = "VARCHAR(50)")]
-    public string Code { get; set; }
+    public string Code { get; init; }
 
     public Truck? FrontTruck { get; set; }
     public Truck? BackTruck { get; set; }
@@ -20,5 +20,4 @@ public class Convoy {
     
     [Column("BACK_TRUCK_ID")]
     public int? BackTruckId { get; set; }
-    
 }
