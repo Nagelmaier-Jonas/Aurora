@@ -1,62 +1,76 @@
 @page "/createtrain"
-@using Model.Entities.OwnPattern
 @using Domain.LogicHandlers
 @using Domain.LogicHandlers.Exceptions
+@using Model.Entities.Logic
 @inject ISnackbar Snackbar
 
 <MudText Typo="Typo.h2">Your Convoy</MudText>
+<MudButton Class="float-end" Disabled="@_processing" OnClick="ProcessSomething" Variant="Variant.Filled" Color="Color.Primary" EndIcon="@_saveIcon">
+    @if (_processing) {
+        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+        <MudText Class="ms-2">Processing</MudText>
+    }
+    else {
+        <MudText>Save</MudText>
+    }
+</MudButton>
 <MudText Typo="Typo.h4">Your Money: @_money €</MudText>
 
-<MudContainer Class="d-flex">
+
+<MudContainer Class="container-fluid d-flex overflow-auto">
     <DataInitializer Data="Convoy.FrontTruck">
         <ChildComponent>
-            <MudCard Class="m-2 w-25">
-                <MudCardMedia Image=@("cards/" + @Convoy.FrontTruck.ImageUrl + ".png") Height="200"/>
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">@Convoy.FrontTruck.Code</MudText>
-                </MudCardContent>
+            <MudCard Class="m-2" Style="min-width: 300px !important;">
                 @if (Convoy.FrontTruck.IsAddonPresent()) {
+                    <MudCardMedia Image=@("cards/" + Convoy.FrontTruck.Addon.ImageUrl + ".png") Height="200"/>
+                    <MudCardMedia Image=@("cards/" + Convoy.FrontTruck.ImageUrl + ".png") Height="200"/>
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@Convoy.FrontTruck.Code</MudText>
+                    </MudCardContent>
+
                     <MudCardActions>
                         <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Convoy.FrontTruck.RemoveAddon())">Addon</MudButton>
                         <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveFrontTruck">Delete</MudButton>
                     </MudCardActions>
-                    <MudCard Class="m-2 w-25">
-                        <MudCardMedia Image=@("cards/" + Convoy.FrontTruck.Addon.ImageUrl + ".png") Height="200"/>
-                        <MudCardContent>
-                            <MudText Typo="Typo.h5">@Convoy.FrontTruck.Addon.Code</MudText>
-                        </MudCardContent>
-                    </MudCard>
                 }
                 else {
+                    <MudCardMedia Image=@("cards/empty.png") Height="200"/>
+                    <MudCardMedia Image=@("cards/" + Convoy.FrontTruck.ImageUrl + ".png") Height="200"/>
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@Convoy.FrontTruck.Code</MudText>
+                    </MudCardContent>
+
                     <MudCardActions>
-                        <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenAddons(Convoy.FrontTruck))">Addon</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenTruckAddons(Convoy.FrontTruck))">Addon</MudButton>
                         <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveFrontTruck">Delete</MudButton>
                     </MudCardActions>
                 }
             </MudCard>
+
         </ChildComponent>
     </DataInitializer>
     @foreach (var wagon in Convoy.Wagons) {
-        <MudCard Class="m-2 w-25">
-            <MudCardMedia Image=@("cards/" + wagon.ImageUrl + ".png") Height="200"/>
-            <MudCardContent>
-                <MudText Typo="Typo.h5">@wagon.Code</MudText>
-            </MudCardContent>
+        <MudCard Class="m-2" Style="min-width: 300px !important;">
             @if (wagon.IsAddonPresent()) {
+                <MudCardMedia Image=@("cards/" + wagon.Addon.ImageUrl + ".png") Height="200"/>
+                <MudCardMedia Image=@("cards/" + wagon.ImageUrl + ".png") Height="200"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">@wagon.Code</MudText>
+                </MudCardContent>
+
                 <MudCardActions>
                     <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => wagon.RemoveAddon())">Addon</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="() => Convoy.RemoveWagon(wagon)">Delete</MudButton>
                 </MudCardActions>
-                <MudCard Class="m-2 w-25">
-                    <MudCardMedia Image=@("cards/" + wagon.Addon.ImageUrl + ".png") Height="200"/>
-                    <MudCardContent>
-                        <MudText Typo="Typo.h5">@wagon.Addon.Code</MudText>
-                    </MudCardContent>
-                </MudCard>
             }
             else {
+                <MudCardMedia Image=@("cards/empty.png") Height="200"/>
+                <MudCardMedia Image=@("cards/" + wagon.ImageUrl + ".png") Height="200"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">@wagon.Code</MudText>
+                </MudCardContent>
                 <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenAddons(wagon))">Addon</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenWagonAddons(wagon))">Addon</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="() => Convoy.RemoveWagon(wagon)">Delete</MudButton>
                 </MudCardActions>
             }
@@ -64,29 +78,31 @@
     }
     <DataInitializer Data="Convoy.TailTruck">
         <ChildComponent>
-            <MudCard Class="m-2 w-25">
-                <MudCardMedia Image=@("cards/" + @Convoy.TailTruck.ImageUrl + ".png") Height="200"/>
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">@Convoy.TailTruck.Code</MudText>
-                </MudCardContent>
-                @if(Convoy.TailTruck.IsAddonPresent()) {
-                                <MudCardActions>
-                                    <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Convoy.TailTruck.RemoveAddon())">Addon</MudButton>
-                                    <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
-                                </MudCardActions>
-                                    <MudCard Class="m-2 w-25">
-                                        <MudCardMedia Image=@("cards/" + Convoy.TailTruck.Addon.ImageUrl + ".png") Height="200"/>
-                                        <MudCardContent>
-                                            <MudText Typo="Typo.h5">@Convoy.TailTruck.Addon.Code</MudText>
-                                        </MudCardContent>
-                                    </MudCard>
-                                }
-                                else {
-                                    <MudCardActions>
-                                        <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenAddons(Convoy.TailTruck))">Addon</MudButton>
-                                        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
-                                    </MudCardActions>
-                                }
+            <MudCard Class="m-2" Style="min-width: 300px !important;">
+                @if (Convoy.TailTruck.IsAddonPresent()) {
+                    <MudCardMedia Image=@("cards/" + Convoy.TailTruck.Addon.ImageUrl + ".png") Height="200"/>
+                    <MudCardMedia Image=@("cards/" + Convoy.TailTruck.ImageUrl + ".png") Height="200"/>
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@Convoy.TailTruck.Code</MudText>
+                    </MudCardContent>
+
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Convoy.TailTruck.RemoveAddon())">Addon</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
+                    </MudCardActions>
+                }
+                else {
+                    <MudCardMedia Image=@("cards/empty.png") Height="200"/>
+                    <MudCardMedia Image=@("cards/" + Convoy.TailTruck.ImageUrl + ".png") Height="200"/>
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@Convoy.TailTruck.Code</MudText>
+                    </MudCardContent>
+
+                    <MudCardActions>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenTruckAddons(Convoy.TailTruck))">Addon</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
+                    </MudCardActions>
+                }
             </MudCard>
         </ChildComponent>
     </DataInitializer>
@@ -95,10 +111,10 @@
 <MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
     <MudTabPanel Text="Truck">
         <MudText>Choose your Truck</MudText>
-        <MudContainer Class="d-flex">
-            @foreach (var truck in VehicleFactory.Trucks) {
-                <MudCard Class="w-25 m-2">
-                    <MudCardMedia Image=@("cards/" + truck.ImageUrl + ".png") Height="200"/>
+        <MudContainer Class="d-flex row">
+            @foreach (var truck in Trucks()) {
+                <MudCard Class="m-2 col" Style="min-width: 300px !important;">
+                    <MudCardMedia Image=@("cards/" + truck.ImageUrl + ".png") Width="230" Height="200"/>
                     <MudCardContent>
                         <MudText Typo="Typo.h5">@truck.Code</MudText>
                         <MudText Typo="Typo.body2">@truck.Price €</MudText>
@@ -112,9 +128,9 @@
     </MudTabPanel>
     <MudTabPanel Text="Wagon">
         <MudText>Choose your Wagons</MudText>
-        <MudContainer Class="d-flex">
-            @foreach (var wagon in VehicleFactory.Wagons) {
-                <MudCard Class="w-25 m-2">
+        <MudContainer Class="d-flex row">
+            @foreach (var wagon in Wagons()) {
+                <MudCard Class="m-2 col" Style="min-width: 300px !important;">
                     <MudCardMedia Image=@("cards/" + wagon.ImageUrl + ".png") Height="200"/>
                     <MudCardContent>
                         <MudText Typo="Typo.h5">@wagon.Code</MudText>
@@ -134,15 +150,15 @@
         <MudText Typo="Typo.h6">Addons</MudText>
     </MudDrawerHeader>
     <MudDrawerContainer Class="d-flex">
-        @foreach (var addon in VehicleFactory.Addons) {
-            <MudCard Class="w-25 m-2">
+        @foreach (var addon in Addons()) {
+            <MudCard Class="m-2" Style="min-width: 300px !important;">
                 <MudCardMedia Image=@("cards/" + addon.ImageUrl + ".png") Height="200"/>
                 <MudCardContent>
                     <MudText Typo="Typo.h5">@addon.Code</MudText>
                     <MudText Typo="Typo.body2">@addon.Price €</MudText>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Euro" OnClick="() => Convoy.FrontTruck.AddAddon(addon)">Buy</MudButton> @* TODO CurrentVehicle Aufruf *@
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" EndIcon="@Icons.Outlined.Euro" OnClick="() => AddAddon(addon)">Buy</MudButton> @* TODO CurrentVehicle Aufruf *@
                 </MudCardActions>
             </MudCard>
         }
@@ -152,18 +168,49 @@
 
 @code {
     public Convoy Convoy { get; set; } = new();
-    public Vehicle CurrentVehicle { get; set; }
+    public Truck CurrentTruck { get; set; }
+    public Wagon CurrentWagon { get; set; }
+    
+    // TODO
+    public List<Truck> Trucks() => new (){
+        VehicleFactory.CreateHeavyTeslaTank(),
+        VehicleFactory.CreateTurboTruckWithBiofuel(),
+        VehicleFactory.CreateAPC(),
+        VehicleFactory.CreateRailgunTruck(),
+        VehicleFactory.CreateTruck(),
+        VehicleFactory.CreateAtomTruck()
+    };
+    
+    public List<Wagon> Wagons() => new (){
+       VehicleFactory.CreateReinforcedFuelWagon(),
+       VehicleFactory.CreateReinforcedWagon(),
+       VehicleFactory.CreateWagon(),
+       VehicleFactory.CreateMedicalWagon(),
+       VehicleFactory.CreateDoubleReinforcedFuelWagon()
+    };
+    
+    //List of all addons
+    public List<Addon> Addons() => new() {
+        VehicleFactory.CreateMachineGun(),
+        VehicleFactory.CreateVulcanGun(), 
+        VehicleFactory.CreateSmallStorage(), 
+        VehicleFactory.CreateNuclearReactor(),
+        VehicleFactory.CreateHeavyGun(),
+        VehicleFactory.CreateArmor(),
+        VehicleFactory.CreateLargeStorage(), 
+        VehicleFactory.CreateGreenhouse(),
+        VehicleFactory.CreateHeavyArmor(),
+        VehicleFactory.CreateBioFuelGenerator(),
+        VehicleFactory.CreateHeavyLargeStorage(),
+        VehicleFactory.CreateGaussaGun(),
+        VehicleFactory.CreateSmallNuclearReactor(),
+        VehicleFactory.CreateMaintenanceDrone(),
+        VehicleFactory.CreateZuraw(),
+        VehicleFactory.CreateTurboBagpiper()
+    };
 
     private bool _isOpen;
     private int _money = 400;
-
-    protected override void OnInitialized() {
-    }
-
-    public void OpenAddons(Vehicle vehicle) {
-        _isOpen = !_isOpen;
-        CurrentVehicle = vehicle;
-    }
 
     public void AddWagon(Wagon wagon) {
         try {
@@ -183,5 +230,44 @@
         }
     }
 
+    private void OpenTruckAddons(Truck truck) {
+        _isOpen = !_isOpen;
+        CurrentTruck = truck;
+    }
+
+    private void OpenWagonAddons(Wagon wagon) {
+        _isOpen = !_isOpen;
+        CurrentWagon = wagon;
+    }
+
+    private void AddAddon(Addon addon) {
+        if (CurrentTruck is not null) {
+            CurrentTruck.Addon = addon;
+            CurrentTruck = null;
+            _isOpen = false;
+        }
+        else if (CurrentWagon is not null) {
+            CurrentWagon.Addon = addon;
+            CurrentWagon = null;
+            _isOpen = false;
+        }
+    }
+
+    private bool _processing = false;
+    private string _saveIcon = Icons.Filled.Save;
+
+    async Task ProcessSomething() {
+        Save();
+        _saveIcon = " ";
+        _processing = true;
+        await Task.Delay(2000);
+        _processing = false;
+        Snackbar.Add("Successfully saved", Severity.Info);
+        _saveIcon = Icons.Filled.Save;
+    }
+
+    public void Save() {
+        
+    }
 
 }

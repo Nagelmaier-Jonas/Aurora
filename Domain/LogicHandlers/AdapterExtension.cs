@@ -1,5 +1,5 @@
 using Domain.LogicHandlers.Exceptions;
-using Model.Entities.OwnPattern;
+using Model.Entities.Logic;
 
 namespace Domain.LogicHandlers; 
 

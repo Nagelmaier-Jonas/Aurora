@@ -1,4 +1,4 @@
-namespace Model.Entities.OwnPattern;
+namespace Model.Entities.Logic;
 
 public abstract class Adapter : Vehicle {
     public Addon Addon { get; set; }

@@ -1,42 +1,9 @@
-namespace Model.Entities.OwnPattern; 
+namespace Model.Entities.Logic; 
 
 public class VehicleFactory{
-    // List of all trucks
-    public static readonly List<Truck> Trucks = new (){
-        CreateHeavyTeslaTank(),
-        CreateTurboTruckWithBiofuel(),
-        CreateAPC(),
-        CreateRailgunTruck(),
-        CreateTruck(),
-        CreateAtomTruck()
-    };
-    // List of all wagons
-    public static readonly List<Wagon> Wagons = new (){
-        CreateReinforcedFuelWagon(),
-        CreateReinforcedWagon(),
-        CreateWagon(),
-        CreateMedicalWagon(),
-        CreateDoubleReinforcedFuelWagon()
-    };
-    //List of all addons
-    public static readonly List<Addon> Addons = new() {
-        CreateMachineGun(),
-        CreateVulcanGun(), 
-        CreateSmallStorage(), 
-        CreateNuclearReactor(),
-        CreateHeavyGun(),
-        CreateArmor(),
-        CreateLargeStorage(), 
-        CreateGreenhouse(),
-        CreateHeavyArmor(),
-        CreateBioFuelGenerator(),
-        CreateHeavyLargeStorage(),
-        CreateGaussaGun(),
-        CreateSmallNuclearReactor(),
-        CreateMaintenanceDrone(),
-        CreateZuraw(),
-        CreateTurboBagpiper()
-};
+    
+    
+    
     // <summary>
     // All methods to create trucks
     // </summary>

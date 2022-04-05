@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
-using MudBlazor;
 
-namespace Model.Entities.OwnPattern;
+namespace Model.Entities.Logic;
 
 public abstract class ACargo {
     public List<EKeyWords> KeyWords{ get; }

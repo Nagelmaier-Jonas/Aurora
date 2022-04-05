@@ -1,4 +1,4 @@
-using Model.Entities.OwnPattern;
+using Model.Entities.Logic;
 using NUnit.Framework;
 
 namespace TestProject;

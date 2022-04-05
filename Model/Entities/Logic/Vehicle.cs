@@ -1,4 +1,4 @@
-namespace Model.Entities.OwnPattern; 
+namespace Model.Entities.Logic; 
 
 public class Vehicle {
     public string Code { get; set; }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2D9jhBtnq3wnKd0VWll2QpUHKgjNYXua28/jf5acBAs=",
+  "Hash": "ruJvVaMdmfF9JwzBk/FY//D0l+QxrBwQvnwMVya/CN4=",
   "Source": "Aurora",
   "BasePath": "_content/Aurora",
   "Mode": "Default",
@@ -474,6 +474,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\cards\\cargo6.png"
+    },
+    {
+      "Identity": "D:\\GitRepos\\Aurora\\Aurora\\wwwroot\\cards\\empty.png",
+      "SourceId": "Aurora",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GitRepos\\Aurora\\Aurora\\wwwroot\\",
+      "BasePath": "_content/Aurora",
+      "RelativePath": "cards/empty.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\cards\\empty.png"
     },
     {
       "Identity": "D:\\GitRepos\\Aurora\\Aurora\\wwwroot\\cards\\example.png",

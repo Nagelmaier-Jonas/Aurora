@@ -1,6 +1,6 @@
 using System.Data;
 using Domain.LogicHandlers.Exceptions;
-using Model.Entities.OwnPattern;
+using Model.Entities.Logic;
 using MudBlazor;
 
 namespace Domain.LogicHandlers;
@@ -24,12 +24,20 @@ public static class ConvoyExtension {
     }
 
     public static void RemoveFrontTruck(this Convoy convoy) {
+        convoy.FrontTruck.Addon = null;
         convoy.FrontTruck = null;
         convoy.Wagons.Clear();
     }
     
-    public static void RemoveTailTruck(this Convoy convoy) => convoy.TailTruck = null;
-    public static void RemoveWagon(this Convoy convoy, Wagon wagon) => convoy.Wagons.Remove(wagon);
+    public static void RemoveTailTruck(this Convoy convoy) {
+        convoy.TailTruck.Addon = null;
+        convoy.TailTruck = null;
+    }
+
+    public static void RemoveWagon(this Convoy convoy, Wagon wagon) {
+        wagon.Addon = null;
+        convoy.Wagons.Remove(wagon);
+    }
     private static bool IsFrontTruckPresent(this Convoy convoy) => convoy.FrontTruck != null;
     private static bool IsTailTruckPresent(this Convoy convoy) => convoy.TailTruck != null;
     
