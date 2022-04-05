@@ -1,13 +1,13 @@
 using Domain.LogicHandlers.Exceptions;
-using Model.Entities.Logic;
+using Model.Entities.Database;
 
 namespace Domain.LogicHandlers; 
 
 public static class AdapterExtension {
-    public static void AddAddon(this Adapter adapter, Addon addon) {
-        if (IsAddonPresent(adapter))
+    public static void AddAddon(this AUpgradableElement upgradable, Addon addon) {
+        if (IsAddonPresent(upgradable))
             throw new AddonException("Addon space occupied!");
-        adapter.Addon = addon;
+        upgradable.Addon = addon;
     }
 
     public static void RemoveAddon(this Adapter adapter) {

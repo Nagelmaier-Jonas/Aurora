@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Entities.Database;
+namespace Model.Entities;
 
 [Table("WAGGONS")]
 public class Wagon : AUpgradableElement {

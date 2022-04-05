@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Model.Entities.Database;
+using Model.Entities;
 
 namespace Model.Configuration;
 
@@ -8,9 +8,12 @@ public class AuroraDbContext : DbContext{
     }
 
     public DbSet<Addon> Addons{ get; set; }
+
     public DbSet<Convoy> Convoys{ get; set; }
+
     //public DbSet<Slot> Slots{ get; set; }
     public DbSet<Truck> Trucks{ get; set; }
+
     //public DbSet<Vehicle> Vehicles{ get; set; }
     public DbSet<Wagon> Wagons{ get; set; }
 
@@ -23,7 +26,7 @@ public class AuroraDbContext : DbContext{
         // builder.Entity<Bid>().HasOne(u => u.User).WithMany().HasForeignKey(u => u.UserId); Example
         // builder.Entity<Bid>().HasOne(i => i.Item).WithMany().HasForeignKey(i => i.ItemId); Example
 
-        builder.Entity<Wagon>().HasOne(t => t.Truck).WithMany().HasForeignKey(t => t.TruckId);
+        builder.Entity<Wagon>().HasOne(t => t.Truck).WithMany(e => e.Wagons).HasForeignKey(t => t.TruckId);
         builder.Entity<Convoy>()
             .HasOne(c => c.BackTruck)
             .WithOne()
@@ -33,6 +36,8 @@ public class AuroraDbContext : DbContext{
             .HasOne(c => c.FrontTruck)
             .WithOne()
             .HasForeignKey<Convoy>(c => c.FrontTruckId);
+
+
         //builder.Entity<Slot>().HasOne(v=>v.Vehicle).WithMany().HasForeignKey(v=>v.VehicleId);
     }
 }

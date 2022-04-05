@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Entities.Database;
+namespace Model.Entities;
 
 [Table("CONVOY")]
 public class Convoy {
@@ -10,7 +10,7 @@ public class Convoy {
     public int Id { get; set; }
 
     [Column("CODE", TypeName = "VARCHAR(50)")]
-    public string Code { get; init; }
+    public string Code { get; set; }
 
     public Truck? FrontTruck { get; set; }
     public Truck? BackTruck { get; set; }
