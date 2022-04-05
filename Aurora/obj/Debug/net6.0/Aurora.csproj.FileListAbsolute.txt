@@ -85,10 +85,7 @@ C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\Aurora.RazorAssemblyInfo.
 C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\Aurora.RazorAssemblyInfo.cs
 C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\scopedcss\bundle\Aurora.styles.css
-C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\scopedcss\projectbundle\Aurora.bundle.scp.css
 C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\Aurora.csproj.CopyComplete
 C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\Aurora.dll
 C:\Users\Tobias\Desktop\Aurora\Aurora\obj\Debug\net6.0\ref\Aurora.dll

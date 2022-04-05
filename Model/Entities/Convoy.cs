@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Entities.Database;
+namespace Model.Entities;
 
 [Table("CONVOY")]
 public class Convoy {
@@ -20,5 +20,4 @@ public class Convoy {
     
     [Column("BACK_TRUCK_ID")]
     public int? BackTruckId { get; set; }
-    
 }

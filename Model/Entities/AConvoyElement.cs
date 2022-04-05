@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Entities.Database;
+namespace Model.Entities;
 
 [Table("CONVOY_ELEMENTS")]
 public abstract class AConvoyElement {
@@ -13,9 +13,12 @@ public abstract class AConvoyElement {
     [Required]
     [StringLength(100)]
     [Column("CODE")]
-    public string Code { get; set; }
+    public string Code { get; init; }
 
     [Column("PRICE")]
     [Range(0, Int32.MaxValue)]
-    public int Price { get; set; }
+    public int Price { get; init; }
+
+    [Column("IMAGE_URL")]
+    public string ImageUrl{ get; set; }
 }

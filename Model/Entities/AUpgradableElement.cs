@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Entities.Database;
+namespace Model.Entities;
 
 [Table("UPGRADABLE_ELEMENTS")]
 public abstract class AUpgradableElement : AConvoyElement {

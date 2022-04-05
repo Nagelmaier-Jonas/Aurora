@@ -1,5 +1,9 @@
-﻿namespace Domain.Repositories;
+﻿using Model.Configuration;
+using Model.Entities;
 
-public class AddonRepository{
-    
+namespace Domain.Repositories;
+
+public class AddonRepository : ARepository<Addon>{
+    public AddonRepository(AuroraDbContext context) : base(context){
+    }
 }
