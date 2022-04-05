@@ -1,5 +1,9 @@
-﻿namespace Domain.Repositories;
+﻿using Model.Configuration;
+using Model.Entities;
 
-public class VehicleRepository{
-    
+namespace Domain.Repositories;
+
+public class UpgradableRepository : ARepository<AUpgradableElement>{
+    public UpgradableRepository(AuroraDbContext context) : base(context){
+    }
 }

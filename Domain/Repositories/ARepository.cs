@@ -4,7 +4,7 @@ using Model.Configuration;
 
 namespace Domain.Repositories;
 
-public class ARepository<TEntity> where TEntity: class{
+public class ARepository<TEntity>: IRepository<TEntity> where TEntity: class{
     private readonly AuroraDbContext _context;
     private readonly DbSet<TEntity> _set;
 

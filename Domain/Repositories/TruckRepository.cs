@@ -1,5 +1,9 @@
-﻿namespace Domain.Repositories;
+﻿using Model.Configuration;
+using Model.Entities;
 
-public class TruckRepository{
-    
+namespace Domain.Repositories;
+
+public class TruckRepository : ARepository<Truck>{
+    public TruckRepository(AuroraDbContext context) : base(context){
+    }
 }

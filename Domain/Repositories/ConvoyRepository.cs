@@ -1,5 +1,9 @@
-﻿namespace Domain.Repositories;
+﻿using Model.Configuration;
+using Model.Entities;
 
-public class ConvoyRepository{
-    
+namespace Domain.Repositories;
+
+public class ConvoyRepository : ARepository<Convoy>{
+    public ConvoyRepository(AuroraDbContext context) : base(context){
+    }
 }

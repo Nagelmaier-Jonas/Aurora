@@ -1,5 +1,9 @@
-﻿namespace Domain.Repositories;
+﻿using Model.Configuration;
+using Model.Entities;
 
-public class WagonRepository{
-    
+namespace Domain.Repositories;
+
+public class WagonRepository : ARepository<Wagon>{
+    public WagonRepository(AuroraDbContext context) : base(context){
+    }
 }
