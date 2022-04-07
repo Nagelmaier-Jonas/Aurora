@@ -1,10 +1,8 @@
 @page "/convoybuilder"
-@using Domain.LogicHandlers.Exceptions
 @using Domain.LogicHandlers
+@using Domain.LogicHandlers.Exceptions
 @using Domain.Repositories
 @using Model.Entities
-@using Model.Enums
-@using Model.Factories
 @using Domain
 @inject ISnackbar Snackbar
 @inject IRepository<Convoy> _convoyRepository
@@ -17,11 +15,13 @@
 <MudImage Src="images/title.png" Alt="Theme Picture" Style="width: 30% !important; height: 40px; position: fixed !important; margin: auto !important; right: 35%; top: 70px;"/>
 
 <MudButton Class="float-end position-sticky mt-16" Disabled="@_processing" OnClick="@(() => _codeIsOpen = true)" Variant="Variant.Filled" Color="Color.Primary" EndIcon="@_saveIcon">
-    @if (_processing){
+    @if (_processing)
+    {
         <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
         <MudText Class="ms-2">Processing</MudText>
     }
-    else{
+    else
+    {
         <MudText>Save</MudText>
     }
 </MudButton>
@@ -34,7 +34,8 @@
 <MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Class="mt-16">
     <MudTabPanel Text="Trucks">
         <MudContainer Class="d-flex row">
-            @foreach (var truck in AllEntities.Trucks()){
+            @foreach (var truck in AllEntities.Trucks())
+            {
                 <MudCard Class="m-2 col" Style="min-width: 300px !important;">
                     <MudCardMedia Image=@truck.Image Width="230" Height="210"/>
                     <MudCardContent>
@@ -49,7 +50,8 @@
     </MudTabPanel>
     <MudTabPanel Text="Wagons">
         <MudContainer Class="d-flex row">
-            @foreach (var wagon in AllEntities.Wagons()){
+            @foreach (var wagon in AllEntities.Wagons())
+            {
                 <MudCard Class="m-2 col" Style="min-width: 300px !important;">
                     <MudCardMedia Image=@wagon.Image Height="210"/>
                     <MudCardContent>
@@ -68,8 +70,10 @@
 <MudPopover Style="background-color: transparent; height: 460px" Class="mt-16" Open="@_convoyIsOpen" Fixed="false" AnchorOrigin="Origin.TopCenter" TransformOrigin="Origin.TopCenter">
     <MudContainer Class="d-flex overflow-auto">
         <MudCard Class="m-2" Style="min-width: 300px !important;">
-            @if (Convoy.FrontTruck is not null){
-                @if (Convoy.FrontTruck.IsAddonPresent()){
+            @if (Convoy.FrontTruck is not null)
+            {
+                @if (Convoy.FrontTruck.IsAddonPresent())
+                {
                     <MudCardMedia Image=@Convoy.FrontTruck.Addon.Image Height="170"/>
                     <MudCardMedia Image=@Convoy.FrontTruck.Image Height="170"/>
                     <MudCardContent>
@@ -81,7 +85,8 @@
                         <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="RemoveLeadTruck">Delete</MudButton>
                     </MudCardActions>
                 }
-                else{
+                else
+                {
                     <MudCardMedia Image=@("cards/empty.png") Height="170"/>
                     <MudCardMedia Image=@Convoy.FrontTruck.Image Height="170"/>
                     <MudCardContent>
@@ -96,9 +101,11 @@
             }
         </MudCard>
 
-        @foreach (var wagon in Convoy.GetWagonIterator()){
+        @foreach (var wagon in Convoy.GetWagonIterator())
+        {
             <MudCard Class="m-2" Style="min-width: 300px !important;">
-                @if (wagon.IsAddonPresent()){
+                @if (wagon.IsAddonPresent())
+                {
                     <MudCardMedia Image=@wagon.Addon.Image Height="170"/>
                     <MudCardMedia Image=@wagon.Image Height="170"/>
                     <MudCardContent>
@@ -110,7 +117,8 @@
                         <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="() => Convoy.RemoveWagon(wagon)">Delete</MudButton>
                     </MudCardActions>
                 }
-                else{
+                else
+                {
                     <MudCardMedia Image=@("cards/empty.png") Height="170"/>
                     <MudCardMedia Image=@wagon.Image Height="170"/>
                     <MudCardContent>
@@ -125,9 +133,11 @@
         }
 
 
-        @if (Convoy.BackTruck is not null){
+        @if (Convoy.BackTruck is not null)
+        {
             <MudCard Class="m-2" Style="min-width: 300px !important;">
-                @if (Convoy.BackTruck.IsAddonPresent()){
+                @if (Convoy.BackTruck.IsAddonPresent())
+                {
                     <MudCardMedia Image=@Convoy.BackTruck.Addon.Image Height="170"/>
                     <MudCardMedia Image=@Convoy.BackTruck.Image Height="170"/>
                     <MudCardContent>
@@ -139,7 +149,8 @@
                         <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
                     </MudCardActions>
                 }
-                else{
+                else
+                {
                     <MudCardMedia Image=@("cards/empty.png") Height="170"/>
                     <MudCardMedia Image=@Convoy.BackTruck.Image Height="170"/>
                     <MudCardContent>
@@ -159,7 +170,8 @@
 
 <MudPopover Open="@_addonIsOpen" Fixed="true" Class="px-4 pt-4" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.BottomCenter">
     <MudContainer Class="d-flex overflow-auto">
-        @foreach (var addon in AllEntities.Addons()){
+        @foreach (var addon in AllEntities.Addons())
+        {
             <MudCard Class="m-2" Style="min-width: 300px !important;">
                 <MudCardMedia Image=@addon.Image Height="210"/>
                 <MudCardContent>
@@ -187,45 +199,55 @@
     public Truck CurrentTruck { get; set; }
     public Wagon CurrentWagon { get; set; }
 
-    private bool _addonIsOpen = false;
-    private bool _codeIsOpen = false;
-    private bool _convoyIsOpen = false;
+    private bool _addonIsOpen;
+    private bool _codeIsOpen;
+    private bool _convoyIsOpen;
     private int _money = 400;
 
-    public bool CheckConvoy(){
+    public bool CheckConvoy()
+    {
         return Convoy.FrontTruck is not null;
     }
 
-    public void AddWagon(Wagon wagon, bool front){
-        try{
+    public void AddWagon(Wagon wagon, bool front)
+    {
+        try
+        {
             Convoy.AddWagon(wagon, front);
         }
-        catch (ConvoyManagementException e){
+        catch (ConvoyManagementException e)
+        {
             Snackbar.Add(e.Message, Severity.Error);
         }
     }
 
-    public void AddTruck(Truck truck){
-        try{
+    public void AddTruck(Truck truck)
+    {
+        try
+        {
             Convoy.AddTruck(truck);
         }
-        catch (ConvoyManagementException e){
+        catch (ConvoyManagementException e)
+        {
             Snackbar.Add(e.Message, Severity.Error);
         }
         _convoyIsOpen = CheckConvoy();
     }
 
-    public void RemoveLeadTruck(){
+    public void RemoveLeadTruck()
+    {
         Convoy.RemoveFrontTruck();
         _convoyIsOpen = CheckConvoy();
     }
 
-    private void OpenTruckAddons(Truck truck){
+    private void OpenTruckAddons(Truck truck)
+    {
         _addonIsOpen = true;
         CurrentTruck = truck;
     }
 
-    private void OpenWagonAddons(Wagon wagon){
+    private void OpenWagonAddons(Wagon wagon)
+    {
         _addonIsOpen = true;
         CurrentWagon = wagon;
     }
@@ -237,10 +259,11 @@
         _addonIsOpen = false;
     }
 
-    private bool _processing = false;
+    private bool _processing;
     private string _saveIcon = Icons.Filled.Save;
 
-    async Task ProcessSomething(){
+    async Task ProcessSomething()
+    {
         _codeIsOpen = false;
         await Save();
         _saveIcon = " ";
@@ -251,7 +274,9 @@
         _saveIcon = Icons.Filled.Save;
     }
 
-    private async Task Save(){
+    private async Task Save()
+    {
         await _convoyRepository.CreateAsync(Convoy);
     }
+
 }

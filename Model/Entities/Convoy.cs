@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Model.Entities;
 
 [Table("CONVOYS")]
-public class Convoy {
+public class Convoy
+{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -14,10 +15,8 @@ public class Convoy {
 
     public Truck? FrontTruck { get; set; }
     public Truck? BackTruck { get; set; }
-    
-    [Column("FRONT_TRUCK_ID")]
-    public int? FrontTruckId { get; set; }
-    
-    [Column("BACK_TRUCK_ID")]
-    public int? BackTruckId { get; set; }
+
+    [Column("FRONT_TRUCK_ID")] public int? FrontTruckId { get; set; }
+
+    [Column("BACK_TRUCK_ID")] public int? BackTruckId { get; set; }
 }

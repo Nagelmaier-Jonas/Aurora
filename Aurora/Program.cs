@@ -1,6 +1,4 @@
 using Domain.Repositories;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using Model.Configuration;
 using Model.Entities;
@@ -8,13 +6,14 @@ using MudBlazor;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<AuroraDbContext>( 
+builder.Services.AddDbContext<AuroraDbContext>(
     options => options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"), 
-        new MySqlServerVersion(new Version(8,0,27))
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 27))
     )
 );
-builder.Services.AddMudServices(config => {
+builder.Services.AddMudServices(config =>
+{
     config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft;
 
     config.SnackbarConfiguration.PreventDuplicates = true;
@@ -36,7 +35,8 @@ builder.Services.AddScoped<IRepository<Wagon>, WagonRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment()) {
+if (!app.Environment.IsDevelopment())
+{
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();

@@ -1,26 +1,28 @@
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
-using Model.Enums;
 
 namespace Model.Configuration;
 
-public class AuroraDbContext : DbContext{
-    public AuroraDbContext(DbContextOptions<AuroraDbContext> options) : base(options){
+public class AuroraDbContext : DbContext
+{
+    public AuroraDbContext(DbContextOptions<AuroraDbContext> options) : base(options)
+    {
     }
-    
-    public DbSet<Addon> Addons{ get; set; }
 
-    public DbSet<Convoy> Convoys{ get; set; }
-    
-    public DbSet<Truck> Trucks{ get; set; }
+    public DbSet<Addon> Addons { get; set; }
 
-    public DbSet<Wagon> Wagons{ get; set; }
-    
-    public DbSet<AUpgradeable> Upgradeables{ get; set; }
+    public DbSet<Convoy> Convoys { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder){
+    public DbSet<Truck> Trucks { get; set; }
+
+    public DbSet<Wagon> Wagons { get; set; }
+
+    public DbSet<AUpgradeable> Upgradeables { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
         builder.Entity<Wagon>().HasOne(t => t.Truck).WithMany(e => e.Wagons).HasForeignKey(t => t.TruckId);
-        
+
         builder.Entity<Convoy>()
             .HasOne(c => c.BackTruck)
             .WithOne()

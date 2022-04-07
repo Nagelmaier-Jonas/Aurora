@@ -1,6 +1,7 @@
 ﻿namespace Model.Enums;
 
-public enum EWagonType{
+public enum EWagonType
+{
     REINFORCED_FUEL_WAGON,
     REINFORCED_WAGON,
     WAGON,

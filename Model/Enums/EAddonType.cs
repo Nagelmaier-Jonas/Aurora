@@ -1,6 +1,7 @@
 ﻿namespace Model.Enums;
 
-public enum EAddonType{
+public enum EAddonType
+{
     MACHINE_GUN,
     VULCAN_GUN,
     SMALL_STORAGE,

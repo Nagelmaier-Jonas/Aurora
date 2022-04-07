@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Model.Entities;
 
 [Table("CONVOY_ELEMENTS")]
-public abstract class AConvoyElement {
+public abstract class AConvoyElement
+{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("ELEMENT_ID")]
@@ -16,9 +17,8 @@ public abstract class AConvoyElement {
     public string Code { get; init; }
 
     [Column("PRICE")]
-    [Range(0, Int32.MaxValue)]
+    [Range(0, int.MaxValue)]
     public int Price { get; init; }
 
-    [Column("IMAGE")]
-    public string Image{ get; set; }
+    [Column("IMAGE")] public string Image { get; set; }
 }

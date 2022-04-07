@@ -1,20 +1,27 @@
 using Domain.LogicHandlers.Exceptions;
 using Model.Entities;
 
-namespace Domain.LogicHandlers; 
+namespace Domain.LogicHandlers;
 
-public static class AddonExtension {
-    public static void AddAddon(this AUpgradeable upgradable, Addon addon) {
+public static class AddonExtension
+{
+    public static void AddAddon(this AUpgradeable upgradable, Addon addon)
+    {
         if (IsAddonPresent(upgradable))
             throw new AddonException("Addon space occupied!");
         upgradable.Addon = addon;
     }
 
-    public static void RemoveAddon(this AUpgradeable adapter) {
+    public static void RemoveAddon(this AUpgradeable adapter)
+    {
         if (IsAddonPresent(adapter))
             adapter.Addon = null;
         else
             throw new AddonException("No addon to remove!");
     }
-    public static bool IsAddonPresent(this AUpgradeable adapter) => adapter.Addon != null;
+
+    public static bool IsAddonPresent(this AUpgradeable adapter)
+    {
+        return adapter.Addon != null;
+    }
 }

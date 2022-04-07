@@ -1,6 +1,7 @@
 ﻿namespace Model.Enums;
 
-public enum ETruckType{
+public enum ETruckType
+{
     HEAVY_TESLA_TANK,
     TURBO_TRUCK_WITH_BIO_FUEL,
     APC,
