@@ -2,9 +2,9 @@
 using Model.Enums;
 using Model.Factories;
 
-namespace Aurora.Pages;
+namespace Domain;
 
-class AllEntities
+public static class AllEntities
 {
     public static List<Truck> Trucks() => new(){
         TruckFactory.Create(ETruckType.HEAVY_TESLA_TANK),

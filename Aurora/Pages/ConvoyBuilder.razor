@@ -5,6 +5,7 @@
 @using Model.Entities
 @using Model.Enums
 @using Model.Factories
+@using Domain
 @inject ISnackbar Snackbar
 @inject IRepository<Convoy> _convoyRepository
 @inject IRepository<Wagon> _wagonRepository
@@ -229,17 +230,11 @@
         CurrentWagon = wagon;
     }
 
-    private void AddAddon(Addon addon){
-        if (CurrentTruck is not null){
-            CurrentTruck.AddAddon(addon);
-            CurrentTruck = null;
-            _addonIsOpen = false;
-        }
-        else if (CurrentWagon is not null){
-            CurrentWagon.Addon = addon;
-            CurrentWagon = null;
-            _addonIsOpen = false;
-        }
+    private void AddAddon(Addon addon)
+    {
+        CurrentTruck.AddAddon(addon);
+        CurrentTruck = null;
+        _addonIsOpen = false;
     }
 
     private bool _processing = false;
