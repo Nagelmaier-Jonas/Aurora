@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Model.Enums;
 
 namespace Model.Entities;
 
-[Table("WAGGONS")]
-public class Wagon : AUpgradableElement {
+[Table("WAGONS")]
+public class Wagon : AUpgradeable {
     [Column("TRUCK_ID")]
     public int? TruckId { get; set; }
     

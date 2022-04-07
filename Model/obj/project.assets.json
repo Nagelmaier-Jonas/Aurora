@@ -1012,19 +1012,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tobias\\.nuget\\packages\\": {}
+    "C:\\Users\\luka1\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tobias\\Desktop\\Aurora\\Model\\Model.csproj",
+      "projectUniqueName": "C:\\Users\\luka1\\RiderProjects\\Penis\\Aurora\\Model\\Model.csproj",
       "projectName": "Model",
-      "projectPath": "C:\\Users\\Tobias\\Desktop\\Aurora\\Model\\Model.csproj",
-      "packagesPath": "C:\\Users\\Tobias\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tobias\\Desktop\\Aurora\\Model\\obj\\",
+      "projectPath": "C:\\Users\\luka1\\RiderProjects\\Penis\\Aurora\\Model\\Model.csproj",
+      "packagesPath": "C:\\Users\\luka1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\luka1\\RiderProjects\\Penis\\Aurora\\Model\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Tobias\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\luka1\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -1078,7 +1078,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

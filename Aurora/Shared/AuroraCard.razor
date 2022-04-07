@@ -1,0 +1,17 @@
+﻿@using Model.Entities
+<MudCard Class="@Class">
+    <MudImage Src="@item.Image" Width="150" Height="100"/>
+    <MudCardContent Style="width: 100%; text-align: center;">
+            <MudText>@item.Info</MudText>
+        </MudCardContent>
+</MudCard>
+
+
+ 
+@code {
+    [Parameter]
+    public AConvoyElement item { get; set; }
+    
+    [Parameter]
+    public string? Class { get; set; }
+}

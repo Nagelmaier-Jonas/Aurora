@@ -13,20 +13,30 @@ public static class ConvoyExtension{
         else convoy.FrontTruck = truck;
     }
 
-    public static void AddWagon(this Convoy convoy, Wagon wagon){
-        if (!IsFrontTruckPresent(convoy))
-            throw new ConvoyManagementException("Front Truck missing!");
-        if (!HasEmptySpaces(convoy))
-            throw new ConvoyManagementException("Convoy already full!");
-        convoy.FrontTruck.Wagons.Add(wagon);
+    public static void AddWagon(this Convoy convoy, Wagon wagon, bool front){
+        if (!IsFrontTruckPresent(convoy)) throw new ConvoyManagementException("No trucks!");
+        if (!IsBackTruckPresent(convoy) && !front) throw new ConvoyManagementException("No rear Truck!");
+        if (HasFrontTruckEmptySpaces(convoy) && front){
+            convoy.FrontTruck.Wagons.Add(wagon);
+            return;
+        }
+        if (HasBackTruckEmptySpaces(convoy) && !front){
+            convoy.BackTruck.Wagons.Add(wagon);
+            return;
+        }
+        throw new ConvoyManagementException("Truck has reached Pull limit");
     }
 
     public static void RemoveFrontTruck(this Convoy convoy){
+        if (convoy.IsBackTruckPresent()){
+            Truck temp = convoy.BackTruck;
+            convoy.BackTruck.Addon = null;
+            convoy.BackTruck = null;
+            convoy.FrontTruck = temp;
+            return;
+        }
         convoy.FrontTruck.Addon = null;
         convoy.FrontTruck = null;
-        if (convoy.IsBackTruckPresent()){
-            convoy.BackTruck = null;
-        }
     }
 
     public static void RemoveTailTruck(this Convoy convoy){
@@ -35,8 +45,20 @@ public static class ConvoyExtension{
     }
 
     public static void RemoveWagon(this Convoy convoy, Wagon wagon){
+        if (LocateWagon(convoy, wagon) == "front") convoy.FrontTruck.Wagons.Remove(wagon);
+        if (LocateWagon(convoy, wagon) == "back") convoy.BackTruck.Wagons.Remove(wagon);
         wagon.Addon = null;
-        convoy.GetWagonIterator().Remove(wagon);
+        wagon = null;
+    }
+
+    public static string LocateWagon(this Convoy convoy, Wagon wagon){
+        if (convoy.IsFrontTruckPresent()){
+            if (convoy.FrontTruck.Wagons.Contains(wagon)) return "front";
+        }
+        if (convoy.IsBackTruckPresent()){
+            if (convoy.BackTruck.Wagons.Contains(wagon)) return "back";
+        }
+        return null;
     }
 
     public static List<Wagon> GetWagonIterator(this Convoy convoy){
@@ -57,8 +79,8 @@ public static class ConvoyExtension{
         HasFrontTruckEmptySpaces(convoy) || HasBackTruckEmptySpaces(convoy);
 
     public static bool HasFrontTruckEmptySpaces(this Convoy convoy) =>
-        convoy.FrontTruck.Capacity > convoy.FrontTruck.Wagons.Count;
+        convoy.FrontTruck.PullForce > convoy.FrontTruck.Wagons.Count;
 
     public static bool HasBackTruckEmptySpaces(this Convoy convoy) =>
-        IsBackTruckPresent(convoy) ? convoy.BackTruck.Capacity > convoy.BackTruck.Wagons.Count : false;
+        IsBackTruckPresent(convoy) ? convoy.BackTruck.PullForce > convoy.BackTruck.Wagons.Count : false;
 }

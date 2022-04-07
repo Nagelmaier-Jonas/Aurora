@@ -22,6 +22,7 @@ public class ARepository<TEntity>: IRepository<TEntity> where TEntity: class{
     public async Task<List<TEntity>> ReadAsync(int start, int count) => await _set.Skip(start).Take(count).ToListAsync();
 
     public async Task<TEntity> CreateAsync(TEntity entity) {
+        _context.ChangeTracker.Clear();
         _set.Add(entity);
         await _context.SaveChangesAsync();
         return entity;
@@ -34,6 +35,7 @@ public class ARepository<TEntity>: IRepository<TEntity> where TEntity: class{
     }
 
     public async Task DeleteAsync(TEntity entity) {
+        _context.ChangeTracker.Clear();
         _set.Remove(entity);
         await _context.SaveChangesAsync();
     }

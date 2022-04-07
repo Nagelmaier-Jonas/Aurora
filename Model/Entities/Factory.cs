@@ -1,16 +1,13 @@
-﻿namespace Model.Entities;
+﻿/*namespace Model.Entities;
 
 public class Factory{
-    // <summary>
-    // All methods to create trucks
-    // </summary>
     public static Truck CreateExampleTruck() =>
         new Truck{
             Code = "ExampleTruck",
             Price = 4,
             Speed = 4,
             Capacity = 4,
-            ImageUrl = "example"
+            Image = "example"
         };
 
     public static Truck CreateHeavyTeslaTank(){
@@ -20,7 +17,7 @@ public class Factory{
             Price = 10,
             Speed = 3,
             Capacity = 3,
-            ImageUrl = "truck1"
+            Image = "truck1"
         };
     }
 
@@ -31,7 +28,7 @@ public class Factory{
             Price = 10,
             Speed = 4,
             Capacity = 3,
-            ImageUrl = "truck2"
+            Image = "truck2"
         };
     }
 
@@ -42,7 +39,7 @@ public class Factory{
             Price = 10,
             Speed = 2,
             Capacity = 3,
-            ImageUrl = "truck3"
+            Image = "truck3"
         };
     }
 
@@ -53,7 +50,7 @@ public class Factory{
             Price = 10,
             Speed = 4,
             Capacity = 3,
-            ImageUrl = "truck4"
+            Image = "truck4"
         };
     }
 
@@ -64,7 +61,7 @@ public class Factory{
             Price = 10,
             Speed = 2,
             Capacity = 2,
-            ImageUrl = "truck5"
+            Image = "truck5"
         };
     }
 
@@ -75,7 +72,7 @@ public class Factory{
             Price = 10,
             Speed = 4,
             Capacity = 3,
-            ImageUrl = "truck6"
+            Image = "truck6"
         };
     }
 
@@ -217,4 +214,4 @@ public class Factory{
         Price = 10,
         ImageUrl = "add18"
     };
-}
+}*/

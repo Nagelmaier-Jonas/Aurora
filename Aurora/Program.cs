@@ -29,7 +29,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IRepository<AConvoyElement>, ConvoyElementRepository>();
 builder.Services.AddScoped<IRepository<Addon>, AddonRepository>();
-builder.Services.AddScoped<IRepository<AUpgradableElement>, UpgradableRepository>();
+builder.Services.AddScoped<IRepository<AUpgradeable>, UpgradeableRepository>();
 builder.Services.AddScoped<IRepository<Convoy>, ConvoyRepository>();
 builder.Services.AddScoped<IRepository<Truck>, TruckRepository>();
 builder.Services.AddScoped<IRepository<Wagon>, WagonRepository>();

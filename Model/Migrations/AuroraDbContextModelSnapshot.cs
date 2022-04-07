@@ -32,10 +32,10 @@ namespace Model.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("CODE");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("IMAGE_URL");
+                        .HasColumnName("IMAGE");
 
                     b.Property<int>("Price")
                         .HasColumnType("int")
@@ -44,6 +44,40 @@ namespace Model.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ADDONS");
+                });
+
+            modelBuilder.Entity("Model.Entities.AUpgradeable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ELEMENT_ID");
+
+                    b.Property<int?>("AddonId")
+                        .HasColumnType("int")
+                        .HasColumnName("ADDON_ID");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("CODE");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("IMAGE");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int")
+                        .HasColumnName("PRICE");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddonId")
+                        .IsUnique();
+
+                    b.ToTable("UPGRADEABLES");
                 });
 
             modelBuilder.Entity("Model.Entities.Convoy", b =>
@@ -73,87 +107,44 @@ namespace Model.Migrations
                     b.HasIndex("FrontTruckId")
                         .IsUnique();
 
-                    b.ToTable("CONVOY");
+                    b.ToTable("CONVOYS");
                 });
 
             modelBuilder.Entity("Model.Entities.Truck", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.HasBaseType("Model.Entities.AUpgradeable");
+
+                    b.Property<int>("PullForce")
                         .HasColumnType("int")
-                        .HasColumnName("ELEMENT_ID");
-
-                    b.Property<int?>("AddonId")
-                        .HasColumnType("int")
-                        .HasColumnName("ADDON_ID");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int")
-                        .HasColumnName("CAPACITY");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("CODE");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("IMAGE_URL");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int")
-                        .HasColumnName("PRICE");
+                        .HasColumnName("PULL_FORCE");
 
                     b.Property<int>("Speed")
                         .HasColumnType("int")
                         .HasColumnName("SPEED");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddonId");
 
                     b.ToTable("TRUCKS");
                 });
 
             modelBuilder.Entity("Model.Entities.Wagon", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ELEMENT_ID");
-
-                    b.Property<int?>("AddonId")
-                        .HasColumnType("int")
-                        .HasColumnName("ADDON_ID");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("CODE");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("IMAGE_URL");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int")
-                        .HasColumnName("PRICE");
+                    b.HasBaseType("Model.Entities.AUpgradeable");
 
                     b.Property<int?>("TruckId")
                         .HasColumnType("int")
                         .HasColumnName("TRUCK_ID");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddonId");
-
                     b.HasIndex("TruckId");
 
-                    b.ToTable("WAGGONS");
+                    b.ToTable("WAGONS");
+                });
+
+            modelBuilder.Entity("Model.Entities.AUpgradeable", b =>
+                {
+                    b.HasOne("Model.Entities.Addon", "Addon")
+                        .WithOne()
+                        .HasForeignKey("Model.Entities.AUpgradeable", "AddonId");
+
+                    b.Navigation("Addon");
                 });
 
             modelBuilder.Entity("Model.Entities.Convoy", b =>
@@ -173,24 +164,24 @@ namespace Model.Migrations
 
             modelBuilder.Entity("Model.Entities.Truck", b =>
                 {
-                    b.HasOne("Model.Entities.Addon", "Addon")
-                        .WithMany()
-                        .HasForeignKey("AddonId");
-
-                    b.Navigation("Addon");
+                    b.HasOne("Model.Entities.AUpgradeable", null)
+                        .WithOne()
+                        .HasForeignKey("Model.Entities.Truck", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Model.Entities.Wagon", b =>
                 {
-                    b.HasOne("Model.Entities.Addon", "Addon")
-                        .WithMany()
-                        .HasForeignKey("AddonId");
+                    b.HasOne("Model.Entities.AUpgradeable", null)
+                        .WithOne()
+                        .HasForeignKey("Model.Entities.Wagon", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Model.Entities.Truck", "Truck")
                         .WithMany("Wagons")
                         .HasForeignKey("TruckId");
-
-                    b.Navigation("Addon");
 
                     b.Navigation("Truck");
                 });

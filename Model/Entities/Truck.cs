@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Model.Enums;
 
 namespace Model.Entities;
 
 [Table("TRUCKS")]
-public class Truck : AUpgradableElement{
+public class Truck : AUpgradeable{
     public List<Wagon> Wagons{ get; set; } = new();
     
-    [Column("CAPACITY"), Required]
-    public int Capacity { get; set; }
+    [Column("PULL_FORCE"), Required]
+    public int PullForce { get; set; }
 
     [Column("SPEED"), Required]
     public int Speed{ get; set; }

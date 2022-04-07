@@ -1,18 +1,18 @@
 ﻿@inherits LayoutComponentBase
-
-<PageTitle>Aurora</PageTitle>
-
-<MudThemeProvider IsDarkMode="false"/>
+<MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
-
-
-<MudLayout>
-    <NavMenu/>
-
-    <MudMainContent>
-        <MudContainer>
-            @Body
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>
+<div class="page">
+    <main>
+        <MudAppBar Style="@($"background:{Colors.Grey.Darken4};")" Fixed="true" Elevation="0">
+            <MudSpacer/>
+            <MudIconButton Icon="@Icons.Filled.ArrowBackIos" Color="Color.Error" Href="/" Target="_self"></MudIconButton>
+            <MudSpacer/>
+            <MudText>Aurora</MudText>
+            <MudSpacer/>
+            <MudIconButton Icon="@Icons.Filled.Construction" Color="Color.Success" Href="/convoybuilder" Target="_self"></MudIconButton>
+            <MudSpacer/>
+        </MudAppBar>
+        @Body
+    </main>
+</div>

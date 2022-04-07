@@ -19,6 +19,6 @@ public abstract class AConvoyElement {
     [Range(0, Int32.MaxValue)]
     public int Price { get; init; }
 
-    [Column("IMAGE_URL")]
-    public string ImageUrl{ get; set; }
+    [Column("IMAGE")]
+    public string Image{ get; set; }
 }

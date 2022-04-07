@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities;
 
-[Table("CONVOY")]
+[Table("CONVOYS")]
 public class Convoy {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
