@@ -12,9 +12,8 @@ builder.Services.AddDbContext<AuroraDbContext>(
         new MySqlServerVersion(new Version(8, 0, 27))
     )
 );
-builder.Services.AddMudServices(config =>
-{
-    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft;
+builder.Services.AddMudServices(config => {
+    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomEnd;
 
     config.SnackbarConfiguration.PreventDuplicates = true;
     config.SnackbarConfiguration.NewestOnTop = false;
