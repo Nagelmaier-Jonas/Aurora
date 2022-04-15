@@ -13,7 +13,7 @@
 
 <MudImage Src="images/bg.png" Alt="Theme Picture" Style="height: 100vh; width: 100vw; position: fixed;"/>
 <MudImage Src="images/title.png" Alt="Theme Picture" Style="width: 30% !important; height: 40px; position: fixed !important; margin: auto !important; right: 35%; top: 70px;"/>
-<MudButton Class="float-end position-fixed nav-btn" OnClick="@(() => _savePanel = true)" Variant="Variant.Text" Color="Color.Tertiary" EndIcon="@Icons.Filled.Save" Style="z-index: 9999; width: 64px; height: 64px; margin: 0 auto !important;"></MudButton>
+<MudButton Class="float-end position-fixed nav-btn" OnClick="@(() => _savePanel = !_savePanel)" Variant="Variant.Text" Color="Color.Tertiary" EndIcon="@Icons.Filled.Save" Style="z-index: 9999; width: 64px; height: 64px; margin: 0 auto !important;"></MudButton>
 
 <div Style="position: absolute; bottom: 0 !important; height: 416px; width: 100% !important; background-color: #1a1e21">
     <MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 h-100" Color="Color.Dark" Style="height: 100%;" @ref="tabs">
@@ -142,7 +142,7 @@
 
 </div>
 
-<MudPopover Style="background-color: transparent; height: 460px" Class="mt-16" Open="@_convoyIsOpen" Fixed="true" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter">
+<MudPopover Style="background-color: transparent; height: 460px" Class="mt-16 convoy-board" Open="@_convoyIsOpen" Fixed="true" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter">
     <MudContainer Class="d-flex overflow-auto">
         <MudCard Class="m-2" Style="min-width: 300px !important;">
             @if (Convoy.FrontTruck is not null){
@@ -205,8 +205,8 @@
         @if (Convoy.BackTruck is not null){
             <MudCard Class="m-2" Style="min-width: 300px !important;">
                 @if (Convoy.BackTruck.IsAddonPresent()){
-                    <MudCardMedia Image=@Convoy.BackTruck.Addon.Image Height="170"/>
-                    <MudCardMedia Image=@Convoy.BackTruck.Image Height="170"/>
+                    <MudCardMedia Class="invert" Image=@Convoy.BackTruck.Addon.Image Height="170"/>
+                    <MudCardMedia Class="invert" Image=@Convoy.BackTruck.Image Height="170"/>
                     <MudCardContent>
                         <MudText Typo="Typo.h5">@Convoy.BackTruck.Code</MudText>
                     </MudCardContent>
@@ -217,8 +217,8 @@
                     </MudCardActions>
                 }
                 else{
-                    <MudCardMedia Image=@("cards/empty.png") Height="170"/>
-                    <MudCardMedia Image=@Convoy.BackTruck.Image Height="170"/>
+                    <MudCardMedia Class="invert" Image=@("cards/empty.png") Height="170"/>
+                    <MudCardMedia Class="invert" Image=@Convoy.BackTruck.Image Height="170"/>
                     <MudCardContent>
                         <MudText Typo="Typo.h5">@Convoy.BackTruck.Code</MudText>
                     </MudCardContent>
@@ -234,13 +234,12 @@
     </MudContainer>
 </MudPopover>
 
-<MudPopover Open="@_savePanel" Class="screen-center">
-    <MudPaper Class="pa-4">
-        <MudTextField @bind-Value="Convoy.Code" Label="Convoy Name" Variant="Variant.Outlined" Immediate="true"></MudTextField>
-        <MudButton Variant="Variant.Filled" OnClick="ProcessSomething">Save</MudButton>
-        <MudButton Variant="Variant.Filled" OnClick="Cancel">Cancel</MudButton>
+@if (_savePanel){
+    <MudPaper Class="pa-4 save-field">
+        <MudTextField class="save-field-input" @bind-Value="Convoy.Code" Placeholder="Convoy Name" Variant="Variant.Outlined" Immediate="true"></MudTextField>
+        <MudButton Class="save-field-btn" Variant="Variant.Outlined" OnClick="ProcessSomething">Save</MudButton>
     </MudPaper>
-</MudPopover>
+}
 
 @code {
     public Convoy Convoy { get; set; } = new();
