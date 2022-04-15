@@ -7,7 +7,7 @@ namespace Domain.Repositories;
 public class ARepository<TEntity> : IRepository<TEntity> where TEntity : class
 {
     private readonly AuroraDbContext _context;
-    private readonly DbSet<TEntity> _set;
+    protected readonly DbSet<TEntity> _set;
 
     public ARepository(AuroraDbContext context)
     {

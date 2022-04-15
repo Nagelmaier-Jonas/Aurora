@@ -19,4 +19,9 @@ public class Convoy
     [Column("FRONT_TRUCK_ID")] public int? FrontTruckId { get; set; }
 
     [Column("BACK_TRUCK_ID")] public int? BackTruckId { get; set; }
+
+    [Column("USER_ID")]
+    public int UserId{ get; set; }
+    
+    public User User{ get; set; }
 }

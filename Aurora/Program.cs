@@ -32,6 +32,7 @@ builder.Services.AddScoped<IRepository<AUpgradeable>, UpgradeableRepository>();
 builder.Services.AddScoped<IRepository<Convoy>, ConvoyRepository>();
 builder.Services.AddScoped<IRepository<Truck>, TruckRepository>();
 builder.Services.AddScoped<IRepository<Wagon>, WagonRepository>();
+builder.Services.AddScoped<UserRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
