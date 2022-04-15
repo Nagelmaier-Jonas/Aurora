@@ -18,10 +18,15 @@ public class AuroraDbContext : DbContext
     public DbSet<Wagon> Wagons { get; set; }
 
     public DbSet<AUpgradeable> Upgradeables { get; set; }
+    
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<Wagon>().HasOne(t => t.Truck).WithMany(e => e.Wagons).HasForeignKey(t => t.TruckId);
+        builder.Entity<Wagon>()
+            .HasOne(t => t.Truck)
+            .WithMany(e => e.Wagons)
+            .HasForeignKey(t => t.TruckId);
 
         builder.Entity<Convoy>()
             .HasOne(c => c.BackTruck)
@@ -37,5 +42,14 @@ public class AuroraDbContext : DbContext
             .HasOne(a => a.Addon)
             .WithOne()
             .HasForeignKey<AUpgradeable>(a => a.AddonId);
+
+        builder.Entity<Convoy>()
+            .HasOne(u => u.User)
+            .WithMany(c => c.Convoys)
+            .HasForeignKey(u => u.UserId);
+
+        builder.Entity<User>()
+            .HasIndex(u => u.Name)
+            .IsUnique();
     }
 }
