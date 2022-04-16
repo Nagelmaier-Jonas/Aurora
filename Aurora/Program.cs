@@ -25,7 +25,7 @@ builder.Services.AddMudServices(config => {
 });
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<IRepository<AConvoyElement>, ConvoyElementRepository>();
+builder.Services.AddScoped<ConvoyElementRepository>();
 builder.Services.AddScoped<IRepository<Addon>, AddonRepository>();
 builder.Services.AddScoped<IRepository<AUpgradeable>, UpgradeableRepository>();
 builder.Services.AddScoped<IRepository<Convoy>, ConvoyRepository>();

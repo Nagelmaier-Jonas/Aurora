@@ -8,6 +8,7 @@ public class Convoy
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("CONVOY_ID")]
     public int Id { get; set; }
 
     [Column("CODE", TypeName = "VARCHAR(50)")]
@@ -24,4 +25,13 @@ public class Convoy
     public int UserId{ get; set; }
     
     public User User{ get; set; }
+    
+    public override bool Equals(object o) {
+        var other = o as Convoy;
+        return other?.Code==Code;
+    }
+    
+    public override int GetHashCode() => Code?.GetHashCode() ?? 0;
+    
+    public override string ToString() => Code;
 }

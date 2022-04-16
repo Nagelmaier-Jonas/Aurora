@@ -1,7 +1,6 @@
 ﻿using Model.Entities;
-using Model.Enums;
 
-namespace Model.Factories;
+namespace Domain.Factories;
 
 public static class TruckFactory
 {

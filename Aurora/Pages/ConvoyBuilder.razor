@@ -1,4 +1,4 @@
-@page "/convoybuilder"
+@page "/convoybuilder/{UserId:int}"
 @using Domain.LogicHandlers
 @using Domain.LogicHandlers.Exceptions
 @using Domain.Repositories
@@ -9,11 +9,13 @@
 @inject IRepository<Wagon> _wagonRepository
 @inject IRepository<Truck> _truckRepository
 @inject IRepository<Addon> _addonRepository
+@inject UserRepository _userRepository
 @inject IDialogService DialogService
 
 <MudImage Src="images/bg.png" Alt="Theme Picture" Style="height: 100vh; width: 100vw; position: fixed;"/>
 <MudImage Src="images/title.png" Alt="Theme Picture" Style="width: 30% !important; height: 40px; position: fixed !important; margin: auto !important; right: 35%; top: 70px;"/>
 <MudButton Class="float-end position-fixed nav-btn" OnClick="@(() => _savePanel = !_savePanel)" Variant="Variant.Text" Color="Color.Tertiary" EndIcon="@Icons.Filled.Save" Style="z-index: 9999; width: 64px; height: 64px; margin: 0 auto !important;"></MudButton>
+@*Load Button, schaut da du des au Joni <MudButton Class="float-end position-fixed nav-btn" OnClick="@(() => _loadPanel = !_loadPanel)" Variant="Variant.Text" Color="Color.Tertiary" EndIcon="@Icons.Filled.Download" Style="z-index: 9999; width: 64px; height: 64px; margin: 0 auto !important;"></MudButton> *@
 
 <div Style="position: absolute; bottom: 0 !important; height: 416px; width: 100% !important; background-color: #1a1e21">
     <MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 h-100" Color="Color.Dark" Style="height: 100%;" @ref="tabs">
@@ -240,8 +242,21 @@
         <MudButton Class="save-field-btn" Variant="Variant.Outlined" OnClick="ProcessSomething">Save</MudButton>
     </MudPaper>
 }
+@if (_loadPanel){
+    <MudPaper Class="pa-4 save-field">
+        <MudSelect T="Convoy" @bind-Value="@Convoy" Label="Convoy" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter" Placeholder="Select Convoy to Load">
+            @foreach (Convoy c in User.Convoys){
+                <MudSelectItem Value="c"/>
+            }
+        </MudSelect>
+        <MudButton Class="load-field-btn" Variant="Variant.Outlined" OnClick="@(() => _loadPanel = false)">Load</MudButton>
+    </MudPaper>
+}
 
 @code {
+    [Parameter]
+    public int UserId { get; set; }
+    public User User { get; set; }
     public Convoy Convoy { get; set; } = new();
     public Truck CurrentTruck { get; set; }
     public Wagon CurrentWagon { get; set; }
@@ -250,8 +265,17 @@
 
     private bool _addonDisabled = true;
     private bool _savePanel;
+    private bool _loadPanel;
     private bool _convoyIsOpen;
     private int _money = 400;
+
+    protected override async void OnParametersSet(){
+        if (_userRepository.ReadAsync(UserId) == null){
+            Snackbar.Add("No Data...");
+            return;
+        }
+        User = await _userRepository.ReadConvoysAsync(UserId);
+    }
 
     public bool CheckConvoy(){
         return Convoy.FrontTruck is not null;
@@ -314,7 +338,7 @@
     }
 
     private async Task Save(){
-        await _convoyRepository.UpdateAsync(Convoy);
+        await _convoyRepository.CreateAsync(Convoy);
     }
 
     private void Cancel(){

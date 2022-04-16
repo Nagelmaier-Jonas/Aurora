@@ -1,6 +1,6 @@
 ﻿using Model.Entities;
 
-namespace Model.Factories;
+namespace Domain.Factories;
 
 public static class AddonFactory
 {

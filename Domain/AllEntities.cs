@@ -1,6 +1,6 @@
-﻿using Model.Entities;
+﻿using Domain.Factories;
+using Model.Entities;
 using Model.Enums;
-using Model.Factories;
 
 namespace Domain;
 
