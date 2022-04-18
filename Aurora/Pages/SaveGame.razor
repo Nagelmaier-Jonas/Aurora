@@ -6,60 +6,61 @@
 @inject ISnackbar _snackbar
 @inject NavigationManager _navigationManager
 
-<MudContainer>
+<MudImage Src="images/theme.jpg" Alt="Theme Picture" Style="height: 100vh; width: 100vw; position: fixed;"/>
+<MudContainer Class="saves-container">
+    <MudButton FullWidth="false" OnClick="NewConvoy" Variant="Variant.Filled" Size="Size.Large" Color="Color.Success" Class="newSlot-btn">
+        @if (_processing){
+            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+            <MudText Class="ms-2">Creating</MudText>
+        }
+        else{
+            <MudText>New Convoy</MudText>
+        }
+    </MudButton>
     @if (User != null){
-        <MudButton Disabled="@_processing" OnClick="NewConvoy" Variant="Variant.Outlined" Color="Color.Success">
-            @if (_processing)
-            {
-                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
-                <MudText Class="ms-2">Creating</MudText>
-            }
-            else
-            {
-                <MudText>New Convoy</MudText>
-            }
-        </MudButton>
-        foreach (var convoy in User.Convoys){
-            <MudCard>
+        @foreach (var convoy in User.Convoys){
+            <MudCard Class="saves-card">
                 <MudCardMedia Image="@convoy.FrontTruck?.Image" Height="250"/>
                 <MudCardContent>
                     <MudText Typo="Typo.body2">@convoy.Code</MudText>
                 </MudCardContent>
-                <MudCardActions>
-                    <MudIconButton Color="Color.Success" Icon="@Icons.Filled.Login" OnClick="() => LoadState(convoy)" />
+                <MudCardActions Style="justify-content: center;">
+                    <MudIconButton Color="Color.Success" Icon="@Icons.Filled.Login" OnClick="() => LoadState(convoy)"/>
                     <MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick="() => DeleteState(convoy)"/>
                 </MudCardActions>
             </MudCard>
         }
     }
-    else{
-        _snackbar.Add("No User found!");
-        _snackbar.Add("Redirected to Index!");
-        _navigationManager.NavigateTo("/");
-    }
 </MudContainer>
 
 @code {
+
     [Parameter]
     public int UserId { get; set; }
 
     private User? User { get; set; }
-    
+
     private bool _processing = false;
 
+    protected override async Task OnParametersSetAsync(){
+        User = await _userRepository.ReadUserGraphAsync(UserId);
+    }
+
     private void LoadState(Convoy convoy){
-        _navigationManager.NavigateTo($"/convoybuilder/{User.Id}{convoy.Id}");;
+        _navigationManager.NavigateTo($"/convoybuilder/{User.Id}{convoy.Id}");
+        ;
     }
 
     private void DeleteState(Convoy convoy){
         _convoyRepository.DeleteAsync(convoy);
+        _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
     }
 
-    async Task NewConvoy()
-    {
+    async Task NewConvoy(){
         _processing = true;
         await Task.Delay(2000);
-        _navigationManager.NavigateTo($"/convoybuilder/{User.Id}");;
+        _navigationManager.NavigateTo($"/convoybuilder/{User.Id}");
+        ;
         _processing = false;
     }
 

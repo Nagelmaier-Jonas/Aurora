@@ -117,3 +117,78 @@ a, .btn-link {
 .form-style .mud-input-slot {
     color: white !important;
 }
+.pv-cc {
+    padding: 0 !important;
+    text-align: center !important;
+}
+.saves-container {
+    display: flex !important;
+    flex-direction: column !important;
+    top: 80px !important;
+    position: relative !important;
+}
+.saves-card {
+    background-color: #424242 !important;
+    width: 355px !important;
+    align-self: center !important;
+    margin-top: 25px !important;
+    color: white !important;
+    text-align: center !important;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0), 0 12px 40px 0 rgb(0 0 0) !important;
+}
+.newSlot-btn {
+    width: 150px !important;
+    align-self: center !important;
+}
+.item-btn {
+    width: 45px !important;
+    height: 45px !important;
+    padding: 0 !important;
+    min-height: unset !important;
+    min-width: unset !important;
+    position: relative !important;
+}
+
+.item-btn:hover {
+    background-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.item-btn-t1{
+    top: -349px;
+    left: 7px;
+}
+
+.item-btn-t2{
+    top: -349px;
+    left: 12px;
+}
+
+.item-btn-t3{
+    top: -349px;
+    left: 17px;
+}
+
+.item-btn-t4{
+    top: -349px;
+    left: 22px;
+}
+
+.item-btn-b1{
+    top: 322px;
+    left: 7px;
+}
+
+.item-btn-b2{
+    top: 322px;
+    left: 12px;
+}
+
+.item-btn-b3{
+    top: 322px;
+    left: 17px;
+}
+
+.item-btn-b4{
+    top: 322px;
+    left: 22px;
+}
