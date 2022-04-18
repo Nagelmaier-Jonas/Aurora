@@ -12,9 +12,13 @@ public class User{
 
     public List<Convoy> Convoys{ get; set; }
 
-    [Column("USER_NAME", TypeName = "VARCHAR(50)")]
+    [Required]
+    [Column("USER_NAME", TypeName = "VARCHAR(8)")]
+    [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
     public string Name{ get; set; }
     
-    [Column("USER_PASSWORD", TypeName = "VARCHAR(50)")]
+    [Required]
+    [Column("USER_PASSWORD", TypeName = "VARCHAR(30)")]
+    [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
     public string Password{ get; set; }
 }

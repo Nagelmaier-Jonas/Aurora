@@ -14,4 +14,7 @@ public abstract class AItem{
     [Required]
     [Column("NAME",TypeName = "VARCHAR(50)")]
     public string Name{ get; set; }
+    
+    [Column("IMAGE")]
+    public string Image { get; set; }
 }

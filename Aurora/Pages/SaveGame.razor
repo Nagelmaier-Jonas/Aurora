@@ -1,4 +1,4 @@
-﻿@page "/savegame/{UserId}"
+﻿@page "/savegame/{UserId:int}"
 @using Domain.Repositories
 @using Model.Entities
 @inject UserRepository _userRepository
@@ -8,6 +8,17 @@
 
 <MudContainer>
     @if (User != null){
+        <MudButton Disabled="@_processing" OnClick="NewConvoy" Variant="Variant.Outlined" Color="Color.Success">
+            @if (_processing)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                <MudText Class="ms-2">Creating</MudText>
+            }
+            else
+            {
+                <MudText>New Convoy</MudText>
+            }
+        </MudButton>
         foreach (var convoy in User.Convoys){
             <MudCard>
                 <MudCardMedia Image="@convoy.FrontTruck?.Image" Height="250"/>
@@ -33,6 +44,8 @@
     public int UserId { get; set; }
 
     private User? User { get; set; }
+    
+    private bool _processing = false;
 
     private void LoadState(Convoy convoy){
         _navigationManager.NavigateTo($"/convoybuilder/{User.Id}{convoy.Id}");;
@@ -40,6 +53,14 @@
 
     private void DeleteState(Convoy convoy){
         _convoyRepository.DeleteAsync(convoy);
+    }
+
+    async Task NewConvoy()
+    {
+        _processing = true;
+        await Task.Delay(2000);
+        _navigationManager.NavigateTo($"/convoybuilder/{User.Id}");;
+        _processing = false;
     }
 
 }

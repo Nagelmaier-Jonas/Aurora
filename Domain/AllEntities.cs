@@ -1,5 +1,6 @@
 ﻿using Domain.Factories;
 using Model.Entities;
+using Model.Entities.Items;
 using Model.Enums;
 
 namespace Domain;
@@ -50,6 +51,15 @@ public static class AllEntities
             AddonFactory.CreateZuraw(),
             AddonFactory.CreateMaintenanceDrone(),
             AddonFactory.CreateTurboBagpiper()
+        };
+    }
+
+    public static List<AItem> Items(){
+        return new(){
+            ItemFactory.CreateCargo1(),
+            ItemFactory.CreateChemical1(),
+            ItemFactory.CreateCrew1(),
+            ItemFactory.CreateWeapon1()
         };
     }
 }

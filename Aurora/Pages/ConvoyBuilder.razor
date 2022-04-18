@@ -4,6 +4,7 @@
 @using Domain.Repositories
 @using Model.Entities
 @using Domain
+@using Model.Entities.Items
 @inject ISnackbar Snackbar
 @inject IRepository<Convoy> _convoyRepository
 @inject IRepository<Wagon> _wagonRepository
@@ -140,6 +141,47 @@
                 </ChildContent>
             </MudCarousel>
         </MudTabPanel>
+        <MudTabPanel Text="Items" Disabled="@_addonDisabled">
+            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;">
+                <BulletTemplate Context="selected">
+                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                        <span class="mud-icon-button-label">
+                            <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Info"/>
+                        </span>
+                    </div>
+                </BulletTemplate>
+                <PreviousButtonTemplate>
+                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                        <span class="mud-icon-button-label">
+                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Info"/>
+                        </span>
+                    </div>
+                </PreviousButtonTemplate>
+                <NextButtonTemplate>
+                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                        <span class="mud-icon-button-label">
+                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Info"/>
+                        </span>
+                    </div>
+                </NextButtonTemplate>
+                <ChildContent>
+                    @foreach (var item in AllEntities.Items()){
+                        <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
+                            
+                            <MudCard Style="height: 100% !important; background-color: transparent !important;">
+                                <MudCardMedia Image=@item.Image Style="height: 50% !important; width: 215px;"/>
+                                <MudCardContent Style="height: 20% !important;">
+                                    <MudText Typo="Typo.h5" Style="color: white;">@item.Name</MudText>
+                                </MudCardContent>
+                                <MudCardActions Style="height: 20% !important;">
+                                    <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="() => AddItem(item)">Add</MudButton>
+                                </MudCardActions>
+                            </MudCard>
+                        </MudCarouselItem>
+                    }
+                </ChildContent>
+            </MudCarousel>
+        </MudTabPanel>
     </MudTabs>
 
 </div>
@@ -242,16 +284,6 @@
         <MudButton Class="save-field-btn" Variant="Variant.Outlined" OnClick="ProcessSomething">Save</MudButton>
     </MudPaper>
 }
-@if (_loadPanel){
-    <MudPaper Class="pa-4 save-field">
-        <MudSelect T="Convoy" @bind-Value="@Convoy" Label="Convoy" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter" Placeholder="Select Convoy to Load">
-            @foreach (Convoy c in User.Convoys){
-                <MudSelectItem Value="c"/>
-            }
-        </MudSelect>
-        <MudButton Class="load-field-btn" Variant="Variant.Outlined" OnClick="@(() => _loadPanel = false)">Load</MudButton>
-    </MudPaper>
-}
 
 @code {
     [Parameter]
@@ -259,7 +291,7 @@
     
     [Parameter]
     public int ConvoyId { get; set; }
-    
+
     public User User { get; set; }
     public Convoy Convoy { get; set; } = new();
     public Truck CurrentTruck { get; set; }
@@ -271,7 +303,6 @@
     private bool _savePanel;
     private bool _loadPanel;
     private bool _convoyIsOpen;
-    private int _money = 400;
 
     protected override async void OnParametersSet(){
         if (_userRepository.ReadAsync(UserId) == null){
@@ -279,6 +310,7 @@
             return;
         }
         User = await _userRepository.ReadConvoysAsync(UserId);
+        Convoy = await _convoyRepository.ReadAsync(ConvoyId);
     }
 
     public bool CheckConvoy(){
@@ -333,6 +365,10 @@
             _addonDisabled = true;
         }
         tabs.ActivePanelIndex = 0;
+    }
+
+    private void AddItem(AItem item){
+        
     }
 
     async Task ProcessSomething(){

@@ -108,3 +108,12 @@ a, .btn-link {
     left: 50vh;
     right: 50vh;
 }
+.form-style .mud-input-helper-text {
+    color: white !important;
+}
+.form-style .mud-input-label {
+    color: white !important;
+}
+.form-style .mud-input-slot {
+    color: white !important;
+}
