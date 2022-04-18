@@ -1,0 +1,45 @@
+﻿@page "/savegame/{UserId}"
+@using Domain.Repositories
+@using Model.Entities
+@inject UserRepository _userRepository
+@inject ConvoyRepository _convoyRepository
+@inject ISnackbar _snackbar
+@inject NavigationManager _navigationManager
+
+<MudContainer>
+    @if (User != null){
+        foreach (var convoy in User.Convoys){
+            <MudCard>
+                <MudCardMedia Image="@convoy.FrontTruck?.Image" Height="250"/>
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">@convoy.Code</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudIconButton Color="Color.Success" Icon="@Icons.Filled.Login" OnClick="() => LoadState(convoy)" />
+                    <MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick="() => DeleteState(convoy)"/>
+                </MudCardActions>
+            </MudCard>
+        }
+    }
+    else{
+        _snackbar.Add("No User found!");
+        _snackbar.Add("Redirected to Index!");
+        _navigationManager.NavigateTo("/");
+    }
+</MudContainer>
+
+@code {
+    [Parameter]
+    public int UserId { get; set; }
+
+    private User? User { get; set; }
+
+    private void LoadState(Convoy convoy){
+        _navigationManager.NavigateTo($"/convoybuilder/{User.Id}{convoy.Id}");;
+    }
+
+    private void DeleteState(Convoy convoy){
+        _convoyRepository.DeleteAsync(convoy);
+    }
+
+}

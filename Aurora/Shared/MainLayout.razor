@@ -1,10 +1,10 @@
 ﻿@using Model.Entities
-@inherits LayoutComponentBase
-@using System.ComponentModel.DataAnnotations
 @using Domain.Repositories
-@inject ISnackbar Snackbar
-@using Microsoft.AspNetCore.Components
+@inherits LayoutComponentBase
 @inject UserRepository _userRepository
+@inject ISnackbar _snackbar
+@inject NavigationManager _navigationManager
+
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
@@ -15,160 +15,94 @@
             <MudIconButton Icon="@Icons.Filled.ArrowBackIos" Color="Color.Error" Href="/" Target="_self"></MudIconButton>
             <MudSpacer/>
             <MudText>Aurora</MudText>
-            <MudSpacer/>
-            @if (_logedIn){
-               <MudIconButton Icon="@Icons.Filled.Construction" Color="Color.Success" Href=@_builderHref Target="_self"></MudIconButton> 
-            }
-            else{
-                <MudIconButton Icon="@Icons.Filled.AppRegistration" Color="Color.Success" OnClick="() => {_registerWindow = true; _loginWindow = false;}">Register</MudIconButton> 
-            }
-            
-            @if (_logedIn){
-                <MudIconButton Icon="@Icons.Filled.AppRegistration" Color="Color.Success" OnClick=@LogOut >Log out</MudIconButton> 
-            }
-            else{
-                <MudIconButton Icon="@Icons.Filled.AppRegistration" Color="Color.Success" OnClick="() => {_registerWindow = false; _loginWindow = true;}">Log in</MudIconButton> 
-            }
-            <MudSpacer/>
-            @if (_logedIn){
-                <MudText>Logged in as @_user.Name</MudText>   
-            }
-            else{
-                <MudText>Currently not logged in</MudText>
+            @if (_navigationManager.ToBaseRelativePath(_navigationManager.BaseUri) == "/" || _navigationManager.ToBaseRelativePath(_navigationManager.BaseUri) == ""){
+                <MudSpacer/>
+                <MudIconButton Icon="@Icons.Filled.Person" Color="Color.Success" OnClick="ToggleUserWindow"></MudIconButton>
+                <MudSpacer/>
             }
         </MudAppBar>
         @Body
-        @if (_registerWindow){
-            <EditForm Model="@_user" OnValidSubmit="Register">
-            <DataAnnotationsValidator/>
-            <MudGrid>
-                <MudItem xs="12" sm="7">
-                    <MudCard>
-                        <MudCardContent>
-                            <MudTextField Label="Name" HelperText="Max. 8 characters"
-                                          @bind-Value="_user.Name" For="@(() => _user.Name)"/>
-                            <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
-                                          @bind-Value="_user.Password" For="@(() => _user.Password)" InputType="InputType.Password"/>
-                        </MudCardContent>
-                        <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
-                        </MudCardActions>
-                    </MudCard>
-                </MudItem>
-                <MudItem xs="12" sm="5">
-                    <MudPaper Class="pa-4 mud-height-full">
-                        <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
-                        @if (success)
-                        {
-                            <MudText Color="Color.Success">Success</MudText>
-                        }
-                        else
-                        {
-                            <MudText Color="@Color.Error">
-                                <ValidationSummary />
-                            </MudText>
-                        }
-                    </MudPaper>
-                </MudItem>
-                <MudItem xs="12">
-                    <MudText Typo="Typo.body2" Align="Align.Center">
-                        Please fill out the form correctly.
-                    </MudText>
-                </MudItem>
-            </MudGrid>
-            </EditForm>
-        }
-        @if (_loginWindow){
-                    <EditForm Model="@_loginUser" OnValidSubmit="Login">
+        @if (_isUserWindowOpen){
+            @if (_loginWindow){
+                <EditForm Model="@User" OnValidSubmit="Login" class="form-style">
                     <DataAnnotationsValidator/>
                     <MudGrid>
                         <MudItem xs="12" sm="7">
                             <MudCard>
                                 <MudCardContent>
-                                    <MudTextField Label="Name" HelperText="Max. 8 characters"
-                                                  @bind-Value="_loginUser.Name" For="@(() => _loginUser.Name)"/>
+                                    <MudTextField Label="First name" HelperText="Max. 8 characters"
+                                                  @bind-Value="User.Name" For="@(() => User.Name)"/>
                                     <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
-                                                  @bind-Value="_loginUser.Password" For="@(() => _loginUser.Password)" InputType="InputType.Password"/>
+                                                  @bind-Value="User.Password" For="@(() => User.Password)" InputType="InputType.Password"/>
                                 </MudCardContent>
                                 <MudCardActions>
-                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Log in</MudButton>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Login</MudButton>
+                                    <MudIconButton Icon="@Icons.Filled.AppRegistration" Color="Color.Success" OnClick="ToggleLoginWindow"></MudIconButton>
                                 </MudCardActions>
                             </MudCard>
                         </MudItem>
-                        <MudItem xs="12" sm="5">
-                            <MudPaper Class="pa-4 mud-height-full">
-                                <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
-                                @if (success)
-                                {
-                                    <MudText Color="Color.Success">Success</MudText>
-                                }
-                                else
-                                {
-                                    <MudText Color="@Color.Error">
-                                        <ValidationSummary />
-                                    </MudText>
-                                }
-                            </MudPaper>
-                        </MudItem>
-                        <MudItem xs="12">
-                            <MudText Typo="Typo.body2" Align="Align.Center">
-                                Please fill out the form correctly.
-                            </MudText>
+                    </MudGrid>
+                </EditForm>
+            }
+            else{
+                <EditForm Model="@User" OnValidSubmit="Register" class="form-style">
+                    <DataAnnotationsValidator/>
+                    <MudGrid>
+                        <MudItem xs="12" sm="7">
+                            <MudCard>
+                                <MudCardContent>
+                                    <MudTextField Label="First name" HelperText="Max. 8 characters"
+                                                  @bind-Value="User.Name" For="@(() => User.Name)"/>
+                                    <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                                                  @bind-Value="User.Password" For="@(() => User.Password)" InputType="InputType.Password"/>
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                                    <MudIconButton Icon="@Icons.Filled.Login" Color="Color.Success" OnClick="ToggleLoginWindow"></MudIconButton>
+                                </MudCardActions>
+                            </MudCard>
                         </MudItem>
                     </MudGrid>
-                    </EditForm>
-                }
+                </EditForm>
+            }
+        }
     </main>
 </div>
 
 @code{
-    public User _user { get; set; } = new User();
-    public User _loginUser { get; set; } = new User();
 
-    public bool _logedIn { get; set; } = false;
+    [Parameter]
+    public User User { get; set; } = new();
 
-    public bool _registerWindow { get; set; }
-    
-    public bool _loginWindow { get; set; }
-
-    public string _builderHref { get; set; }
-    
-    bool success;
+    bool _isUserWindowOpen;
+    bool _loginWindow;
 
     private async Task Register(){
-        List<User> AllUsers = await _userRepository.ReadAllAsync();
-        foreach (User u in AllUsers){
-            if (_user.Name == u.Name){
-                Snackbar.Add("Username already in use");
-                return;
-            }
+        var allUsers = await _userRepository.ReadAllAsync();
+        if (allUsers.Any(u => User.Name == u.Name)){
+            _snackbar.Add("Username already in use");
+            return;
         }
-        success = true;
-        await _userRepository.CreateAsync(_user);
-        _builderHref= "/convoybuilder/" + _user.Id;
-        _logedIn = true;
-        _registerWindow = false;
-    }
-    
-    private async void Login(){
-        List<User> AllUsers = await _userRepository.ReadAllAsync();
-        foreach (User u in AllUsers){
-            if (_loginUser.Name == u.Name){
-                if (_loginUser.Password == u.Password){
-                    success = true;
-                    _user = u;
-                    _builderHref= "/convoybuilder/" + _user.Id;
-                    _logedIn = true;
-                    _loginWindow = false;
-                    return;
-                }
-            }
-        }
-        Snackbar.Add("Incorrect Username or Password");
+        await _userRepository.CreateAsync(User);
+        _navigationManager.NavigateTo($"/convoybuilder/ + {User.Id}");
     }
 
-    private void LogOut(){
-        _logedIn = false;
-        _user = new User();
+    private async void Login(){
+        var allUsers = await _userRepository.ReadAllAsync();
+        foreach (var u in allUsers.Where(u => User.Name == u.Name).Where(u => User.Password == u.Password)){
+            User = u;
+            _navigationManager.NavigateTo($"/savegame/ + {User.Id}");
+            return;
+        }
+        _snackbar.Add("Incorrect Username or Password");
     }
+
+    private void ToggleUserWindow(){
+        _isUserWindowOpen = !_isUserWindowOpen;
+    }
+
+    private void ToggleLoginWindow(){
+        _loginWindow = !_loginWindow;
+    }
+
 }

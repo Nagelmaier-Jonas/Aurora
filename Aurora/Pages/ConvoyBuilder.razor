@@ -256,6 +256,10 @@
 @code {
     [Parameter]
     public int UserId { get; set; }
+    
+    [Parameter]
+    public int ConvoyId { get; set; }
+    
     public User User { get; set; }
     public Convoy Convoy { get; set; } = new();
     public Truck CurrentTruck { get; set; }

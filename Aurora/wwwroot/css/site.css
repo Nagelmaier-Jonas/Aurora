@@ -102,3 +102,9 @@ a, .btn-link {
 .invert{
     transform: scaleX(-1);
 }
+.form-style {
+    position: absolute;
+    top: 100px;
+    left: 50vh;
+    right: 50vh;
+}
