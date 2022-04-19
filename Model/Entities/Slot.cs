@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Model.Entities.Items;
 
 namespace Model.Entities.Slots;
 
-[Table("SLOTS_BT")]
-public abstract class ASlot{
+[Table("SLOTS")]
+public class Slot{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("SLOT_ID")]
@@ -18,4 +19,9 @@ public abstract class ASlot{
 
     [Column("DAMAGED_STATE")]
     public string Damaged{ get; set; }
+
+    public AItem Item{ get; set; }
+    
+    [Column("ITEM_ID")]
+    public int ItemId{ get; set; }
 }

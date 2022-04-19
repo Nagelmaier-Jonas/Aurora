@@ -25,15 +25,7 @@ public class AuroraDbContext : DbContext
 
     public DbSet<AItem> Items { get; set; }
     
-    public DbSet<ASlot> Slots { get; set; }
-    
-    public DbSet<CargoSlot> CargoSlots { get; set; }
-    
-    public DbSet<WeaponSlot> WeaponSlots { get; set; }
-    
-    public DbSet<ChemicalLiquidSlot> ChemicalLiquidSlots { get; set; }
-    
-    public DbSet<CrewSlot> CrewSlots { get; set; }
+    public DbSet<Slot> Slots { get; set; }
     
     public DbSet<Cargo> Cargo { get; set; }
     
@@ -85,7 +77,7 @@ public class AuroraDbContext : DbContext
             .IsUnique();
         
         
-        builder.Entity<ASlot>()
+        builder.Entity<Slot>()
             .HasOne(e => e.Element)
             .WithMany(s => s.Slots)
             .HasForeignKey(e => e.ElementId);
