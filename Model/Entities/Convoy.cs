@@ -21,11 +21,6 @@ public class Convoy
 
     [Column("BACK_TRUCK_ID")] public int? BackTruckId { get; set; }
 
-    [Column("USER_ID")]
-    public int UserId{ get; set; }
-    
-    public User User{ get; set; }
-    
     public override bool Equals(object o) {
         var other = o as Convoy;
         return other?.Code==Code;

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Model.Entities.Items;
 using Model.Entities.Slots;
+using MudBlazor;
 
 namespace Model.Configuration;
 
@@ -38,6 +39,8 @@ public class AuroraDbContext : DbContext
     public DbSet<Keyword> Keywords { get; set; }
 
     public DbSet<AConvoyElement> ConvoyElements{ get; set; }
+    
+    public DbSet<Session> Sessions{ get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -65,12 +68,6 @@ public class AuroraDbContext : DbContext
             .WithOne()
             .HasForeignKey<AUpgradeable>(a => a.AddonId);
         
-        
-
-        builder.Entity<Convoy>()
-            .HasOne(u => u.User)
-            .WithMany(c => c.Convoys)
-            .HasForeignKey(u => u.UserId);
 
         builder.Entity<User>()
             .HasIndex(u => u.Name)
@@ -108,5 +105,16 @@ public class AuroraDbContext : DbContext
             .HasOne(i => i.Keyword)
             .WithMany()
             .HasForeignKey(i => i.KeywordId);
+
+
+        builder.Entity<Session>().HasKey(s => new{s.ConvoyId,s.UserId});
+        builder.Entity<Session>()
+            .HasOne(s => s.User)
+            .WithMany()
+            .HasForeignKey(s => s.UserId);
+        builder.Entity<Session>()
+            .HasOne(s => s.Convoy)
+            .WithMany()
+            .HasForeignKey(s => s.ConvoyId);
     }
 }
