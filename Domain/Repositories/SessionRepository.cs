@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Model.Configuration;
 using Model.Entities;
+using MudBlazor.Extensions;
 
 namespace Domain.Repositories;
 
@@ -12,8 +14,17 @@ public class SessionRepository : ARepository<Session>{
         .Include(s => s.User)
         .Include(s => s.Convoy)
         .ThenInclude(c => c.FrontTruck)
-        .ThenInclude(c => c.Wagons)
-        .Include(c => c.Convoy.BackTruck)
-        .ThenInclude(c => c.Wagons)
+        .ThenInclude(t => t.Addon)
+        .Include(s => s.Convoy)
+        .ThenInclude(c => c.FrontTruck)
+        .ThenInclude(t => t.Wagons)
+        .ThenInclude(w => w.Addon)
+        .Include(s => s.Convoy)
+        .ThenInclude(c => c.BackTruck)
+        .ThenInclude(t => t.Addon)
+        .Include(s => s.Convoy)
+        .ThenInclude(c => c.BackTruck)
+        .ThenInclude(t => t.Wagons)
+        .ThenInclude(w => w.Addon)
         .SingleOrDefaultAsync(s => s.Id == id);
 }
