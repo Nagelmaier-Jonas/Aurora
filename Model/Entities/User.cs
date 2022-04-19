@@ -10,7 +10,7 @@ public class User{
     [Column("USER_ID")]
     public int Id{ get; set; }
 
-    public List<Convoy> Convoys{ get; set; }
+    public List<Session> Sessions{ get; set; }
 
     [Required]
     [Column("USER_NAME", TypeName = "VARCHAR(8)")]
