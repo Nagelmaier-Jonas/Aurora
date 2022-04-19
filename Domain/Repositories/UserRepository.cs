@@ -8,5 +8,9 @@ public class UserRepository : ARepository<User>{
     public UserRepository(AuroraDbContext context) : base(context){
     }
     
-    public async Task<User> ReadUserGraphAsync(int id) => await _set.Include(u => u.Sessions).SingleOrDefaultAsync(u => u.Id == id);
+    public async Task<User?> ReadUserGraphAsync(int id) => await _set
+        .Include(u => u.Sessions)
+        .ThenInclude(s => s.Convoy)
+        .ThenInclude(c => c.FrontTruck)
+        .SingleOrDefaultAsync(u => u.Id == id);
 }
