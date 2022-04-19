@@ -4,6 +4,9 @@
 @inject UserRepository _userRepository
 @inject ISnackbar _snackbar
 @inject NavigationManager _navigationManager
+@inject IRepository<Convoy> _convoyRepository
+@inject SessionRepository _sessionRepository
+
 
 <MudThemeProvider/>
 <MudDialogProvider/>
@@ -85,15 +88,21 @@
             _snackbar.Add("Username already in use");
             return;
         }
-        await _userRepository.CreateAsync(User);
-        _navigationManager.NavigateTo($"/convoybuilder/ + {User.Id}");
+        _isUserWindowOpen = false;
+        Session session = new Session(){
+            Convoy = new Convoy(),
+            User = User
+        };
+        await _sessionRepository.CreateAsync(session);
+        _navigationManager.NavigateTo($"/convoybuilder/{session.Id}");
     }
 
     private async void Login(){
         var allUsers = await _userRepository.ReadAllAsync();
         foreach (var u in allUsers.Where(u => User.Name == u.Name).Where(u => User.Password == u.Password)){
             User = u;
-            _navigationManager.NavigateTo($"/savegame/ + {User.Id}");
+            _isUserWindowOpen = false;
+            _navigationManager.NavigateTo($"/savegame/{User.Id}");
             return;
         }
         _snackbar.Add("Incorrect Username or Password");

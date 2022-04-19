@@ -15,4 +15,13 @@
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Migrations\20220419110927_newModel5.Designer.cs" />
+      <Compile Remove="Migrations\20220419110927_newModel5.cs" />
+      <Compile Remove="Entities\AConvoyable.cs" />
+      <Compile Remove="Entities\Item.cs" />
+      <Compile Remove="Enums\EKeywords.cs" />
+      <Compile Remove="Enums\EItemType.cs" />
+    </ItemGroup>
+
 </Project>

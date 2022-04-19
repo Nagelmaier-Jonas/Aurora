@@ -1,9 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities;
 
-[Table("SESSIONS_JT")]
+[Table("SESSIONS")]
 public class Session{
+
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("SESSION_ID")]
+    public int Id{ get; set; }
 
     [Column("USER_ID")]
     public int UserId{ get; set; }

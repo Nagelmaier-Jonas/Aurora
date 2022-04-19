@@ -1,4 +1,4 @@
-@page "/convoybuilder/{UserId:int}"
+@page "/convoybuilder/{SessionId:int}"
 @using Domain.LogicHandlers
 @using Domain.LogicHandlers.Exceptions
 @using Domain.Repositories
@@ -11,12 +11,12 @@
 @inject IRepository<Truck> _truckRepository
 @inject IRepository<Addon> _addonRepository
 @inject UserRepository _userRepository
+@inject SessionRepository _sessionRepository
 @inject IDialogService DialogService
 
 <MudImage Src="images/bg.png" Alt="Theme Picture" Style="height: 100vh; width: 100vw; position: fixed;"/>
 <MudImage Src="images/title.png" Alt="Theme Picture" Style="width: 30% !important; height: 40px; position: fixed !important; margin: auto !important; right: 35%; top: 70px;"/>
 <MudButton Class="float-end position-fixed nav-btn" OnClick="@(() => _savePanel = !_savePanel)" Variant="Variant.Text" Color="Color.Tertiary" EndIcon="@Icons.Filled.Save" Style="z-index: 9999; width: 64px; height: 64px; margin: 0 auto !important;"></MudButton>
-@*Load Button, schaut da du des au Joni <MudButton Class="float-end position-fixed nav-btn" OnClick="@(() => _loadPanel = !_loadPanel)" Variant="Variant.Text" Color="Color.Tertiary" EndIcon="@Icons.Filled.Download" Style="z-index: 9999; width: 64px; height: 64px; margin: 0 auto !important;"></MudButton> *@
 
 <div Style="position: absolute; bottom: 0 !important; height: 416px; width: 100% !important; background-color: #1a1e21">
     <MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 h-100" Color="Color.Dark" Style="height: 100%;" @ref="tabs">
@@ -193,6 +193,7 @@
                 @if (Convoy.FrontTruck.IsAddonPresent()){
                     <MudCardMedia Image=@Convoy.FrontTruck.Addon.Image Height="179"/>
                     <MudCardMedia Image=@Convoy.FrontTruck.Image Height="179"/>
+                    <MudButton Class="item-btn item-btn-t1"></MudButton>
                     <MudCardContent Class="pv-cc">
                         <MudText Typo="Typo.h5">@Convoy.FrontTruck.Code</MudText>
                     </MudCardContent>
@@ -287,11 +288,9 @@
 
 @code {
     [Parameter]
-    public int UserId { get; set; }
-    
-    [Parameter]
-    public int ConvoyId { get; set; }
+    public int SessionId { get; set; }
 
+    public Session Session { get; set; }
     public User User { get; set; }
     public Convoy Convoy { get; set; } = new();
     public Truck CurrentTruck { get; set; }
@@ -307,12 +306,14 @@
     private bool _convoyIsOpen;
 
     protected override async void OnParametersSet(){
-        if (_userRepository.ReadAsync(UserId) == null){
+        if (await _sessionRepository.ReadAsync(SessionId) == null){
             Snackbar.Add("No Data...");
             return;
         }
-        //User = await _userRepository.ReadConvoysAsync(UserId);
-        //Convoy = await _convoyRepository.ReadAsync(ConvoyId);
+        Session = await _sessionRepository.ReadSessionGraphAsync(SessionId);
+        Convoy = Session.Convoy;
+        User = Session.User;
+
     }
 
     public bool CheckConvoy(){
@@ -398,7 +399,7 @@
     }
 
     private async Task Save(){
-        await _convoyRepository.CreateAsync(Convoy);
+        await _sessionRepository.UpdateAsync(Session);
     }
 
     private void Cancel(){

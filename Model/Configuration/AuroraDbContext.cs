@@ -107,14 +107,13 @@ public class AuroraDbContext : DbContext
             .HasForeignKey(i => i.KeywordId);
 
 
-        builder.Entity<Session>().HasKey(s => new{s.ConvoyId,s.UserId});
         builder.Entity<Session>()
             .HasOne(s => s.User)
             .WithMany(u => u.Sessions)
             .HasForeignKey(s => s.UserId);
         builder.Entity<Session>()
             .HasOne(s => s.Convoy)
-            .WithMany()
-            .HasForeignKey(s => s.ConvoyId);
+            .WithOne()
+            .HasForeignKey<Session>(s => s.ConvoyId);
     }
 }

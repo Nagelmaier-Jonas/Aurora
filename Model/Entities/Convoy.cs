@@ -12,7 +12,7 @@ public class Convoy
     public int Id { get; set; }
 
     [Column("CODE", TypeName = "VARCHAR(50)")]
-    public string Code { get; set; }
+    public string? Code{ get; set; }
 
     public Truck? FrontTruck { get; set; }
     public Truck? BackTruck { get; set; }
@@ -28,5 +28,5 @@ public class Convoy
     
     public override int GetHashCode() => Code?.GetHashCode() ?? 0;
     
-    public override string ToString() => Code;
+    public override string? ToString() => Code;
 }

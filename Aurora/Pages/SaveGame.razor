@@ -2,36 +2,73 @@
 @using Domain.Repositories
 @using Model.Entities
 @inject UserRepository _userRepository
-@inject ConvoyRepository _convoyRepository
+@inject IRepository<Convoy> _convoyRepository
+@inject SessionRepository _sessionRepository
 @inject ISnackbar _snackbar
 @inject NavigationManager _navigationManager
 
 <MudImage Src="images/theme.jpg" Alt="Theme Picture" Style="height: 100vh; width: 100vw; position: fixed;"/>
-<MudContainer Class="saves-container">
-    <MudButton FullWidth="false" OnClick="NewConvoy" Variant="Variant.Filled" Size="Size.Large" Color="Color.Success" Class="newSlot-btn">
-        @if (_processing){
-            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
-            <MudText Class="ms-2">Creating</MudText>
+@if (User != null){
+    <MudContainer Class="saves-container">
+        <MudButton FullWidth="false" OnClick="NewSession" Variant="Variant.Filled" Size="Size.Large" Color="Color.Success" Class="newSlot-btn">
+            @if (_processing){
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                <MudText Class="ms-2">Creating</MudText>
+            }
+            else{
+                <MudText>New Convoy</MudText>
+            }
+        </MudButton>
+        @if (User.Sessions.Count != 0){
+           <div Style="position: relative; height: 60vh; width: 100% !important; background-color: #1a1e21; margin-top: 20px;">
+                       <MudTabs Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 h-100" Color="Color.Dark" Style="height: 100%;">
+                           <MudTabPanel Text="Sessions">
+                               <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;">
+                                   <BulletTemplate Context="selected">
+                                       <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                           <span class="mud-icon-button-label">
+                                               <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Info"/>
+                                           </span>
+                                       </div>
+                                   </BulletTemplate>
+                                   <PreviousButtonTemplate>
+                                       <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                           <span class="mud-icon-button-label">
+                                               <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Info"/>
+                                           </span>
+                                       </div>
+                                   </PreviousButtonTemplate>
+                                   <NextButtonTemplate>
+                                       <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
+                                           <span class="mud-icon-button-label">
+                                               <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Info"/>
+                                           </span>
+                                       </div>
+                                   </NextButtonTemplate>
+                                   <ChildContent>
+                                       @foreach (var session in User.Sessions){
+                                           <MudCarouselItem Style="text-align: -webkit-center; display: flex; justify-content: center;">
+                                               <MudCard Class="saves-card">
+                                                   <MudCardMedia Image="@session.Convoy.FrontTruck?.Image" Height="250"/>
+                                                   <MudCardContent>
+                                                       <MudText Typo="Typo.body2">@session.Convoy.Code</MudText>
+                                                       <MudText Typo="Typo.body2">Money: @session.Money</MudText>
+                                                   </MudCardContent>
+                                                   <MudCardActions Style="justify-content: center;">
+                                                       <MudIconButton Color="Color.Success" Icon="@Icons.Filled.Login" OnClick="() => LoadState(session.Convoy)"/>
+                                                       <MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick="() => DeleteState(session.Convoy)"/>
+                                                   </MudCardActions>
+                                               </MudCard>
+                                           </MudCarouselItem>
+                                       }
+                                   </ChildContent>
+                               </MudCarousel>
+                           </MudTabPanel>
+                       </MudTabs>
+                   </div> 
         }
-        else{
-            <MudText>New Convoy</MudText>
-        }
-    </MudButton>
-    @if (User != null){
-        @foreach (var convoy in User.Convoys){
-            <MudCard Class="saves-card">
-                <MudCardMedia Image="@convoy.FrontTruck?.Image" Height="250"/>
-                <MudCardContent>
-                    <MudText Typo="Typo.body2">@convoy.Code</MudText>
-                </MudCardContent>
-                <MudCardActions Style="justify-content: center;">
-                    <MudIconButton Color="Color.Success" Icon="@Icons.Filled.Login" OnClick="() => LoadState(convoy)"/>
-                    <MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick="() => DeleteState(convoy)"/>
-                </MudCardActions>
-            </MudCard>
-        }
-    }
-</MudContainer>
+    </MudContainer>
+}
 
 @code {
 
@@ -47,7 +84,7 @@
     }
 
     private void LoadState(Convoy convoy){
-        _navigationManager.NavigateTo($"/convoybuilder/{User.Id}{convoy.Id}");
+        _navigationManager.NavigateTo($"/convoybuilder/{convoy.Id}");
         ;
     }
 
@@ -56,12 +93,17 @@
         _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
     }
 
-    async Task NewConvoy(){
+    async Task NewSession(){
         _processing = true;
+        Session session = new Session(){
+            Convoy = new Convoy(),
+            User = User
+        };
+        await _sessionRepository.CreateAsync(session);
         await Task.Delay(2000);
-        _navigationManager.NavigateTo($"/convoybuilder/{User.Id}");
-        ;
+        _navigationManager.NavigateTo($"/convoybuilder/{session.Id}");;
         _processing = false;
     }
 
 }
+

@@ -1,4 +1,5 @@
-﻿using Model.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Model.Configuration;
 using Model.Entities;
 
 namespace Domain.Repositories;
