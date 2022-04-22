@@ -1,6 +1,7 @@
 ﻿@page "/savegame/{UserId:int}"
 @using Domain.Repositories
 @using Model.Entities
+@using Domain.Factories
 @inject UserRepository _userRepository
 @inject IRepository<Convoy> _convoyRepository
 @inject SessionRepository _sessionRepository
@@ -16,7 +17,7 @@
                 <MudText Class="ms-2">Creating</MudText>
             }
             else{
-                <MudText>New Convoy</MudText>
+                <MudText>New Session</MudText>
             }
         </MudButton>
         @if (User.Sessions.Count != 0){
@@ -56,7 +57,7 @@
                                                    </MudCardContent>
                                                    <MudCardActions Style="justify-content: center;">
                                                        <MudIconButton Color="Color.Success" Icon="@Icons.Filled.Login" OnClick="() => LoadState(session.Convoy)"/>
-                                                       <MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick="() => DeleteState(session.Convoy)"/>
+                                                       <MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick="() => DeleteState(session)"/>
                                                    </MudCardActions>
                                                </MudCard>
                                            </MudCarouselItem>
@@ -88,8 +89,8 @@
         ;
     }
 
-    private void DeleteState(Convoy convoy){
-        _convoyRepository.DeleteAsync(convoy);
+    private void DeleteState(Session session){
+        _sessionRepository.DeleteAsync(session);
         _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
     }
 

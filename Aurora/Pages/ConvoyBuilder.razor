@@ -292,7 +292,7 @@
 
     public Session Session { get; set; }
     public User User { get; set; }
-    public Convoy Convoy { get; set; } = new();
+    public Convoy Convoy { get; set; }
     public Truck CurrentTruck { get; set; }
     public Wagon CurrentWagon { get; set; }
     public Addon CurrentAddon { get; set; }
@@ -313,7 +313,6 @@
         Session = await _sessionRepository.ReadSessionGraphAsync(SessionId);
         Convoy = Session.Convoy;
         User = Session.User;
-
     }
 
     public bool CheckConvoy(){
