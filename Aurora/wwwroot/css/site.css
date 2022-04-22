@@ -107,6 +107,7 @@ a, .btn-link {
     top: 100px;
     left: 50vh;
     right: 50vh;
+    z-index: 1;
 }
 .form-style .mud-input-helper-text {
     color: white !important;

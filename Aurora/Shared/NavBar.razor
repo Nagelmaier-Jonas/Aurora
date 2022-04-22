@@ -1,0 +1,116 @@
+﻿@using Model.Entities
+@using Domain.Repositories
+@inherits LayoutComponentBase
+@inject UserRepository _userRepository
+@inject ISnackbar _snackbar
+@inject NavigationManager _navigationManager
+@inject IRepository<Convoy> _convoyRepository
+@inject SessionRepository _sessionRepository
+
+<div class="page">
+    <main>
+        <MudAppBar Color="Color.Dark" Fixed="true" Elevation="0">
+            <MudSpacer/>
+            <MudIconButton Icon="@Icons.Filled.ArrowBackIos" Color="Color.Error" Href="/" Target="_self"></MudIconButton>
+            <MudSpacer/>
+            <MudText>Aurora</MudText>
+            @if (_navigationManager.ToBaseRelativePath(_navigationManager.BaseUri) == "/" || _navigationManager.ToBaseRelativePath(_navigationManager.BaseUri) == ""){
+                Console.WriteLine(_navigationManager.ToBaseRelativePath(_navigationManager.BaseUri));
+                <MudSpacer/>
+                <MudIconButton Icon="@Icons.Filled.Person" Color="Color.Success" OnClick="ToggleUserWindow"></MudIconButton>
+                <MudSpacer/>
+            }
+        </MudAppBar>
+        @if (_isUserWindowOpen){
+            @if (_loginWindow){
+                <EditForm Model="@User" OnValidSubmit="Login" class="form-style">
+                    <DataAnnotationsValidator/>
+                    <MudItem xs="12" sm="7" Class="mx-auto">
+                        <MudCard Style="background-color: #424242">
+                            <MudCardContent>
+                                <MudText Style="color: white;" Align="Align.Center"><b>Login</b></MudText>
+                                <MudTextField Label="First name" HelperText="Max. 8 characters"
+                                              @bind-Value="User.Name" For="@(() => User.Name)"/>
+                                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                                              @bind-Value="User.Password" For="@(() => User.Password)" InputType="InputType.Password"/>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" StartIcon="@Icons.Filled.Login" Color="Color.Success" Size="Size.Small" Class="mx-auto">Login</MudButton>
+                                <MudIconButton Icon="@Icons.Filled.AppRegistration" Color="Color.Success" OnClick="ToggleLoginWindow"></MudIconButton>
+                            </MudCardActions>
+                        </MudCard>
+                    </MudItem>
+                </EditForm>
+            }
+            else{
+                <EditForm Model="@User" OnValidSubmit="Register" class="form-style">
+                    <DataAnnotationsValidator/>
+                    <MudItem xs="12" sm="7" Class="mx-auto">
+                        <MudCard Style="background-color: #424242">
+                            <MudCardContent>
+                                <MudText Style="color: white;" Align="Align.Center"><b>Register</b></MudText>
+                                <MudTextField Label="First name" HelperText="Max. 8 characters"
+                                              @bind-Value="User.Name" For="@(() => User.Name)"/>
+                                <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                                              @bind-Value="User.Password" For="@(() => User.Password)" InputType="InputType.Password"/>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Outlined" StartIcon="@Icons.Filled.AppRegistration" Color="Color.Success"  Size="Size.Small" Class="mx-auto">Register</MudButton>
+                                <MudIconButton Icon="@Icons.Filled.Login" Color="Color.Success" OnClick="ToggleLoginWindow"></MudIconButton>
+                            </MudCardActions>
+                        </MudCard>
+                    </MudItem>
+                </EditForm>
+            }
+        }
+    </main>
+</div>
+
+@code{
+
+    [Parameter]
+    public User User { get; set; } = new();
+
+    bool _isUserWindowOpen;
+    bool _loginWindow;
+    
+    MudForm? _login;
+    MudForm? _register;
+
+    private async Task Register(){
+        var allUsers = await _userRepository.ReadAllAsync();
+        if (allUsers.Any(u => User.Name == u.Name)){
+            _snackbar.Add("Username already in use");
+            return;
+        }
+        _isUserWindowOpen = false;
+        Session session = new Session(){
+            Convoy = new Convoy(),
+            User = User
+        };
+        await _sessionRepository.CreateAsync(session);
+        _navigationManager.NavigateTo($"/convoybuilder/{session.Id}");
+    }
+
+    private async void Login(){
+        var allUsers = await _userRepository.ReadAllAsync();
+        foreach (var u in allUsers.Where(u => User.Name == u.Name).Where(u => User.Password == u.Password)){
+            User = u;
+            _isUserWindowOpen = false;
+            _navigationManager.NavigateTo($"/savegame/{User.Id}");
+            return;
+        }
+        _snackbar.Add("Incorrect Username or Password");
+    }
+
+    private void ToggleUserWindow(){
+        _isUserWindowOpen = !_isUserWindowOpen;
+        User = new();
+    }
+
+    private void ToggleLoginWindow(){
+        _loginWindow = !_loginWindow;
+        User = new();
+    }
+
+}
