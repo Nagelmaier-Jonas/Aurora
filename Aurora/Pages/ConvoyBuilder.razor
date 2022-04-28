@@ -241,7 +241,7 @@
                 </ChildContent>
             </MudCarousel>
         </MudTabPanel>
-        <MudTabPanel Text="Items" Disabled="@_itemDisabled">
+        <MudTabPanel Text="Cargo" Disabled="@_itemDisabled">
             <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;">
                 <BulletTemplate Context="selected">
                     <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
@@ -265,7 +265,7 @@
                     </div>
                 </NextButtonTemplate>
                 <ChildContent>
-                    @foreach (var item in AllEntities.Items()){
+                    @foreach (var item in AllEntities.BuyableCargo()){
                         <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
 
                             <MudCard Style="height: 100% !important; background-color: transparent !important;">

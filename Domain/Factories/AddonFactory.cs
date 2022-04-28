@@ -1,166 +1,199 @@
 ﻿using Model.Entities;
+using Model.Entities.Cargo;
+using Model.Entities.Cargo.Implementation;
+using Model.Entities.Slots;
+using Model.Entities.Slots.Implementation;
 
 namespace Domain.Factories;
 
-public static class AddonFactory
-{
-    public static Addon CreateMachineGun()
-    {
-        return new()
-        {
-            Code = "Machine Gun",
-            Price = 10,
-            Image = "cards/add1.png"
-        };
-    }
+public static class AddonFactory{
+    public static Addon KarabinMaszynowy() => new(){
+        Code = "KARABIN MASZYNOWY",
+        Image = "cards/Addon1.png",
+        Price = 15000,
+        Slots = new List<ASlot>{
+            new WeaponSlot{
+                Cargo = CargoFactory.RedWeapon2(),
+                IsConstant = true,
+                OrderId = 1
+            },
+            new CrewSlot{OrderId = 2}
+        }
+    };
 
-    public static Addon CreateVulcanGun()
-    {
-        return new()
-        {
-            Code = "Vulcan Gun",
-            Price = 10,
-            Image = "cards/add2.png"
-        };
-    }
+    public static Addon MalyBagaznik() => new(){
+        Code = "MALY BAGAZNIK",
+        Image = "cards/Addon3.png",
+        Price = 1000,
+        Slots = new List<ASlot>{
+            new StandardSlot{OrderId = 1},
+            new StandardSlot{OrderId = 2}
+        }
+    };
 
-    public static Addon CreateSmallStorage()
-    {
-        return new()
-        {
-            Code = "Small Storage",
-            Price = 10,
-            Image = "cards/add3.png"
-        };
-    }
+    public static Addon Dzialo() => new(){
+        Code = "DZIALO",
+        Image = "cards/Addon7.png",
+        Price = 35000,
+        Slots = new List<ASlot>{
+            new WeaponSlot{
+                Cargo = CargoFactory.RedWeapon4(),
+                IsConstant = true,
+                OrderId = 1
+            }
+        }
+    };
 
-    public static Addon CreateNuclearReactor()
-    {
-        return new()
-        {
-            Code = "Nuclear Reactor",
-            Price = 10,
-            Image = "cards/add4.png"
-        };
-    }
+    public static Addon Pancerz() => new(){
+        Code = "PANCERZ",
+        Image = "cards/Addon8.png",
+        Price = 2000,
+        Slots = new List<ASlot>{
+            new StandardSlot{
+                Cargo = CargoFactory.Armor(),
+                IsConstant = true,
+                OrderId = 1
+            },
+            new StandardSlot{
+                Cargo = CargoFactory.Armor(),
+                IsConstant = true,
+                OrderId = 2
+            },
+            new StandardSlot{
+                Cargo = CargoFactory.Armor(),
+                IsConstant = true,
+                OrderId = 3
+            }
+        }
+    };
 
-    public static Addon CreateHeavyGun()
-    {
-        return new()
-        {
-            Code = "Heavy Gun",
-            Price = 10,
-            Image = "cards/add7.png"
-        };
-    }
+    public static Addon DuzyBagaznik() => new(){
+        Code = "DUZY BAGAZNIK",
+        Image = "cards/Addon9.png",
+        Price = 3000,
+        Slots = new List<ASlot>{
+            new StandardSlot{OrderId = 1},
+            new StandardSlot{OrderId = 2},
+            new ArmorSlot{
+                Cargo = CargoFactory.Armor(),
+                IsConstant = true,
+                OrderId = 3
+            }
+        }
+    };
 
-    public static Addon CreateArmor()
-    {
-        return new()
-        {
-            Code = "Armor",
-            Price = 10,
-            Image = "cards/add8.png"
-        };
-    }
+    public static Addon CiezkiPancerz() => new(){
+        Code = "CIEZKI PANCERZ",
+        Image = "cards/Addon11.png",
+        Price = 5000,
+        Slots = new List<ASlot>{
+            new StandardSlot{
+                Cargo = CargoFactory.Armor(),
+                IsConstant = true,
+                OrderId = 1
+            },
+            new StandardSlot{
+                Cargo = CargoFactory.Armor(),
+                IsConstant = true,
+                OrderId = 2
+            },
+            new StandardSlot{
+                Cargo = CargoFactory.Armor(),
+                IsConstant = true,
+                OrderId = 3
+            },
+            new StandardSlot{
+                Cargo = CargoFactory.Armor(),
+                IsConstant = true,
+                OrderId = 4
+            }
+        }
+    };
 
-    public static Addon CreateLargeStorage()
-    {
-        return new()
-        {
-            Code = "Large Storage",
-            Price = 10,
-            Image = "cards/add9.png"
-        };
-    }
+    public static Addon PrzetwarzaczBiomasy() => new(){
+        Code = "PRZETWARZACZ BIOMASY",
+        Image = "cards/Addon12.png",
+        Price = 25000,
+        Slots = new List<ASlot>{
+            new StandardSlot{
+                Cargo = CargoFactory.FuelGenerator(),
+                IsConstant = true,
+                OrderId = 1
+            }
+        }
+    };
 
-    public static Addon CreateGreenhouse()
-    {
-        return new()
-        {
-            Code = "Greenhouse",
-            Price = 10,
-            Image = "cards/add10.png"
-        };
-    }
+    public static Addon OpancerzonyBagaznik() => new(){
+        Code = "OPANCERZONY BAGAZNIK",
+        Image = "cards/Addon13.png",
+        Price = 3000,
+        Slots = new List<ASlot>{
+            new StandardSlot{OrderId = 1},
+            new StandardSlot{OrderId = 2},
+            new StandardSlot{
+                Cargo = CargoFactory.BonusStar1(),
+                OrderId = 3
+            }
+        }
+    };
 
-    public static Addon CreateHeavyArmor()
-    {
-        return new()
-        {
-            Code = "Heavy Armor",
-            Price = 10,
-            Image = "cards/add11.png"
-        };
-    }
+    public static Addon MikroreaktorNuklearny() => new(){
+        Code = "MIKROREAKTOR NUKLEARNY",
+        Image = "cards/Addon15.png",
+        Price = 25000,
+        Slots = new List<ASlot>{
+            new StandardSlot{
+                Cargo = CargoFactory.Nuclear(),
+                IsConstant = true,
+                OrderId = 1
+            },
+            new StandardSlot{OrderId = 2}
+        }
+    };
 
-    public static Addon CreateBioFuelGenerator()
-    {
-        return new()
-        {
-            Code = "Bio Fuel Generator",
-            Price = 10,
-            Image = "cards/add12.png"
-        };
-    }
+    public static Addon DronyNaprawcze() => new(){
+        Code = "DRONY NAPRAWCZE",
+        Image = "cards/Addon16.png",
+        Price = 15000,
+        Slots = new List<ASlot>{
+            new StandardSlot{
+                Cargo = CargoFactory.RepairNoAtom(),
+                OrderId = 1
+            },
+            new ArmorSlot{
+                Cargo = CargoFactory.Armor(),
+                OrderId = 2
+            },
+        }
+    };
 
-    public static Addon CreateHeavyLargeStorage()
-    {
-        return new()
-        {
-            Code = "Heavy Large Storage",
-            Price = 10,
-            Image = "cards/add13.png"
-        };
-    }
+    public static Addon Zuraw() => new(){
+        Code = "ZURAW",
+        Image = "cards/Addon17.png",
+        Price = 20000,
+        Slots = new List<ASlot>{
+            new StandardSlot{
+                Cargo = CargoFactory.GrabberNoAtom(),
+                IsConstant = true,
+                OrderId = 1
+            },
+            new CrewSlot{OrderId = 2},
+            new StandardSlot{OrderId = 3}
+        }
+    };
 
-    public static Addon CreateGaussaGun()
-    {
-        return new()
-        {
-            Code = "Gaussa Gun",
-            Price = 10,
-            Image = "cards/add14.png"
-        };
-    }
-
-    public static Addon CreateSmallNuclearReactor()
-    {
-        return new()
-        {
-            Code = "Small Nuclear Reactor",
-            Price = 10,
-            Image = "cards/add15.png"
-        };
-    }
-
-    public static Addon CreateMaintenanceDrone()
-    {
-        return new()
-        {
-            Code = "Maintenance Drone",
-            Price = 10,
-            Image = "cards/add16.png"
-        };
-    }
-
-    public static Addon CreateZuraw()
-    {
-        return new()
-        {
-            Code = "Zuraw",
-            Price = 10,
-            Image = "cards/add17.png"
-        };
-    }
-
-    public static Addon CreateTurboBagpiper()
-    {
-        return new()
-        {
-            Code = "Turbo Bagpiper",
-            Price = 10,
-            Image = "cards/add18.png"
-        };
-    }
+    public static Addon TurboKobziarz() => new(){
+        Code = "TURBO KOBZIARZ",
+        Image = "cards/Addon18.png",
+        Price = 7000,
+        Slots = new List<ASlot>{
+            new StandardSlot{
+                Cargo = CargoFactory.StarNoAtom(),
+                IsConstant = true,
+                OrderId = 1
+            },
+            new StandardSlot{OrderId = 2},
+            new StandardSlot{OrderId = 3}
+        }
+    };
 }
