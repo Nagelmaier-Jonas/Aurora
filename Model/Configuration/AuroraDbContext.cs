@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
-using Model.Entities.Items;
+using Model.Entities.Cargo;
 using Model.Entities.Slots;
-using MudBlazor;
 
 namespace Model.Configuration;
 
@@ -24,23 +23,17 @@ public class AuroraDbContext : DbContext
     
     public DbSet<User> Users { get; set; }
 
-    public DbSet<AItem> Items { get; set; }
+    public DbSet<ACargo> Items { get; set; }
     
-    public DbSet<Slot> Slots { get; set; }
-    
-    public DbSet<Cargo> Cargo { get; set; }
-    
-    public DbSet<ChemicalLiquid> ChemicalLiquids { get; set; }
-    
-    public DbSet<CrewMember> CrewMembers { get; set; }
-    
-    public DbSet<Weapon> Weapons { get; set; }
-    
+    public DbSet<ASlot> Slots { get; set; }
+
     public DbSet<Keyword> Keywords { get; set; }
 
     public DbSet<AConvoyElement> ConvoyElements{ get; set; }
     
     public DbSet<Session> Sessions{ get; set; }
+
+    public DbSet<CargosJtKeywords> CargosJtKeywords{ get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -74,7 +67,7 @@ public class AuroraDbContext : DbContext
             .IsUnique();
         
         
-        builder.Entity<Slot>()
+        builder.Entity<ASlot>()
             .HasOne(e => e.Element)
             .WithMany(s => s.Slots)
             .HasForeignKey(e => e.ElementId);
@@ -94,14 +87,14 @@ public class AuroraDbContext : DbContext
         
         
         
-        builder.Entity<ItemHasKeywords>().HasKey(i =>new{i.ItemId, i.KeywordId});
+        builder.Entity<CargosJtKeywords>().HasKey(i =>new{i.CargoId, i.KeywordId});
         
-        builder.Entity<ItemHasKeywords>()
-            .HasOne(i => i.Item)
-            .WithMany()
-            .HasForeignKey(i => i.ItemId);
+        builder.Entity<CargosJtKeywords>()
+            .HasOne(i => i.Cargo)
+            .WithMany(k => k.Keywords)
+            .HasForeignKey(i => i.CargoId);
         
-        builder.Entity<ItemHasKeywords>()
+        builder.Entity<CargosJtKeywords>()
             .HasOne(i => i.Keyword)
             .WithMany()
             .HasForeignKey(i => i.KeywordId);
@@ -115,5 +108,22 @@ public class AuroraDbContext : DbContext
             .HasOne(s => s.Convoy)
             .WithOne()
             .HasForeignKey<Session>(s => s.ConvoyId);
+        
+        builder.Entity<ACargo>()
+            .HasDiscriminator<string>("CARGO_TYPE")
+            .HasValue<CrewCargo>(nameof(CrewCargo))
+            .HasValue<FuelCargo>(nameof(FuelCargo))
+            .HasValue<StandardCargo>(nameof(StandardCargo))
+            .HasValue<ArmorCargo>(nameof(ArmorCargo))
+            .HasValue<WeaponCargo>(nameof(WeaponCargo));
+
+
+        builder.Entity<ASlot>()
+            .HasDiscriminator<string>("SLOT_TYPE")
+            .HasValue<CrewSlot>(nameof(CrewSlot))
+            .HasValue<FuelSlot>(nameof(FuelSlot))
+            .HasValue<StandardSlot>(nameof(StandardSlot))
+            .HasValue<WeaponSlot>(nameof(WeaponSlot))
+            .HasValue<ArmorSlot>(nameof(ArmorSlot));
     }
 }

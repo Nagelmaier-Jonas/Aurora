@@ -5,11 +5,12 @@ namespace Model.Entities;
 
 [Table("KEYWORDS")]
 public class Keyword{
+    
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("KEYWORD_ID")]
     public int Id{ get; set; }
 
-    [Column("KEYWORD_VALUE")]
-    public string Value{ get; set; }
+    [Column("KEYWORD")]
+    public EKeyword Value{ get; set; }
 }

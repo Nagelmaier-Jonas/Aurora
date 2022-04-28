@@ -8,5 +8,5 @@ public class ConvoyElementRepository : ARepository<AConvoyElement>{
     public ConvoyElementRepository(AuroraDbContext context) : base(context){
     }
     
-    public async Task<AConvoyElement> ReadConvoysAsync(int id) => await _set.Include(s => s.Slots).SingleOrDefaultAsync(e => e.ElementId == id);
+    public async Task<AConvoyElement> ReadConvoysAsync(int id) => await _set.Include(s => s.Slots).AsSplitQuery().SingleOrDefaultAsync(e => e.ElementId == id);
 }

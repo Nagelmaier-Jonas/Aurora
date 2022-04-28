@@ -22,5 +22,5 @@ public abstract class AConvoyElement{
 
     [Column("IMAGE")] public string Image { get; set; }
 
-    public List<Slot> Slots{ get; set; }
+    public List<ASlot> Slots{ get; set; }
 }

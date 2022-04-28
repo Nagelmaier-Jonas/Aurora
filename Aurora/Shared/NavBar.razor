@@ -1,4 +1,5 @@
-﻿@using Model.Entities
+﻿@implements IDisposable
+@using Model.Entities
 @using Domain.Repositories
 @inherits LayoutComponentBase
 @inject UserRepository _userRepository
@@ -10,15 +11,12 @@
 <div class="page">
     <main>
         <MudAppBar Color="Color.Dark" Fixed="true" Elevation="0">
+            <MudIconButton Icon="@Icons.Filled.ArrowBackIos" Color="Color.Error" Target="_self"></MudIconButton>
             <MudSpacer/>
-            <MudIconButton Icon="@Icons.Filled.ArrowBackIos" Color="Color.Error" Href="/" Target="_self"></MudIconButton>
-            <MudSpacer/>
-            <MudText>Aurora</MudText>
-            @if (_navigationManager.ToBaseRelativePath(_navigationManager.BaseUri) == "/" || _navigationManager.ToBaseRelativePath(_navigationManager.BaseUri) == ""){
-                Console.WriteLine(_navigationManager.ToBaseRelativePath(_navigationManager.BaseUri));
+            <MudButton Href="/" Style="color: white;">Aurora</MudButton>
+            @if (_navigationManager.Uri == _navigationManager.BaseUri){
                 <MudSpacer/>
                 <MudIconButton Icon="@Icons.Filled.Person" Color="Color.Success" OnClick="ToggleUserWindow"></MudIconButton>
-                <MudSpacer/>
             }
         </MudAppBar>
         @if (_isUserWindowOpen){
@@ -77,6 +75,14 @@
     MudForm? _login;
     MudForm? _register;
 
+    protected override void OnInitialized(){
+        _navigationManager.LocationChanged += StateHasChanged;
+    }
+
+    private void StateHasChanged(object? sender, LocationChangedEventArgs e){
+        StateHasChanged();
+    }
+
     private async Task Register(){
         var allUsers = await _userRepository.ReadAllAsync();
         if (allUsers.Any(u => User.Name == u.Name)){
@@ -90,14 +96,16 @@
         };
         await _sessionRepository.CreateAsync(session);
         _navigationManager.NavigateTo($"/convoybuilder/{session.Id}");
+        StateHasChanged();
     }
 
     private async void Login(){
         var allUsers = await _userRepository.ReadAllAsync();
         foreach (var u in allUsers.Where(u => User.Name == u.Name).Where(u => User.Password == u.Password)){
-            User = u;
             _isUserWindowOpen = false;
+            User = u;
             _navigationManager.NavigateTo($"/savegame/{User.Id}");
+            StateHasChanged();
             return;
         }
         _snackbar.Add("Incorrect Username or Password");
@@ -111,6 +119,10 @@
     private void ToggleLoginWindow(){
         _loginWindow = !_loginWindow;
         User = new();
+    }
+
+    public void Dispose(){
+        _navigationManager.LocationChanged -= StateHasChanged;
     }
 
 }

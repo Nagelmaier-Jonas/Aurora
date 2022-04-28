@@ -1,7 +1,7 @@
 ﻿@page "/savegame/{UserId:int}"
 @using Domain.Repositories
 @using Model.Entities
-@using Domain.Factories
+@using Domain.LogicHandlers
 @inject UserRepository _userRepository
 @inject IRepository<Convoy> _convoyRepository
 @inject SessionRepository _sessionRepository
@@ -56,7 +56,7 @@
                                                        <MudText Typo="Typo.body2">Money: @session.Money</MudText>
                                                    </MudCardContent>
                                                    <MudCardActions Style="justify-content: center;">
-                                                       <MudIconButton Color="Color.Success" Icon="@Icons.Filled.Login" OnClick="() => LoadState(session.Convoy)"/>
+                                                       <MudIconButton Color="Color.Success" Icon="@Icons.Filled.Login" OnClick="() => LoadState(session)"/>
                                                        <MudIconButton Icon="@Icons.Filled.Delete" Color="Color.Error" OnClick="() => DeleteState(session)"/>
                                                    </MudCardActions>
                                                </MudCard>
@@ -84,9 +84,8 @@
         User = await _userRepository.ReadUserGraphAsync(UserId);
     }
 
-    private void LoadState(Convoy convoy){
-        _navigationManager.NavigateTo($"/convoybuilder/{convoy.Id}");
-        ;
+    private void LoadState(Session session){
+        _navigationManager.NavigateTo($"/convoybuilder/{session.Id}");;
     }
 
     private void DeleteState(Session session){
@@ -98,13 +97,16 @@
         _processing = true;
         Session session = new Session(){
             Convoy = new Convoy(),
-            User = User
+            UserId = User.Id
         };
+        var user = User;
+        user.Sessions.Add(session);
         await _sessionRepository.CreateAsync(session);
-        await Task.Delay(2000);
+        await Task.Delay(1000);
         _navigationManager.NavigateTo($"/convoybuilder/{session.Id}");;
         _processing = false;
     }
 
+    
 }
 

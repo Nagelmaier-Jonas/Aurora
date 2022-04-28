@@ -12,5 +12,6 @@ public class UserRepository : ARepository<User>{
         .Include(u => u.Sessions)
         .ThenInclude(s => s.Convoy)
         .ThenInclude(c => c.FrontTruck)
+        .AsSplitQuery()
         .SingleOrDefaultAsync(u => u.Id == id);
 }

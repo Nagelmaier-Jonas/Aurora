@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Model.Configuration;
 using Model.Entities;
-using MudBlazor.Extensions;
 
 namespace Domain.Repositories;
 
@@ -26,5 +25,6 @@ public class SessionRepository : ARepository<Session>{
         .ThenInclude(c => c.BackTruck)
         .ThenInclude(t => t.Wagons)
         .ThenInclude(w => w.Addon)
+        .AsSplitQuery()
         .SingleOrDefaultAsync(s => s.Id == id);
 }

@@ -1,7 +1,6 @@
 ﻿using Domain.Factories;
 using Model.Entities;
-using Model.Entities.Items;
-using Model.Enums;
+using Model.Entities.Cargo;
 
 namespace Domain;
 
@@ -54,12 +53,10 @@ public static class AllEntities
         };
     }
 
-    public static List<AItem> Items(){
+    public static List<ACargo> Items(){
         return new(){
-            ItemFactory.CreateCargo1(),
-            ItemFactory.CreateChemical1(),
-            ItemFactory.CreateCrew1(),
-            ItemFactory.CreateWeapon1()
+            ItemFactory.CreateChemical(),
+            ItemFactory.CreateCrew()
         };
     }
 }

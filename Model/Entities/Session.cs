@@ -19,6 +19,5 @@ public class Session{
     public int ConvoyId{ get; set; }
     public Convoy Convoy{ get; set; }
 
-    [Column("MONEY")]
-    public int Money{ get; set; }
+    [Column("MONEY")] public int Money{ get; set; } = 10000;
 }
