@@ -112,6 +112,12 @@ public class AuroraDbContext : DbContext
             .HasForeignKey<Session>(s => s.ConvoyId);
         
         builder.Entity<ACargo>()
+            .HasOne(n => n.Slot)
+            .WithOne(n => n.Cargo)
+            .HasForeignKey<ACargo>(n=> n.SlotId);
+        
+
+        builder.Entity<ACargo>()
             .HasDiscriminator<string>("CARGO_TYPE")
             .HasValue<CrewCargo>(nameof(CrewCargo))
             .HasValue<FuelCargo>(nameof(FuelCargo))

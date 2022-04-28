@@ -1,0 +1,5 @@
+﻿.mud-card-actions {
+    display: flex;
+    padding: 0 !important;
+    align-items: center;
+}

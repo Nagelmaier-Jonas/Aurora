@@ -20,7 +20,7 @@ public abstract class AConvoyElement{
     [Range(0, int.MaxValue)]
     public int Price { get; init; }
 
-    [Column("IMAGE")] public string Image { get; set; }
+    [Column("IMAGE")] public string? Image { get; set; } = "card/empty.png";
 
     public List<ASlot> Slots{ get; set; }
 }

@@ -24,15 +24,12 @@ public abstract class ASlot : ISlot{
     public bool IsConstant{ get; set; }
 
     public ACargo? Cargo{ get; set; }
-    
-    [Column("CARGO_ID")]
-    public int CargoId{ get; set; }
 
     [Column("IMAGE")]
-    public string Image{ get; set; }
+    public string Image{ get; set; } = "cards/StandardSlot.png";
     
     [Column("NAME")]
-    public string Name{ get; set; }
+    public string Name{ get; set; } = "Default_Slot";
 
     [Column("ORDER_ID")]
     public int OrderId{ get; set; }

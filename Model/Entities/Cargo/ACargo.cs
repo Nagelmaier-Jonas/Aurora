@@ -18,12 +18,15 @@ public abstract class ACargo : ICargo{
     
     [Column("VITALITY")]
     public int Vitality{ get; set; }
+
+    [Column("IMAGE")] public string Image{ get; set; } = "cards/StandardSlot.png";
+
+    [Column("NAME")] public string Name{ get; set; } = "Default_Cargo";
     
-    [Column("IMAGE")]
-    public string Image{ get; set; }
-    
-    [Column("NAME")]
-    public string Name{ get; set; }
+    [Column("SLOT_ID")]
+    public int SlotId{ get; set; }
+
+    public ASlot Slot{ get; set; } = null!;
     
     public List<CargosJtKeywords> Keywords{ get; set; }
 
