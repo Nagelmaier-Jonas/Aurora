@@ -53,10 +53,9 @@ public static class AllEntities
         };
     }
 
-    public static List<ACargo> Items(){
+    public static List<ACargo> Cargo(){
         return new(){
-            ItemFactory.CreateChemical(),
-            ItemFactory.CreateCrew()
+            CargoFactory.CreateCargo(),
         };
     }
 }

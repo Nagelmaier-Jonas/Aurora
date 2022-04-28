@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Model.Entities.Cargo;
+using Model.Entities.Cargo.Implementation;
 using Model.Entities.Slots;
+using Model.Entities.Slots.Implementation;
 
 namespace Model.Configuration;
 

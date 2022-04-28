@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Model.Entities.Slots;
+using Model.Entities.Slots.Implementation;
 
 namespace Model.Entities.Cargo;
 
@@ -29,4 +30,7 @@ public abstract class ACargo : ICargo{
     public abstract bool IsAddable(CrewSlot crewSlot);
 
     public abstract bool IsAddable(FuelSlot fuelSlot);
+    public abstract bool IsAddable(ArmorSlot armorSlot);
+    public abstract bool IsAddable(StandardSlot standardSlot);
+    public abstract bool IsAddable(WeaponSlot weaponSlot);
 }

@@ -34,5 +34,8 @@ public abstract class ASlot : ISlot{
     [Column("NAME")]
     public string Name{ get; set; }
 
+    [Column("ORDER_ID")]
+    public int OrderId{ get; set; }
+
     public abstract bool IsInsertable(ICargo cargo);
 }
