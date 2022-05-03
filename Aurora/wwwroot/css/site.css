@@ -163,6 +163,16 @@ a, .btn-link {
     width: 150px !important;
     align-self: center !important;
 }
+
+.card-info-btn{
+    padding: 0 !important;
+    width: 100%;
+}
+
+.board-card{
+    width: 100% !important;
+}
+
 .item-btn {
     width: 45px !important;
     height: 45px !important;

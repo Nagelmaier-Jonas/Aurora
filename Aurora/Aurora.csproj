@@ -20,4 +20,20 @@
         <PackageReference Include="MudBlazor" Version="6.0.9" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
     </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Items\CargoCard.razor" />
+      <_ContentIncludedByDefault Remove="Items\ChemicalLiquidCard.razor" />
+      <_ContentIncludedByDefault Remove="Items\CrewMemberCard.razor" />
+      <_ContentIncludedByDefault Remove="Items\WeaponCard.razor" />
+      <_ContentIncludedByDefault Remove="Components\CarouselTemplate.razor" />
+      <_ContentIncludedByDefault Remove="Components\ItemRenderer\AddonRenderer.razor" />
+      <_ContentIncludedByDefault Remove="Components\ItemRenderer\CargoRenderer.razor" />
+      <_ContentIncludedByDefault Remove="Components\ItemRenderer\TruckRenderer.razor" />
+      <_ContentIncludedByDefault Remove="Components\ItemRenderer\WagonRenderer.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Components" />
+    </ItemGroup>
 </Project>

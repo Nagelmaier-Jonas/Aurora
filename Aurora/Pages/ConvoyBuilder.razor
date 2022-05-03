@@ -27,127 +27,83 @@
             </MudText>
         </div>
         <MudContainer Class="d-flex overflow-auto convoy-container">
-
             @if (Convoy.FrontTruck is not null){
                 <MudCard Style="width: 250px !important; margin: 20px 0;">
                     @if (Convoy.FrontTruck.IsAddonPresent()){
                         <MudCardMedia Image=@Convoy.FrontTruck.Addon.Image Height="179"/>
-                        @foreach (var slot in Convoy.FrontTruck.Addon.Slots){
-                            switch (slot.OrderId){
-                                case 1:
-                                    <MudButton Class="item-btn item-btn-t1" OnClick="() => OpenTruckCargo(Convoy.FrontTruck, slot.OrderId)"></MudButton>
-                                    break;
-                                case 2:
-                                    <MudButton Class="item-btn item-btn-t2" OnClick="() => OpenTruckCargo(Convoy.FrontTruck, slot.OrderId)"></MudButton>
-                                    break;
-                                case 3:
-                                    <MudButton Class="item-btn item-btn-t3" OnClick="() => OpenTruckCargo(Convoy.FrontTruck, slot.OrderId)"></MudButton>
-                                    break;
-                                case 4:
-                                    <MudButton Class="item-btn item-btn-t4" OnClick="() => OpenTruckCargo(Convoy.FrontTruck, slot.OrderId)"></MudButton>
-                                    break;
-                            }
-                                
-                        }
-                        <MudCardMedia Image=@Convoy.FrontTruck.Image Height="179"/>
-                        @foreach (var slot in Convoy.FrontTruck.Slots){
-                            switch (slot.OrderId){
-                                case 1:
-                                    <MudButton Class="item-btn item-btn-t1" OnClick="() => OpenTruckCargo(Convoy.FrontTruck, slot.OrderId)"></MudButton>
-                                    break;
-                                case 2:
-                                    <MudButton Class="item-btn item-btn-t2" OnClick="() => OpenTruckCargo(Convoy.FrontTruck, slot.OrderId)"></MudButton>
-                                    break;
-                                case 3:
-                                    <MudButton Class="item-btn item-btn-t3" OnClick="() => OpenTruckCargo(Convoy.FrontTruck, slot.OrderId)"></MudButton>
-                                    break;
-                                case 4:
-                                    <MudButton Class="item-btn item-btn-t4" OnClick="() => OpenTruckCargo(Convoy.FrontTruck, slot.OrderId)"></MudButton>
-                                    break;
-                            }
-                                
-                        }
-                        <MudCardContent Class="pv-cc">
-                            <MudText Style="font-size:15px !important;">@Convoy.FrontTruck.Code</MudText>
-                        </MudCardContent>
-
-                        <MudCardActions Style="justify-content: center;">
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Convoy.FrontTruck.RemoveAddon())">Addon</MudButton>
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="RemoveLeadTruck">Delete</MudButton>
-                        </MudCardActions>
                     }
                     else{
-                        <MudCardMedia Image=@("cards/empty.png") Height="179"/>
-                        <MudCardMedia Image=@Convoy.FrontTruck.Image Height="179"/>
-                        <MudCardContent Class="pv-cc">
-                            <MudText Style="font-size:15px !important;">@Convoy.FrontTruck.Code</MudText>
-                        </MudCardContent>
-
-                        <MudCardActions Style="justify-content: center; padding: 0;">
-                            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenTruckAddons(Convoy.FrontTruck))">Addon</MudButton>
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="RemoveLeadTruck">Delete</MudButton>
-                        </MudCardActions>
+                        <MudCardMedia Image="cards/empty.png" Height="179"/>
+                        <Slots SlotList="@Convoy.FrontTruck.Slots"/>
                     }
+                    <MudCardMedia Image=@Convoy.FrontTruck.Image Height="179"/>
+                    <MudCardContent Class="pv-cc">
+                        <MudText Style="font-size:15px !important;">@Convoy.FrontTruck.Code</MudText>
+                    </MudCardContent>
+
+                    <MudCardActions Style="justify-content: center; padding: 0;">
+                        @if (Convoy.FrontTruck.IsAddonPresent()){
+                            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="@(() => Convoy.FrontTruck.RemoveAddon())">Addon</MudButton>
+                        }
+                        else{
+                            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenTruckAddons(Convoy.FrontTruck))">Addon</MudButton>
+                        }
+                        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="RemoveLeadTruck">Delete</MudButton>
+                    </MudCardActions>
                 </MudCard>
             }
             @foreach (var wagon in Convoy.GetWagonIterator()){
                 <MudCard Style="width: 250px !important; margin: 20px 0;">
                     @if (wagon.IsAddonPresent()){
                         <MudCardMedia Image=@wagon.Addon.Image Height="179"/>
-                        <MudCardMedia Image=@wagon.Image Height="179"/>
-                        <MudCardContent Class="pv-cc">
-                            <MudText Style="font-size:15px !important;">@wagon.Code</MudText>
-                        </MudCardContent>
-
-                        <MudCardActions Style="justify-content: center; padding: 0;">
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => wagon.RemoveAddon())">Addon</MudButton>
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="() => Convoy.RemoveWagon(wagon)">Delete</MudButton>
-                        </MudCardActions>
+                        <Slots SlotList="@wagon.Addon.Slots"/>
                     }
                     else{
-                        <MudCardMedia Image=@("cards/empty.png") Height="179"/>
-                        <MudCardMedia Image=@wagon.Image Height="179"/>
-                        <MudCardContent Class="pv-cc">
-                            <MudText Style="font-size:15px !important;">@wagon.Code</MudText>
-                        </MudCardContent>
-                        <MudCardActions Style="justify-content: center; padding: 0;">
-                            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenWagonAddons(wagon))">Addon</MudButton>
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="() => Convoy.RemoveWagon(wagon)">Delete</MudButton>
-                        </MudCardActions>
+                        <MudCardMedia Image="cards/empty.png" Height="179"/>
+                        <Slots SlotList="@wagon.Slots"/>
                     }
+                    <MudCardMedia Image=@wagon.Image Height="179"/>
+                    <MudCardContent Class="pv-cc">
+                        <MudText Style="font-size:15px !important;">@wagon.Code</MudText>
+                    </MudCardContent>
+
+                    <MudCardActions Style="justify-content: center; padding: 0;">
+                        @if (wagon.IsAddonPresent()){
+                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => wagon.RemoveAddon())">Addon</MudButton>
+                        }
+                        else{
+                            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenWagonAddons(wagon))">Addon</MudButton>
+                        }
+                        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="() => Convoy.RemoveWagon(wagon)">Delete</MudButton>
+                    </MudCardActions>
                 </MudCard>
             }
-
-
             @if (Convoy.BackTruck is not null){
                 <MudCard Style="width: 250px !important; margin: 20px 0;">
                     @if (Convoy.BackTruck.IsAddonPresent()){
-                        <MudCardMedia Class="invert" Image=@Convoy.BackTruck.Addon.Image Height="179"/>
-                        <MudCardMedia Class="invert" Image=@Convoy.BackTruck.Image Height="179"/>
-                        <MudCardContent Class="pv-cc">
-                            <MudText Style="font-size:15px !important;">@Convoy.BackTruck.Code</MudText>
-                        </MudCardContent>
-
-                        <MudCardActions Style="justify-content: center; padding: 0;">
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Convoy.BackTruck.RemoveAddon())">Addon</MudButton>
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
-                        </MudCardActions>
+                        <MudCardMedia Image=@Convoy.BackTruck.Addon.Image Height="179"/>
+                        <Slots SlotList="@Convoy.BackTruck.Addon.Slots"/>
                     }
                     else{
-                        <MudCardMedia Class="invert" Image=@("cards/empty.png") Height="179"/>
-                        <MudCardMedia Class="invert" Image=@Convoy.BackTruck.Image Height="179"/>
-                        <MudCardContent Class="pv-cc">
-                            <MudText Style="font-size:15px !important;">@Convoy.BackTruck.Code</MudText>
-                        </MudCardContent>
-
-                        <MudCardActions Style="justify-content: center; padding: 0;">
-                            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenTruckAddons(Convoy.BackTruck))">Addon</MudButton>
-                            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
-                        </MudCardActions>
+                        <MudCardMedia Image="cards/empty.png" Height="179"/>
+                        <Slots SlotList="@Convoy.BackTruck.Slots"/>
                     }
+                    <MudCardMedia Image=@Convoy.BackTruck.Image Height="179"/>
+                    <MudCardContent Class="pv-cc">
+                        <MudText Style="font-size:15px !important;">@Convoy.BackTruck.Code</MudText>
+                    </MudCardContent>
+
+                    <MudCardActions Style="justify-content: center; padding: 0;">
+                        @if (Convoy.BackTruck.IsAddonPresent()){
+                            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="@(() => Convoy.BackTruck.RemoveAddon())">Addon</MudButton>
+                        }
+                        else{
+                            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="@(() => OpenTruckAddons(Convoy.BackTruck))">Addon</MudButton>
+                        }
+                        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="Convoy.RemoveTailTruck">Delete</MudButton>
+                    </MudCardActions>
                 </MudCard>
             }
-
         </MudContainer>
     </MudPopover>
 }
@@ -155,28 +111,7 @@
 <div Style="position: absolute; bottom: 0 !important; height: 416px; width: 100% !important; background-color: #1a1e21">
     <MudTabs Elevation="2" Centered="true" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 h-100" Color="Color.Dark" Style="height: 100%;" @ref="tabs">
         <MudTabPanel Text="Trucks" Disabled="@NegateBool(_addonDisabled)">
-            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;">
-                <BulletTemplate Context="selected">
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </BulletTemplate>
-                <PreviousButtonTemplate>
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </PreviousButtonTemplate>
-                <NextButtonTemplate>
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </NextButtonTemplate>
+            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;" BulletsColor="@Color.Info">
                 <ChildContent>
                     @foreach (var truck in AllEntities.Trucks()){
                         <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
@@ -195,28 +130,7 @@
             </MudCarousel>
         </MudTabPanel>
         <MudTabPanel Text="Wagons" Disabled="@NegateBool(_addonDisabled)">
-            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;">
-                <BulletTemplate Context="selected">
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </BulletTemplate>
-                <PreviousButtonTemplate>
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </PreviousButtonTemplate>
-                <NextButtonTemplate>
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </NextButtonTemplate>
+            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;" BulletsColor="@Color.Info">
                 <ChildContent>
                     @foreach (var wagon in AllEntities.Wagons()){
                         <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
@@ -236,28 +150,7 @@
             </MudCarousel>
         </MudTabPanel>
         <MudTabPanel Text="Addons" Disabled="@_addonDisabled">
-            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;">
-                <BulletTemplate Context="selected">
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </BulletTemplate>
-                <PreviousButtonTemplate>
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </PreviousButtonTemplate>
-                <NextButtonTemplate>
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </NextButtonTemplate>
+            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;" BulletsColor="@Color.Info">
                 <ChildContent>
                     @foreach (var addon in AllEntities.Addons()){
                         <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
@@ -276,28 +169,7 @@
             </MudCarousel>
         </MudTabPanel>
         <MudTabPanel Text="Cargo" Disabled="@_itemDisabled">
-            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;">
-                <BulletTemplate Context="selected">
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Icon="@(selected ? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Circle)" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </BulletTemplate>
-                <PreviousButtonTemplate>
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipPrevious" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </PreviousButtonTemplate>
-                <NextButtonTemplate>
-                    <div Class="mud-button-root mud-icon-button mud-icon-button-color-inherit mud-ripple mud-ripple-icon">
-                        <span class="mud-icon-button-label">
-                            <MudIcon Class="mud-ripple mud-ripple-icon mud-icon-button-size-medium" Icon="@Icons.Material.Filled.SkipNext" Color="@Color.Info"/>
-                        </span>
-                    </div>
-                </NextButtonTemplate>
+            <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;" BulletsColor="@Color.Info">
                 <ChildContent>
                     @foreach (var cargo in AllEntities.BuyableCargo()){
                         <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
@@ -317,9 +189,7 @@
             </MudCarousel>
         </MudTabPanel>
     </MudTabs>
-
 </div>
-
 
 @if (_savePanel){
     <MudPaper Class="pa-4 save-field">
@@ -407,27 +277,15 @@
         }
         tabs.ActivePanelIndex = 0;
     }
-    
-    private void OpenTruckCargo(Truck truck, int index){
-        tabs.ActivePanelIndex = 3;
-        _addonDisabled = false;
-        CurrentSlot = truck.Slots.Find(o => o.OrderId == index)!;
-    }
 
-    private void OpenWagonCargo(Wagon wagon, int index){
+    private void OpenCargo(AConvoyElement element, int index){
         tabs.ActivePanelIndex = 3;
         _addonDisabled = false;
-        CurrentSlot = wagon.Slots.Find(o => o.OrderId == index)!;
-    }
-    
-    private void OpenAddonCargo(Addon addon, int index){
-        tabs.ActivePanelIndex = 3;
-        _addonDisabled = false;
-        CurrentSlot = addon.Slots.Find(o => o.OrderId == index)!;
+        CurrentSlot = element.Slots.Find(o => o.OrderId == index)!;
     }
 
     private void AddCargo(ACargo cargo){
-        CurrentSlot.BuyCargo(Session, cargo);
+        CurrentSlot.AddCargo(Session, cargo);
         tabs.ActivePanelIndex = 0;
     }
 
