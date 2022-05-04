@@ -12,17 +12,21 @@ public static class WagonFactory{
         Image = "cards/Wagon1.png",
         Price = 12000,
         Slots = new List<ASlot>{
-            new FuelSlot(),
-            new FuelSlot(),
+            new FuelSlot(){
+                OrderId = 1
+            },
+            new FuelSlot(){
+                OrderId = 2
+            },
             new WeaponSlot{
                 Cargo = CargoFactory.GreenWeapon2(),
                 IsConstant = true,
-                OrderId = 1
+                OrderId = 3
             },
             new ArmorSlot{
                 Cargo = CargoFactory.Armor(),
                 IsConstant = true,
-                OrderId = 2
+                OrderId = 4
             }
         }
     };

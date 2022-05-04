@@ -1,0 +1,93 @@
+﻿@using Domain.LogicHandlers.Helper
+@inject ConvoyRerenderer ConvoyRerenderer
+@inject IDialogService DialogService
+
+<MudCard Style="width: 250px !important; margin: 20px 0;">
+    <RenderAddon Session="Session" Upgradeable="Upgradeable" Reverse="Reverse"/>
+    @if (Reverse){
+        <div style="position: relative !important;">
+            <MudCardMedia Class="invert" Image="@Upgradeable.Image" Height="179" @onclick="@(OpenElementInfo)"/>
+            @foreach (var slot in Upgradeable.Slots.OrderBy(e => e.OrderId)){
+                <MudImage Style="z-index: 5" Class=@($"rounded-2 slot-in-img-element-{slot.OrderId}") Width="50" Height="50" Src="@(slot.GetImage())"
+                          ObjectPosition="ObjectPosition.Center"/>
+            }
+        </div>
+    }
+    else{
+        <div style="position: relative !important;">
+            <MudCardMedia Image="@Upgradeable.Image" Height="179" @onclick="@(OpenElementInfo)"/>
+            @foreach (var slot in Upgradeable.Slots.OrderBy(e => e.OrderId)){
+                <MudImage Style="z-index: 5" Class=@($"rounded-2 slot-in-img-element-{slot.OrderId}") Width="50" Height="50" Src="@(slot.GetImage())"
+                          ObjectPosition="ObjectPosition.Center"/>
+            }
+        </div>
+    }
+    <MudCardContent Class="pv-cc">
+        <MudText Style="font-size:15px !important;">@Upgradeable.Code</MudText>
+    </MudCardContent>
+
+    <MudCardActions Style="justify-content: center; padding: 0;">
+        @if (Upgradeable.IsAddonPresent()){
+            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Upgradeable.RemoveAddon())">Addon</MudButton>
+        }
+        else{
+            <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="ToggleAddons">Addon</MudButton>
+        }
+        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="RemoveElement">Delete</MudButton>
+    </MudCardActions>
+</MudCard>
+
+<style>
+    .slot-in-img-element-1{
+        position: absolute;
+        top: 122px;
+        left: 6px;
+    }
+    .slot-in-img-element-2{
+        position: absolute;
+        top: 122px;
+        left: 59px;
+    }
+    .slot-in-img-element-3{
+        position: absolute;
+        top: 122px;
+        left: 112px;
+    }
+    .slot-in-img-element-4{
+        position: absolute;
+        top: 122px;
+        left: 165px;
+        
+    }
+</style>
+
+@code{
+
+    [Parameter]
+    public Session Session { get; set; }
+
+    [Parameter]
+    public AUpgradeable Upgradeable { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> ToggleAddons { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> RemoveElement { get; set; }
+
+    [Parameter]
+    public bool Reverse { get; set; }
+
+    public async void OpenElementInfo(){
+        var parameters = new DialogParameters(){
+            ["ConvoyElement"] = Upgradeable,
+            ["Session"] = Session
+        };
+        var options = new DialogOptions(){
+            Position = DialogPosition.TopCenter,
+            MaxWidth = MaxWidth.Large
+        };
+        DialogService.Show<ConvoyElementInfo>("Info", parameters, options);
+    }
+
+}

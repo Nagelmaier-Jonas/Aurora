@@ -60,7 +60,7 @@ public class AuroraDbContext : DbContext
 
         builder.Entity<AUpgradeable>()
             .HasOne(a => a.Addon)
-            .WithOne()
+            .WithOne(n => n.Upgradeable)
             .HasForeignKey<AUpgradeable>(a => a.AddonId);
         
 
@@ -74,21 +74,6 @@ public class AuroraDbContext : DbContext
             .WithMany(s => s.Slots)
             .HasForeignKey(e => e.ElementId);
 
-
-        builder.Entity<ConvoyElementHasKeywords>().HasKey(c =>new{c.ElementId, c.KeywordId});
-        
-        builder.Entity<ConvoyElementHasKeywords>()
-            .HasOne(c => c.Element)
-            .WithMany()
-            .HasForeignKey(c => c.ElementId);
-        
-        builder.Entity<ConvoyElementHasKeywords>()
-            .HasOne(c => c.Keyword)
-            .WithMany()
-            .HasForeignKey(c => c.KeywordId);
-        
-        
-        
         builder.Entity<CargosJtKeywords>().HasKey(i =>new{i.CargoId, i.KeywordId});
         
         builder.Entity<CargosJtKeywords>()
@@ -101,15 +86,14 @@ public class AuroraDbContext : DbContext
             .WithMany()
             .HasForeignKey(i => i.KeywordId);
 
-
         builder.Entity<Session>()
             .HasOne(s => s.User)
             .WithMany(u => u.Sessions)
             .HasForeignKey(s => s.UserId);
-        builder.Entity<Session>()
-            .HasOne(s => s.Convoy)
-            .WithOne()
-            .HasForeignKey<Session>(s => s.ConvoyId);
+        builder.Entity<Convoy>()
+            .HasOne(s => s.Session)
+            .WithOne(n => n.Convoy)
+            .HasForeignKey<Convoy>(s => s.SessionId);
         
         builder.Entity<ACargo>()
             .HasOne(n => n.Slot)

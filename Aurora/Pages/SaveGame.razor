@@ -88,8 +88,9 @@
         _navigationManager.NavigateTo($"/convoybuilder/{session.Id}");;
     }
 
-    private void DeleteState(Session session){
-        _sessionRepository.DeleteAsync(session);
+    private async void DeleteState(Session session){
+        var s = await _sessionRepository.ReadSessionGraphAsync(session.Id);
+        await _sessionRepository.DeleteAsync(s);
         _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
     }
 

@@ -36,16 +36,13 @@ public static class ConvoyExtension
 
     public static void RemoveFrontTruck(this Convoy convoy)
     {
-        if (convoy.IsBackTruckPresent())
-        {
-            var temp = convoy.BackTruck;
-            convoy.BackTruck.Addon = null;
+        if (convoy.BackTruck is not null){
+            var tempTruck = convoy.BackTruck;
             convoy.BackTruck = null;
-            convoy.FrontTruck = temp;
+            convoy.FrontTruck = tempTruck;
             return;
         }
-
-        convoy.FrontTruck.Addon = null;
+        convoy.FrontTruckId = null;
         convoy.FrontTruck = null;
     }
 
@@ -59,7 +56,6 @@ public static class ConvoyExtension
     {
         if (LocateWagon(convoy, wagon) == "front") convoy.FrontTruck.Wagons.Remove(wagon);
         if (LocateWagon(convoy, wagon) == "back") convoy.BackTruck.Wagons.Remove(wagon);
-        wagon.Addon = null;
         wagon = null;
     }
 

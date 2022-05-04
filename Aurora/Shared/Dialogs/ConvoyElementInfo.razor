@@ -1,0 +1,55 @@
+﻿@using Domain.LogicHandlers.Helper
+@inject ConvoyRerenderer ConvoyRerenderer
+@implements IDisposable
+
+<MudDialog Class="dialog-cargo">
+    <DialogContent>
+        <MudContainer Style="display: flex;">
+            @foreach (var slot in ConvoyElement.Slots.OrderBy(s => s.OrderId)){
+                <MudCard Class="mx-1 slot-item">
+                    <MudCardMedia Image="@slot.GetImage()" Height="150"/>
+                    <MudCardContent Style="background-color: #313131 !important;">
+                        <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" Disabled="@(!slot.CanAdd(Session.Convoy))" OnClick="() => SetSlot(slot)"></MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" Disabled="@(!slot.CanRemove(Session.Convoy))" OnClick="() => RemoveCargo(slot)"></MudButton>
+                    </MudCardContent>
+                </MudCard>
+            }
+        </MudContainer>
+    </DialogContent>
+    <DialogActions></DialogActions>
+</MudDialog>
+
+@code {
+
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public Session Session { get; set; }
+
+    [Parameter]
+    public AConvoyElement ConvoyElement { get; set; }
+
+    protected override void OnInitialized(){
+        ConvoyRerenderer.Rerender += Update;
+    }
+
+    public void SetSlot(ASlot slot){
+        ConvoyRerenderer.SetPanelIndex(3);
+        ConvoyRerenderer.TempSlot = slot;
+    }
+
+    public void RemoveCargo(ASlot slot){
+        slot.RemoveCargo(Session);
+        ConvoyRerenderer.Update();
+    }
+    
+    public async void Update(){
+        await InvokeAsync(StateHasChanged);
+    }
+    
+    public void Dispose(){
+        ConvoyRerenderer.Rerender -= Update;
+    }
+
+}

@@ -2,6 +2,7 @@
 using Model.Entities;
 using Model.Entities.Cargo;
 using Model.Entities.Slots;
+using Model.Entities.Slots.Implementation;
 
 namespace Domain.LogicHandlers;
 
@@ -17,6 +18,13 @@ public static class SlotExtension{
         if (!aSlot.CanRemove(session.Convoy)) return;
         session.Money += aSlot.Cargo!.Price;
         aSlot.Cargo = null!;
+    }
+
+    public static string GetImage(this ASlot aSlot){
+        if (aSlot.Damaged) return "cards/DamagedSlot.png";
+        if (aSlot.Cargo is not null) return aSlot.Cargo.Image;
+        if (aSlot.GetType() == typeof(CrewSlot)) return "cards/CrewSlot.png";
+        return aSlot.GetType() == typeof(FuelSlot) ? "cards/ChemicalSlot.png" : "cards/StandardSlot.png";
     }
     
     public static List<EKeyword> GetKeywords(this ASlot aSlot) =>

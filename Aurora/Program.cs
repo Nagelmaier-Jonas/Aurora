@@ -1,3 +1,4 @@
+using Domain.LogicHandlers.Helper;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Model.Configuration;
@@ -25,6 +26,7 @@ builder.Services.AddMudServices(config => {
 });
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<ConvoyRerenderer>();
 builder.Services.AddScoped<ConvoyElementRepository>();
 builder.Services.AddScoped<IRepository<Addon>, AddonRepository>();
 builder.Services.AddScoped<IRepository<AUpgradeable>, UpgradeableRepository>();

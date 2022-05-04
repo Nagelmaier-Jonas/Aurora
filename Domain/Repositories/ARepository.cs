@@ -52,7 +52,6 @@ public class ARepository<TEntity> : IRepository<TEntity> where TEntity : class
 
     public async Task DeleteAsync(TEntity entity)
     {
-        _context.ChangeTracker.Clear();
         _set.Remove(entity);
         await _context.SaveChangesAsync();
     }

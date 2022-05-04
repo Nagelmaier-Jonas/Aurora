@@ -173,6 +173,18 @@ a, .btn-link {
     width: 100% !important;
 }
 
+.dialog-cargo {
+    background-color: #313131 !important;
+    color: white !important;
+    align-items: center !important;
+    margin-top: 120px !important;
+}
+
+.slot-item{
+    height: min-content !important;
+    align-self: center !important;
+}
+
 .item-btn {
     width: 45px !important;
     height: 45px !important;

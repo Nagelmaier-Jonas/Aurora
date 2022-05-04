@@ -21,6 +21,7 @@ public static class TruckFactory{
             },
             new WeaponSlot{
                 Cargo = CargoFactory.GreenWeapon3(),
+                IsConstant = true,
                 OrderId = 2
             },
             new CrewSlot{OrderId = 3},

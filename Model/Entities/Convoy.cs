@@ -20,6 +20,11 @@ public class Convoy
     [Column("FRONT_TRUCK_ID")] public int? FrontTruckId { get; set; }
 
     [Column("BACK_TRUCK_ID")] public int? BackTruckId { get; set; }
+    
+    public Session Session{ get; set; }
+
+    [Column("SESSION_ID")]
+    public int SessionId{ get; set; }
 
     public override bool Equals(object o) {
         var other = o as Convoy;
