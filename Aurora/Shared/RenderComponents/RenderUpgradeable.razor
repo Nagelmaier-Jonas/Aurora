@@ -5,8 +5,8 @@
 <MudCard Style="width: 250px !important; margin: 20px 0;">
     <RenderAddon Session="Session" Upgradeable="Upgradeable" Reverse="Reverse"/>
     @if (Reverse){
-        <div style="position: relative !important;">
-            <MudCardMedia Class="invert" Image="@Upgradeable.Image" Height="179" @onclick="@(OpenElementInfo)"/>
+        <div style="position: relative !important;" class="invert">
+            <MudCardMedia Image="@Upgradeable.Image" Height="179" @onclick="@(OpenElementInfo)"/>
             @foreach (var slot in Upgradeable.Slots.OrderBy(e => e.OrderId)){
                 <MudImage Style="z-index: 5" Class=@($"rounded-2 slot-in-img-element-{slot.OrderId}") Width="50" Height="50" Src="@(slot.GetImage())"
                           ObjectPosition="ObjectPosition.Center"/>
