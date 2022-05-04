@@ -17,7 +17,7 @@ public static class SlotExtension{
     public static void RemoveCargo(this ASlot aSlot, Session session) {
         if (!aSlot.CanRemove(session.Convoy)) return;
         session.Money += aSlot.Cargo!.Price;
-        aSlot.Cargo = null!;
+        aSlot.Cargo = null;
     }
 
     public static string GetImage(this ASlot aSlot){

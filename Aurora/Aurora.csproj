@@ -32,4 +32,11 @@
       <_ContentIncludedByDefault Remove="Components\ItemRenderer\TruckRenderer.razor" />
       <_ContentIncludedByDefault Remove="Components\ItemRenderer\WagonRenderer.razor" />
     </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Items\CargoCard.razor" />
+      <UpToDateCheckInput Remove="Items\ChemicalLiquidCard.razor" />
+      <UpToDateCheckInput Remove="Items\CrewMemberCard.razor" />
+      <UpToDateCheckInput Remove="Items\WeaponCard.razor" />
+    </ItemGroup>
 </Project>

@@ -2,7 +2,6 @@
 @using Domain.LogicHandlers.Helper
 @inject ISnackbar Snackbar
 @inject SessionRepository SessionRepository
-@inject IRepository<Convoy> ConvoyRepository
 @inject ConvoyRerenderer ConvoyRerenderer
 @implements IDisposable
 
@@ -241,7 +240,7 @@
     }
 
     private async Task Save(){
-        await ConvoyRepository.UpdateAsync(Session.Convoy);
+        await SessionRepository.UpdateAsync(Session);
     }
 
     public void Dispose(){
