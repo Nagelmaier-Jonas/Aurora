@@ -1,5 +1,6 @@
 @page "/convoybuilder/{SessionId:int}"
 @using Domain.LogicHandlers.Helper
+@using Domain.Builder
 @inject ISnackbar Snackbar
 @inject SessionRepository SessionRepository
 @inject ConvoyRerenderer ConvoyRerenderer
@@ -57,7 +58,7 @@
         <MudTabPanel Text="Trucks" Disabled="@(tabs.ActivePanelIndex != 0 && tabs.ActivePanelIndex != 1)">
             <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;" BulletsColor="@Color.Info">
                 <ChildContent>
-                    @foreach (var truck in AllEntities.Trucks()){
+                    @foreach (var truck in Factory.GetAllTrucks()){
                         <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
                             <MudCard Style="height: 100% !important; background-color: transparent !important;">
                                 <MudCardMedia Image=@truck.Image Style="height: 50% !important; width: 215px;"/>
@@ -76,7 +77,7 @@
         <MudTabPanel Text="Wagons" Disabled="@(tabs.ActivePanelIndex != 0 && tabs.ActivePanelIndex != 1)">
             <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;" BulletsColor="@Color.Info">
                 <ChildContent>
-                    @foreach (var wagon in AllEntities.Wagons()){
+                    @foreach (var wagon in Factory.GetAllWagons()){
                         <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
                             <MudCard Style="height: 100% !important; background-color: transparent !important;">
                                 <MudCardMedia Image=@wagon.Image Style="height: 50% !important; width: 215px;"/>
@@ -96,7 +97,7 @@
         <MudTabPanel Text="Addons" Disabled="tabs.ActivePanelIndex != 2">
             <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;" BulletsColor="@Color.Info">
                 <ChildContent>
-                    @foreach (var addon in AllEntities.Addons()){
+                    @foreach (var addon in Factory.GetAllAddons()){
                         <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
                             <MudCard Style="height: 100% !important; background-color: transparent !important;">
                                 <MudCardMedia Image=@addon.Image Style="height: 50% !important; width: 215px;"/>
@@ -115,14 +116,14 @@
         <MudTabPanel Text="Cargo" Disabled="tabs.ActivePanelIndex != 3">
             <MudCarousel Class="mud-width-full" AutoCycle="false" TData="object" Style="height: 100%;" BulletsColor="@Color.Info">
                 <ChildContent>
-                    @foreach (var cargo in AllEntities.BuyableCargo()){
+                    @foreach (var cargo in Factory.GetAllAddableCargo()){
                         @if (ConvoyRerenderer.TempSlot.CanAddCargo(Session, cargo)){
                             <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
                             
                                 <MudCard Style="height: 100% !important; background-color: transparent !important;">
                                     <MudCardMedia Image=@cargo.Image Style="height: 50% !important; width: 215px;"/>
                                     <MudCardContent Style="height: 20% !important;">
-                                        <MudText Style="color: white; font-size:15px !important;">@cargo.Name</MudText>
+                                        <MudText Style="color: white; font-size:15px !important;">@cargo.Code</MudText>
                                     </MudCardContent>
                                     <MudCardActions Style="height: 20% !important; justify-content: center;">
                                         <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="() => AddCargo(cargo)">Add</MudButton>

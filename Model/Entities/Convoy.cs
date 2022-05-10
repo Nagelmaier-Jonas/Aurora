@@ -23,9 +23,6 @@ public class Convoy
     
     public Session Session{ get; set; }
 
-    [Column("SESSION_ID")]
-    public int SessionId{ get; set; }
-
     public override bool Equals(object o) {
         var other = o as Convoy;
         return other?.Code==Code;

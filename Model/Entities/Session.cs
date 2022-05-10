@@ -15,6 +15,8 @@ public class Session{
     public int UserId{ get; set; }
     public User User{ get; set; }
     public Convoy Convoy{ get; set; }
-    
+
+    [Column("SESSION_ID")]
+    public int ConvoyId{ get; set; }
     [Column("MONEY")] public int Money{ get; set; } = 10000;
 }

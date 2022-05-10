@@ -21,7 +21,7 @@ public abstract class ACargo : ICargo{
 
     [Column("IMAGE")] public string Image{ get; set; } = "cards/StandardSlot.png";
 
-    [Column("NAME")] public string Name{ get; set; } = "Default_Cargo";
+    [Column("CODE")] public string Code{ get; set; } = "Default_Cargo";
     
     [Column("SLOT_ID")]
     public int SlotId{ get; set; }

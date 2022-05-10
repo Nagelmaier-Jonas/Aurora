@@ -42,26 +42,26 @@ public class AuroraDbContext : DbContext
         builder.Entity<Wagon>()
             .HasOne(t => t.Truck)
             .WithMany(e => e.Wagons)
-            .HasForeignKey(t => t.TruckId);
+            .HasForeignKey(t => t.TruckId).OnDelete(DeleteBehavior.Cascade);
         
         
 
         builder.Entity<Convoy>()
             .HasOne(c => c.BackTruck)
             .WithOne()
-            .HasForeignKey<Convoy>(c => c.BackTruckId);
+            .HasForeignKey<Convoy>(c => c.BackTruckId).OnDelete(DeleteBehavior.Cascade);;
 
         builder.Entity<Convoy>()
             .HasOne(c => c.FrontTruck)
             .WithOne()
-            .HasForeignKey<Convoy>(c => c.FrontTruckId);
+            .HasForeignKey<Convoy>(c => c.FrontTruckId).OnDelete(DeleteBehavior.Cascade);;
         
         
 
         builder.Entity<AUpgradeable>()
             .HasOne(a => a.Addon)
             .WithOne(n => n.Upgradeable)
-            .HasForeignKey<AUpgradeable>(a => a.AddonId);
+            .HasForeignKey<AUpgradeable>(a => a.AddonId).OnDelete(DeleteBehavior.Cascade);;
         
 
         builder.Entity<User>()
@@ -72,28 +72,29 @@ public class AuroraDbContext : DbContext
         builder.Entity<ASlot>()
             .HasOne(e => e.Element)
             .WithMany(s => s.Slots)
-            .HasForeignKey(e => e.ElementId);
+            .HasForeignKey(e => e.ElementId).OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<CargosJtKeywords>().HasKey(i =>new{i.CargoId, i.KeywordId});
         
         builder.Entity<CargosJtKeywords>()
             .HasOne(i => i.Cargo)
             .WithMany(k => k.Keywords)
-            .HasForeignKey(i => i.CargoId);
+            .HasForeignKey(i => i.CargoId).OnDelete(DeleteBehavior.Cascade);
         
         builder.Entity<CargosJtKeywords>()
             .HasOne(i => i.Keyword)
             .WithMany()
-            .HasForeignKey(i => i.KeywordId);
+            .HasForeignKey(i => i.KeywordId).OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<Session>()
             .HasOne(s => s.User)
             .WithMany(u => u.Sessions)
-            .HasForeignKey(s => s.UserId);
-        builder.Entity<Convoy>()
-            .HasOne(s => s.Session)
-            .WithOne(n => n.Convoy)
-            .HasForeignKey<Convoy>(s => s.SessionId);
+            .HasForeignKey(s => s.UserId).OnDelete(DeleteBehavior.Cascade);
+        
+        builder.Entity<Session>()
+            .HasOne(s => s.Convoy)
+            .WithOne(n => n.Session)
+            .HasForeignKey<Session>(s => s.ConvoyId).OnDelete(DeleteBehavior.Cascade);
         
         builder.Entity<ACargo>()
             .HasOne(n => n.Slot)

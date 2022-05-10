@@ -14,11 +14,11 @@ public abstract class AConvoyElement{
     [Required]
     [StringLength(100)]
     [Column("CODE")]
-    public string Code { get; init; }
+    public string Code { get; set; }
 
     [Column("PRICE")]
     [Range(0, int.MaxValue)]
-    public int Price { get; init; }
+    public int Price { get; set; }
 
     [Column("IMAGE")] public string? Image { get; set; } = "card/empty.png";
 
