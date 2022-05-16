@@ -1,5 +1,6 @@
 ﻿using Model.Entities;
 using Model.Entities.Cargo;
+using Model.Entities.Slots;
 using Model.Entities.Slots.Implementation;
 
 namespace Domain.Builder;
@@ -10,32 +11,47 @@ public class AConvoyElementBuilder<TEntity, TBuilder> where TEntity : AConvoyEle
 
     public AConvoyElementBuilder(TEntity element){
         _element = element;
+        _element.Slots = new List<ASlot>();
     }
 
-    public TBuilder AddCrewSlot(ACargo? cargo = null){
+    public TBuilder AddCrewSlot(int order, ACargo? cargo = null){
         _element.Slots.Add(new CrewSlot()
-            { Element = _element, Cargo = cargo});
+            { Element = _element, Cargo = cargo, OrderId = order});
 
         return (this as TBuilder)!;
     }
 
-    public TBuilder AddDefaultSlot(ACargo? cargo = null){
+    public TBuilder AddDefaultSlot(int order, ACargo? cargo = null){
         _element.Slots.Add(new StandardSlot()
-            { Element = _element, Cargo = cargo});
+            { Element = _element, Cargo = cargo, OrderId = order});
 
         return (this as TBuilder)!;
     }
 
-    public TBuilder AddFuelSlot(ACargo? cargo = null){
+    public TBuilder AddFuelSlot(int order, ACargo? cargo = null){
         _element.Slots.Add(new FuelSlot()
-            { Element = _element, Cargo = cargo});
+            { Element = _element, Cargo = cargo, OrderId = order});
+
+        return (this as TBuilder)!;
+    }
+    
+    public TBuilder AddWeaponSlot(int order, ACargo? cargo = null){
+        _element.Slots.Add(new WeaponSlot()
+            { Element = _element, Cargo = cargo, OrderId = order});
+
+        return (this as TBuilder)!;
+    }
+
+    public TBuilder AddArmorSlot(int order, ACargo? cargo = null){
+        _element.Slots.Add(new ArmorSlot()
+            { Element = _element, Cargo = cargo, OrderId = order});
 
         return (this as TBuilder)!;
     }
 
     public TBuilder IsFixedSlot(){
         if (_element.Slots.Count > 0)
-            _element.Slots.Last().IsConstant = false;
+            _element.Slots.Last().IsConstant = true;
 
         return (this as TBuilder)!;
     }
@@ -51,7 +67,7 @@ public class AConvoyElementBuilder<TEntity, TBuilder> where TEntity : AConvoyEle
     }
 
     public TBuilder SetImagePath(string imagePath){
-        _element.Image = imagePath;
+        _element.Image = "/cards/" + imagePath + ".png";
         return (this as TBuilder)!;
     }
 

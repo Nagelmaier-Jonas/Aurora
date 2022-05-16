@@ -1,4 +1,5 @@
-﻿using Model.Entities;
+﻿using Domain.LogicHandlers;
+using Model.Entities;
 using Model.Entities.Cargo;
 
 namespace Domain.Builder; 
@@ -9,6 +10,7 @@ public class ACargoBuilder<TEntity, TBuilder> where TEntity : ACargo
 
     public ACargoBuilder(TEntity element){
         _element = element;
+        _element.Keywords = new List<Keyword>();
     }
 
     public TBuilder SetCode(string code){
@@ -22,12 +24,12 @@ public class ACargoBuilder<TEntity, TBuilder> where TEntity : ACargo
     }
 
     public TBuilder SetImagePath(string imagePath){
-        _element.Image = imagePath;
+        _element.Image = "/cards/" + imagePath + ".png";
         return (this as TBuilder)!;
     }
     
     public TBuilder AddKeyword(EKeyword keyword){
-        //_element.Keywords |= keyword;
+        _element.Keywords.Add(new Keyword{Value = keyword});
         return (this as TBuilder)!;
     }
 

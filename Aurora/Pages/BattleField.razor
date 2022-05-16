@@ -1,0 +1,21 @@
+﻿@page "/battlefield/{SessionId:int}"
+
+@inject ISnackbar Snackbar
+@inject SessionRepository SessionRepository
+
+
+
+@code {
+    [Parameter]
+    public int SessionId { get; set; }
+    
+    public Session Session { get; set; }
+    
+    protected override async void OnParametersSet(){
+        if (await SessionRepository.ReadAsync(SessionId) == null){
+            Snackbar.Add("No Data...");
+            return;
+        }
+        Session = await SessionRepository.ReadSessionGraphAsync(SessionId);
+    }
+}

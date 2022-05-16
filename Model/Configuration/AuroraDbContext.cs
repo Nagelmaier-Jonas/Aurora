@@ -35,8 +35,6 @@ public class AuroraDbContext : DbContext
     
     public DbSet<Session> Sessions{ get; set; }
 
-    public DbSet<CargosJtKeywords> CargosJtKeywords{ get; set; }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Wagon>()
@@ -74,17 +72,10 @@ public class AuroraDbContext : DbContext
             .WithMany(s => s.Slots)
             .HasForeignKey(e => e.ElementId).OnDelete(DeleteBehavior.Cascade);
 
-        builder.Entity<CargosJtKeywords>().HasKey(i =>new{i.CargoId, i.KeywordId});
-        
-        builder.Entity<CargosJtKeywords>()
-            .HasOne(i => i.Cargo)
+        builder.Entity<Keyword>()
+            .HasOne(c => c.Cargo)
             .WithMany(k => k.Keywords)
-            .HasForeignKey(i => i.CargoId).OnDelete(DeleteBehavior.Cascade);
-        
-        builder.Entity<CargosJtKeywords>()
-            .HasOne(i => i.Keyword)
-            .WithMany()
-            .HasForeignKey(i => i.KeywordId).OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(k => k.CargoId).OnDelete(DeleteBehavior.Cascade);
 
         builder.Entity<Session>()
             .HasOne(s => s.User)

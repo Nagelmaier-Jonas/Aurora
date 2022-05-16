@@ -8,10 +8,11 @@ namespace Domain.LogicHandlers;
 
 public static class SlotExtension{
     public static void AddCargo(this ASlot slot, Session session, ACargo element) {
-        if (!session.CanBuy(element.Price)) throw new ConvoyManagementException("Not enough money!");
+        if (!session.CanBuy(element.Price))
+            throw new ConvoyManagementException("Not enough money!");
         if (!slot.CanAddCargo(session, element)) return;
-        slot.Cargo = element;
         session.Money -= element.Price;
+        slot.Cargo = element;
     }
     
     public static void RemoveCargo(this ASlot aSlot, Session session) {

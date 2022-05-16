@@ -31,6 +31,30 @@
       <_ContentIncludedByDefault Remove="Components\ItemRenderer\CargoRenderer.razor" />
       <_ContentIncludedByDefault Remove="Components\ItemRenderer\TruckRenderer.razor" />
       <_ContentIncludedByDefault Remove="Components\ItemRenderer\WagonRenderer.razor" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\ANDROID_NASLADOWCZY.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\cwaniak.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Cyborg.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\HAKER.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\KAZNODZIEJA.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Kierowca.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\lider1.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\lider2.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\lider3.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\lider4.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\lowca_nagrod.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Mechanik.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Nawigator1.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Nawigator2.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Nawigator3.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Nawigator4.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\ODKRYWCA.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Pustelnik.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Renegat.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\SANITARIUSZ.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Sierota.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\STRZELEC.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Wiezien.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\cards\crew\Zhakowany_Wartownik.png" />
     </ItemGroup>
 
     <ItemGroup>

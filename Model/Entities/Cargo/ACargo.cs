@@ -28,7 +28,7 @@ public abstract class ACargo : ICargo{
 
     public ASlot Slot{ get; set; } = null!;
     
-    public List<CargosJtKeywords> Keywords{ get; set; }
+    public List<Keyword> Keywords{ get; set; }
 
     public abstract bool IsAddable(CrewSlot crewSlot);
 

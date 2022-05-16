@@ -28,7 +28,7 @@
 
     <MudCardActions Style="justify-content: center; padding: 0;">
         @if (Upgradeable.IsAddonPresent()){
-            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Upgradeable.RemoveAddon())">Addon</MudButton>
+            <MudButton Variant="Variant.Text" Color="Color.Error" EndIcon="@Icons.Outlined.Remove" OnClick="@(() => Upgradeable.RemoveAddon(Session))">Addon</MudButton>
         }
         else{
             <MudButton Variant="Variant.Text" Color="Color.Success" EndIcon="@Icons.Outlined.Add" OnClick="ToggleAddons">Addon</MudButton>

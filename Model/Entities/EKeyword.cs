@@ -51,5 +51,6 @@ public enum EKeyword{
     Orphan,
     Gunner,
     Prisoner,
-    HackedSentry
+    HackedSentry,
+    Pustelnik
 }

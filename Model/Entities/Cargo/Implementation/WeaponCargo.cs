@@ -6,6 +6,6 @@ public class WeaponCargo : ACargo{
     public override bool IsAddable(CrewSlot crewSlot) => false;
     public override bool IsAddable(FuelSlot fuelSlot) => false;
     public override bool IsAddable(ArmorSlot armorSlot) => false;
-    public override bool IsAddable(StandardSlot standardSlot) => false;
+    public override bool IsAddable(StandardSlot standardSlot) => true;
     public override bool IsAddable(WeaponSlot weaponSlot) => true;
 }

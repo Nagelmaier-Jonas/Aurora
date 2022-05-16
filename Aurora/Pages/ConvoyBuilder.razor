@@ -4,9 +4,10 @@
 @inject ISnackbar Snackbar
 @inject SessionRepository SessionRepository
 @inject ConvoyRerenderer ConvoyRerenderer
+@inject NavigationManager _navigationManager
 @implements IDisposable
 
-<style>
+<style xmlns="http://www.w3.org/1999/html">
     .mud-tabs{
       z-index: 20000;
     }
@@ -28,24 +29,27 @@
             <MudText Align="Align.Center">
                 <h6>Money:</h6> @Session.Money
             </MudText>
+            <MudButton OnClick="@(() => _navigationManager.NavigateTo($"/battlefield/{SessionId}"))">
+                Fight
+            </MudButton>
         </div>
         <MudContainer Class="d-flex overflow-auto convoy-container">
             @if (Convoy.FrontTruck is not null){
                 <RenderUpgradeable Session="Session" Upgradeable="Convoy.FrontTruck"
                                    ToggleAddons="() => OpenTruckAddons(Convoy.FrontTruck)"
-                                   RemoveElement="() => Session.Convoy.RemoveFrontTruck()">
+                                   RemoveElement="() => Session.Convoy.RemoveFrontTruck(Session)">
                 </RenderUpgradeable>
             }
             @foreach (var wagon in Convoy.GetWagonIterator()){
                 <RenderUpgradeable Session="Session" Upgradeable="wagon"
                                    ToggleAddons="() => OpenWagonAddons(wagon)"
-                                   RemoveElement="() => Session.Convoy.RemoveWagon(wagon)">
+                                   RemoveElement="() => Session.Convoy.RemoveWagon(wagon, Session)">
                 </RenderUpgradeable>
             }
             @if (Convoy.BackTruck is not null){
                 <RenderUpgradeable Session="Session" Upgradeable="Convoy.BackTruck"
                                    ToggleAddons="() => OpenTruckAddons(Convoy.BackTruck)"
-                                   RemoveElement="() => Session.Convoy.RemoveTailTruck()"
+                                   RemoveElement="() => Session.Convoy.RemoveTailTruck(Session)"
                                    Reverse="true">
                 </RenderUpgradeable>
             }
@@ -119,7 +123,7 @@
                     @foreach (var cargo in Factory.GetAllAddableCargo()){
                         @if (ConvoyRerenderer.TempSlot.CanAddCargo(Session, cargo)){
                             <MudCarouselItem Class="m-2 col" Style="text-align: -webkit-center;">
-                            
+
                                 <MudCard Style="height: 100% !important; background-color: transparent !important;">
                                     <MudCardMedia Image=@cargo.Image Style="height: 50% !important; width: 215px;"/>
                                     <MudCardContent Style="height: 20% !important;">
@@ -176,7 +180,7 @@
         ConvoyRerenderer.Rerender += Update;
         ConvoyRerenderer.ChangeActivePanel += SetPanelIndex;
     }
-    
+
     public void SetPanelIndex() => tabs.ActivePanelIndex = ConvoyRerenderer.ActivePanelIndex;
 
     public async void Update(){
@@ -185,7 +189,7 @@
 
     public void AddWagon(Wagon wagon, bool front){
         try{
-            Convoy.AddWagon(wagon, front);
+            Convoy.AddWagon(wagon, front, Session);
         }
         catch (ConvoyManagementException e){
             Snackbar.Add(e.Message, Severity.Error);
@@ -194,7 +198,7 @@
 
     public void AddTruck(Truck truck){
         try{
-            Convoy.AddTruck(truck);
+            Convoy.AddTruck(truck, Session);
         }
         catch (ConvoyManagementException e){
             Snackbar.Add(e.Message, Severity.Error);
@@ -215,23 +219,38 @@
 
     private void AddAddon(Addon addon){
         if (CurrentTruck is not null){
-            CurrentTruck.AddAddon(addon);
-            CurrentTruck = null;
-            _addonDisabled = true;
+            try{
+                CurrentTruck.AddAddon(addon, Session);
+                CurrentTruck = null;
+                _addonDisabled = true;
+            }
+            catch (AddonException e){
+                Snackbar.Add(e.Message, Severity.Error);
+            }
         }
         else if (CurrentWagon is not null){
-            CurrentWagon.AddAddon(addon);
-            CurrentWagon = null;
-            _addonDisabled = true;
+            try{
+                CurrentWagon.AddAddon(addon, Session);
+                CurrentWagon = null;
+                _addonDisabled = true;
+            }
+            catch (AddonException e){
+                Snackbar.Add(e.Message, Severity.Error);
+            }
         }
         tabs.ActivePanelIndex = 0;
     }
 
     private void AddCargo(ACargo cargo){
-        ConvoyRerenderer.TempSlot.AddCargo(Session, cargo);
-        ConvoyRerenderer.TempSlot = null;
-        tabs.ActivePanelIndex = 0;
-        ConvoyRerenderer.Update();
+        try{
+            ConvoyRerenderer.TempSlot.AddCargo(Session, cargo);
+            ConvoyRerenderer.TempSlot = null;
+            tabs.ActivePanelIndex = 0;
+            ConvoyRerenderer.Update();
+        }
+        catch (ConvoyManagementException e){
+            Snackbar.Add(e.Message, Severity.Error);
+        }
     }
 
     async Task ProcessSomething(){
@@ -250,4 +269,3 @@
     }
 
 }
-

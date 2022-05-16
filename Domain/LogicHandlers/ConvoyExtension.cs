@@ -5,8 +5,13 @@ namespace Domain.LogicHandlers;
 
 public static class ConvoyExtension
 {
-    public static void AddTruck(this Convoy convoy, Truck truck)
-    {
+    public static void AddTruck(this Convoy convoy, Truck truck, Session session){
+        if (session.CanBuy(truck.Price)){
+            session.Money -= truck.Price;
+        }
+        else{
+            throw new ConvoyManagementException("Not enough Money!");
+        }
         if (IsFrontTruckPresent(convoy))
             if (IsBackTruckPresent(convoy))
                 throw new ConvoyManagementException("Both trucks occupied!");
@@ -15,18 +20,28 @@ public static class ConvoyExtension
         else convoy.FrontTruck = truck;
     }
 
-    public static void AddWagon(this Convoy convoy, Wagon wagon, bool front)
+    public static void AddWagon(this Convoy convoy, Wagon wagon, bool front, Session session)
     {
         if (!IsFrontTruckPresent(convoy)) throw new ConvoyManagementException("No trucks!");
         if (!IsBackTruckPresent(convoy) && !front) throw new ConvoyManagementException("No rear Truck!");
         if (HasFrontTruckEmptySpaces(convoy) && front)
         {
+            if (session.CanBuy(wagon.Price)){
+                session.Money -= wagon.Price;
+            }else{
+                throw new ConvoyManagementException("Not enough Money!");
+            }
             convoy.FrontTruck.Wagons.Add(wagon);
             return;
         }
 
         if (HasBackTruckEmptySpaces(convoy) && !front)
         {
+            if (session.CanBuy(wagon.Price)){
+                session.Money -= wagon.Price;
+            }else{
+                throw new ConvoyManagementException("Not enough Money!");
+            }
             convoy.BackTruck.Wagons.Add(wagon);
             return;
         }
@@ -34,28 +49,61 @@ public static class ConvoyExtension
         throw new ConvoyManagementException("Truck has reached Pull limit");
     }
 
-    public static void RemoveFrontTruck(this Convoy convoy)
+    public static void RemoveFrontTruck(this Convoy convoy, Session session)
     {
+        if (convoy.FrontTruck.IsAddonPresent()){
+            session.Money += convoy.FrontTruck.Addon.Price;
+            foreach (var slot in convoy.FrontTruck.Addon.Slots.Where(slot => slot.IsConstant == false)){
+                slot.RemoveCargo(session);
+            }
+        }
+        foreach (var slot in convoy.FrontTruck.Slots){
+            slot.RemoveCargo(session);
+        }
+        session.Money += convoy.FrontTruck.Price;
+        
         if (convoy.BackTruck is not null){
             var tempTruck = convoy.BackTruck;
             convoy.BackTruck = null;
             convoy.FrontTruck = tempTruck;
             return;
         }
+
         convoy.FrontTruckId = null;
         convoy.FrontTruck = null;
     }
 
-    public static void RemoveTailTruck(this Convoy convoy)
+    public static void RemoveTailTruck(this Convoy convoy, Session session)
     {
+        if (convoy.BackTruck.IsAddonPresent()){
+            session.Money += convoy.BackTruck.Addon.Price;
+            foreach (var slot in convoy.BackTruck.Addon.Slots){
+                slot.RemoveCargo(session);
+            }
+        }
+        foreach (var slot in convoy.BackTruck.Slots.Where(slot => slot.IsConstant == false)){
+            slot.RemoveCargo(session);
+        }
+        session.Money += convoy.BackTruck.Price;
+        
         convoy.BackTruck.Addon = null;
         convoy.BackTruck = null;
     }
 
-    public static void RemoveWagon(this Convoy convoy, Wagon wagon)
+    public static void RemoveWagon(this Convoy convoy, Wagon wagon, Session session)
     {
         if (LocateWagon(convoy, wagon) == "front") convoy.FrontTruck.Wagons.Remove(wagon);
         if (LocateWagon(convoy, wagon) == "back") convoy.BackTruck.Wagons.Remove(wagon);
+        if (wagon.IsAddonPresent()){
+            session.Money += wagon.Addon.Price;
+            foreach (var slot in wagon.Addon.Slots){
+                slot.RemoveCargo(session);
+            }
+        }
+        foreach (var slot in wagon.Slots.Where(slot => slot.IsConstant == false)){
+            slot.RemoveCargo(session);
+        }
+        session.Money += wagon.Price;
         wagon = null;
     }
 

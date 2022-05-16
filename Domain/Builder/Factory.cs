@@ -5,29 +5,20 @@ using Model.Entities.Cargo.Implementation;
 namespace Domain.Builder;
 
 public static class Factory {
-    // <summary>
-    // All methods to create trucks
-    // </summary>
-
-    public static Truck CreateExampleTruck() => TruckBuilder.Init()
-        .SetCode("ExampleTruck")
-        .SetPrice(4)
-        .SetSpeed(4)
-        .SetPullForce(4)
-        .SetImagePath("example")
-        .Build();
+    /// <summary>
+    /// All methods to create trucks
+    /// </summary>
     
-
     public static Truck CreateTeslaTank() => TruckBuilder.Init()
         .SetCode("Tesla Tank")
         .SetPrice(140000)
         .SetSpeed(3)
         .SetPullForce(3)
-        .SetImagePath("tesla_front_tank")
-        .AddDefaultSlot(CreateChainDriveItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateTeslaGunItem()).IsFixedSlot()
-        .AddCrewSlot()
-        .AddDefaultSlot()
+        .SetImagePath("truck/tesla_front_tank")
+        .AddDefaultSlot(1,CreateChainDriveItem()).IsFixedSlot()
+        .AddDefaultSlot(2,CreateTeslaGunItem()).IsFixedSlot()
+        .AddCrewSlot(3)
+        .AddDefaultSlot(4)
         .Build(); 
 
     public static Truck CreateBiofuelTruck() => TruckBuilder.Init()
@@ -35,11 +26,11 @@ public static class Factory {
         .SetPrice(80000)
         .SetSpeed(4)
         .SetPullForce(3)
-        .SetImagePath("biofuel_powered_front_truck")
-        .AddDefaultSlot(CreateBiofuelGeneratorItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateGatlingGunItem()).IsFixedSlot()
-        .AddCrewSlot()
-        .AddDefaultSlot()
+        .SetImagePath("truck/biofuel_powered_front_truck")
+        .AddDefaultSlot(1,CreateBiofuelGeneratorItem()).IsFixedSlot()
+        .AddDefaultSlot(2,CreateGatlingGunItem()).IsFixedSlot()
+        .AddCrewSlot(3)
+        .AddDefaultSlot(4)
         .Build();
 
     public static Truck CreateApcTruck() => TruckBuilder.Init()
@@ -47,11 +38,11 @@ public static class Factory {
         .SetPrice(60000)
         .SetSpeed(2)
         .SetPullForce(3)
-        .SetImagePath("apc_front_tank")
-        .AddDefaultSlot(CreateChainDriveItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateHeavyOrdnance2Item()).IsFixedSlot()
-        .AddCrewSlot()
-        .AddDefaultSlot()
+        .SetImagePath("truck/apc_front_tank")
+        .AddDefaultSlot(1,CreateChainDriveItem()).IsFixedSlot()
+        .AddDefaultSlot(2,CreateHeavyOrdnance2Item()).IsFixedSlot()
+        .AddCrewSlot(3)
+        .AddDefaultSlot(4)
         .Build();
 
     public static Truck CreateRailgunTruck() => TruckBuilder.Init()
@@ -59,22 +50,22 @@ public static class Factory {
         .SetPrice(140000)
         .SetSpeed(4)
         .SetPullForce(3)
-        .SetImagePath("railgun_tank_front_truck")
-        .AddDefaultSlot(CreateChainDriveItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateRailGunItem()).IsFixedSlot()
-        .AddCrewSlot()
-        .AddDefaultSlot()
+        .SetImagePath("truck/railgun_tank_front_truck")
+        .AddDefaultSlot(1,CreateChainDriveItem()).IsFixedSlot()
+        .AddDefaultSlot(2,CreateRailGunItem()).IsFixedSlot()
+        .AddCrewSlot(3)
         .Build();
 
     public static Truck CreateTruck() => TruckBuilder.Init()
         .SetCode("Truck")
-        .SetPrice(40000)
+        .SetPrice(500000)
         .SetSpeed(2)
         .SetPullForce(2)
-        .SetImagePath("truck_front")
-        .AddDefaultSlot(CreateGunItem()).IsFixedSlot()
-        .AddCrewSlot()
-        .AddDefaultSlot()
+        .SetImagePath("truck/truck_front")
+        .AddDefaultSlot(1,CreateGunItem()).IsFixedSlot()
+        .AddCrewSlot(2)
+        .AddDefaultSlot(3)
+        .AddDefaultSlot(4)
         .Build();
 
     public static Truck CreateNuclearpoweredTruck() => TruckBuilder.Init()
@@ -82,11 +73,11 @@ public static class Factory {
         .SetPrice(100000)
         .SetSpeed(4)
         .SetPullForce(3)
-        .SetImagePath("nuclear_powered_front_truck")
-        .AddDefaultSlot(CreateNuclearGeneratorItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateHeavyOrdnance3Item()).IsFixedSlot()
-        .AddCrewSlot()
-        .AddDefaultSlot()
+        .SetImagePath("truck/nuclear_powered_front_truck")
+        .AddDefaultSlot(1,CreateNuclearGeneratorItem()).IsFixedSlot()
+        .AddDefaultSlot(2,CreateHeavyOrdnance3Item()).IsFixedSlot()
+        .AddCrewSlot(3)
+        .AddDefaultSlot(4)
         .Build();
     
     public static List<Truck> GetAllTrucks() => new(){
@@ -98,62 +89,62 @@ public static class Factory {
         CreateTeslaTank(),
     };
 
-    // <summary>
-    // All methods to create wagons
-    // </summary>
+    /// <summary>
+    /// All methods to create wagons
+    /// </summary>
     public static Wagon CreateExampleWagon() => WagonBuilder.Init()
         .SetCode("Example")
         .SetPrice(10)
-        .SetImagePath("example")
+        .SetImagePath("wagon/example")
         .Build();
 
     public static Wagon CreateReinforcedWagon() => WagonBuilder.Init()
         .SetCode("Reinforced Wagon")
         .SetPrice(7000)
-        .SetImagePath("reinforced_wagon")
-        .AddDefaultSlot()
-        .AddDefaultSlot()
-        .AddDefaultSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
+        .SetImagePath("wagon/reinforced_wagon")
+        .AddDefaultSlot(1)
+        .AddDefaultSlot(2)
+        .AddDefaultSlot(3)
+        .AddDefaultSlot(4,CreateArmorItem()).IsFixedSlot()
         .Build();
 
     public static Wagon CreateReinforcedFuelWagon() => WagonBuilder.Init()
         .SetCode("Reinforced Fuel Wagon")
         .SetPrice(10000)
-        .SetImagePath("reinforced_fuel_wagon")
-        .AddFuelSlot()
-        .AddFuelSlot()
-        .AddFuelSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
+        .SetImagePath("wagon/reinforced_fuel_wagon")
+        .AddFuelSlot(1)
+        .AddFuelSlot(2)
+        .AddFuelSlot(3)
+        .AddDefaultSlot(4,CreateArmorItem()).IsFixedSlot()
         .Build();
 
     public static Wagon CreateDoubleReinforcedFuelWagon() => WagonBuilder.Init()
         .SetCode("Double Reinforced Fuel Wagon")
         .SetPrice(12000)
-        .SetImagePath("reinforced_fuel_wagon2")
-        .AddFuelSlot()
-        .AddFuelSlot()
-        .AddDefaultSlot(CreateGun2Item()).IsFixedSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
+        .SetImagePath("wagon/reinforced_fuel_wagon2")
+        .AddFuelSlot(1)
+        .AddFuelSlot(2)
+        .AddDefaultSlot(3,CreateGun2Item()).IsFixedSlot()
+        .AddDefaultSlot(4,CreateArmorItem()).IsFixedSlot()
         .Build();
 
     public static Wagon CreateWagon() => WagonBuilder.Init()
         .SetCode("Wagon")
         .SetPrice(5000)
-        .SetImagePath("wagon")
-        .AddDefaultSlot()
-        .AddDefaultSlot()
-        .AddDefaultSlot()
+        .SetImagePath("wagon/wagon")
+        .AddDefaultSlot(1)
+        .AddDefaultSlot(2)
+        .AddDefaultSlot(3)
         .Build();
 
     public static Wagon CreateMedicalWagon() => WagonBuilder.Init()
         .SetCode("Medical Wagon")
         .SetPrice(15000)
-        .SetImagePath("medical_wagon")
-        .AddDefaultSlot()
-        .AddDefaultSlot()
-        .AddFuelSlot()
-        .AddDefaultSlot(CreateMedicalbayItem()).IsFixedSlot()
+        .SetImagePath("wagon/medical_wagon")
+        .AddDefaultSlot(1)
+        .AddDefaultSlot(2)
+        .AddFuelSlot(3)
+        .AddDefaultSlot(4,CreateMedicalbayItem()).IsFixedSlot()
         .Build();
     
     public static List<Wagon> GetAllWagons() => new(){
@@ -164,110 +155,110 @@ public static class Factory {
         CreateMedicalWagon()
     };
 
-    // <summary>
-    // All methods to create Addons
-    // </summary>
+    /// <summary>
+    /// All methods to create Addons
+    /// </summary>
 
     public static Addon CreateSmallStorage() => AddonBuilder.Init()
         .SetCode("Small Storage")
         .SetPrice(1000)
-        .SetImagePath("smallstorage_addon")
-        .AddDefaultSlot()
-        .AddDefaultSlot()
+        .SetImagePath("addon/smallstorage_addon")
+        .AddDefaultSlot(1)
+        .AddDefaultSlot(2)
         .Build();
 
     public static Addon CreateStorage() => AddonBuilder.Init()
         .SetCode("Storage")
         .SetPrice(3000)
-        .SetImagePath("storage_addon")
-        .AddDefaultSlot()
-        .AddDefaultSlot()
-        .AddDefaultSlot()
+        .SetImagePath("addon/storage_addon")
+        .AddDefaultSlot(1)
+        .AddDefaultSlot(2)
+        .AddDefaultSlot(3)
         .Build();
 
     public static Addon CreateNuclearReactor() => AddonBuilder.Init()
         .SetCode("Nuclearreactor")
         .SetPrice(25000)
-        .SetImagePath("nuclearreactor_addon")
-        .AddDefaultSlot(CreateNuclearReactorItem()).IsFixedSlot()
+        .SetImagePath("addon/nuclearreactor_addon")
+        .AddDefaultSlot(1,CreateNuclearReactorItem()).IsFixedSlot()
         .Build();
 
     public static Addon CreateHeavyGun() => AddonBuilder.Init()
         .SetCode("Heavy Gun")
         .SetPrice(35000)
-        .SetImagePath("heavygun_addon")
-        .AddDefaultSlot(CreateHeavyOrdnance4Item()).IsFixedSlot()
+        .SetImagePath("addon/heavygun_addon")
+        .AddDefaultSlot(1,CreateHeavyOrdnance4Item()).IsFixedSlot()
         .Build();
 
     public static Addon CreateArmor() => AddonBuilder.Init()
         .SetCode("Armor")
         .SetPrice(2000)
-        .SetImagePath("armor_addon")
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
+        .SetImagePath("addon/armor_addon")
+        .AddDefaultSlot(1,CreateArmorItem()).IsFixedSlot()
+        .AddDefaultSlot(2,CreateArmorItem()).IsFixedSlot()
+        .AddDefaultSlot(3,CreateArmorItem()).IsFixedSlot()
         .Build();
 
     public static Addon CreateHeavyArmor() => AddonBuilder.Init()
         .SetCode("Heavy Armor")
         .SetPrice(5000)
-        .SetImagePath("heavyarmor_addon")
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
+        .SetImagePath("addon/heavyarmor_addon")
+        .AddDefaultSlot(1,CreateArmorItem()).IsFixedSlot()
+        .AddDefaultSlot(2,CreateArmorItem()).IsFixedSlot()
+        .AddDefaultSlot(3,CreateArmorItem()).IsFixedSlot()
+        .AddDefaultSlot(4,CreateArmorItem()).IsFixedSlot()
         .Build();
 
     public static Addon CreateBioFuelGenerator() => AddonBuilder.Init()
         .SetCode("Bio Fuel Generator")
         .SetPrice(25000)
-        .SetImagePath("biofuel_generator_addon")
-        .AddDefaultSlot(CreateBiofuelGeneratorItem()).IsFixedSlot()
+        .SetImagePath("addon/biofuel_generator_addon")
+        .AddDefaultSlot(1,CreateBiofuelGeneratorItem()).IsFixedSlot()
         .Build();
 
     public static Addon CreateLargeStorage() => AddonBuilder.Init()
         .SetCode("Large Storage")
         .SetPrice(3000)
-        .SetImagePath("largestorage_addon")
-        .AddDefaultSlot()
-        .AddDefaultSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
+        .SetImagePath("addon/largestorage_addon")
+        .AddDefaultSlot(1)
+        .AddDefaultSlot(2)
+        .AddDefaultSlot(3,CreateArmorItem()).IsFixedSlot()
         .Build();
 
     public static Addon CreateAutocannon() => AddonBuilder.Init()
         // Hits every enemy
         .SetCode("Autocannon")
         .SetPrice(15000)
-        .SetImagePath("autocannon_addon")
-        .AddDefaultSlot(CreateGatlingGun2Item()).IsFixedSlot()
-        .AddCrewSlot()
+        .SetImagePath("addon/autocannon_addon")
+        .AddDefaultSlot(1,CreateGatlingGun2Item()).IsFixedSlot()
+        .AddCrewSlot(2)
         .Build();
         
 
     public static Addon CreateDrone() => AddonBuilder.Init()
         .SetCode("Drone")
         .SetPrice(10)
-        .SetImagePath("drones_addon")
-        .AddDefaultSlot(CreateDroneItem()).IsFixedSlot()
-        .AddDefaultSlot(CreateArmorItem()).IsFixedSlot()
+        .SetImagePath("addon/drones_addon")
+        .AddDefaultSlot(1,CreateDroneItem()).IsFixedSlot()
+        .AddDefaultSlot(2,CreateArmorItem()).IsFixedSlot()
         .Build();
 
     public static Addon CreateZuraw() => AddonBuilder.Init()
         .SetCode("Crane")
         .SetPrice(20000)
-        .SetImagePath("crane_addon")
-        .AddDefaultSlot(CreateCraneItem()).IsFixedSlot()
-        .AddCrewSlot()
-        .AddDefaultSlot()
+        .SetImagePath("addon/crane_addon")
+        .AddDefaultSlot(1,CreateCraneItem()).IsFixedSlot()
+        .AddCrewSlot(2)
+        .AddDefaultSlot(3)
         .Build();
 
     public static Addon CreateBagpiper() => AddonBuilder.Init()
         .SetCode("Bagpiper")
         .SetPrice(7000)
-        .SetImagePath("bagpiper_addon")
-        .AddDefaultSlot(CreateBagpiperItem()).IsFixedSlot()
-        .AddDefaultSlot()
-        .AddDefaultSlot()
+        .SetImagePath("addon/bagpiper_addon")
+        .AddDefaultSlot(1,CreateBagpiperItem()).IsFixedSlot()
+        .AddDefaultSlot(2)
+        .AddDefaultSlot(3)
         .Build();
     
     public static List<Addon> GetAllAddons() => new(){
@@ -285,84 +276,64 @@ public static class Factory {
         CreateHeavyGun(),
     };
 
-    //<summary>
-    // All methods to create fixed Cargo
-    //</summary>
+    ///<summary>
+    /// All methods to create fixed Cargo
+    ///</summary>
     
     public static StandardCargo CreateRacjaZywnosciowa() => StandardCargoBuilder.Init()
         .SetCode("Racja Zywnosciowa")
         .SetPrice(10)
-        .SetImagePath("racajaZywnosciowa")
+        .SetImagePath("item/racajaZywnosciowa")
         .AddKeyword(EKeyword.MRE)
         .Build();
 
     public static StandardCargo CreateGranat() => StandardCargoBuilder.Init()
         .SetCode("Granat")
         .SetPrice(10)
-        .SetImagePath("granat")
+        .SetImagePath("item/granat")
         .AddKeyword(EKeyword.Grenade)
         .Build();
 
     public static StandardCargo CreateKombinezonOchronyu() => StandardCargoBuilder.Init()
         .SetCode("Kombinezon Ochronyu")
         .SetPrice(10)
-        .SetImagePath("kombinezon_ochronyu")
+        .SetImagePath("item/kombinezon_ochronyu")
         .AddKeyword(EKeyword.ProtectionSuit)
         .Build();
 
     public static StandardCargo CreateKoplowkaOdkazajacaIV() => StandardCargoBuilder.Init()
         .SetCode("Koplowka OdkazajacaIV")
         .SetPrice(10)
-        .SetImagePath("koplowkaOdkazajacaIV")
+        .SetImagePath("item/koplowkaOdkazajacaIV")
         .AddKeyword(EKeyword.DosingDrip4)
         .Build();
 
     public static StandardCargo CreateLekPrzeciwOdmrozeniom() => StandardCargoBuilder.Init()
         .SetCode("Lek Przeciw Odmrozeniom")
         .SetPrice(10)
-        .SetImagePath("lek_przeciw_odmrozeniom")
+        .SetImagePath("item/lek_przeciw_odmrozeniom")
         .AddKeyword(EKeyword.AntiFreeze)
         .Build();
 
     public static StandardCargo CreateMina() => StandardCargoBuilder.Init()
         .SetCode("Mina")
         .SetPrice(10)
-        .SetImagePath("mina")
+        .SetImagePath("item/mina")
         .AddKeyword(EKeyword.Mine)
         .Build();
 
     public static StandardCargo CreateMobilnyZagluszacz() => StandardCargoBuilder.Init()
         .SetCode("Mobilny Zagluszacz")
         .SetPrice(10)
-        .SetImagePath("mobilny_zagluszacz")
+        .SetImagePath("item/mobilny_zagluszacz")
         .AddKeyword(EKeyword.MobileJammer)
-        .Build();
-    public static FuelCargo CreateNitrometan() => FuelCargoBuilder.Init()
-        .SetCode("Nitrometan")
-        .SetPrice(10)
-        .SetImagePath("nitrometan")
-        .AddKeyword(EKeyword.Nitromethane)
-        .Build();
-
-    public static StandardCargo CreatePalnikSpawalniczy() => StandardCargoBuilder.Init()
-        .SetCode("Palnik Spawalniczy")
-        .SetPrice(10)
-        .SetImagePath("palnik_spawalniczy")
-        .AddKeyword(EKeyword.WeldingTorch)
         .Build();
 
     public static StandardCargo CreatePociskiZapalajace() => StandardCargoBuilder.Init()
         .SetCode("Pociski Zapalajace")
         .SetPrice(10)
-        .SetImagePath("pociskiZapalajace")
+        .SetImagePath("item/pociskiZapalajace")
         .AddKeyword(EKeyword.Ammo)
-        .Build();
-
-    public static StandardCargo CreatePootlenekAzotu() => StandardCargoBuilder.Init()
-        .SetCode("Pootlenek Azotu")
-        .SetPrice(10)
-        .SetImagePath("pootlenek_azotu")
-        .AddKeyword(EKeyword.NitrousOxide)
         .Build();
 
     public static List<ACargo> GetAllFixedCargo() => new(){
@@ -373,139 +344,191 @@ public static class Factory {
         CreateLekPrzeciwOdmrozeniom(),
         CreateMina(),
         CreateMobilnyZagluszacz(),
-        CreateNitrometan(),
-        CreatePalnikSpawalniczy(),
-        CreatePociskiZapalajace(),
-        CreatePootlenekAzotu()
+        CreatePociskiZapalajace()
     };
 
-    //<summary>
-    // All methods to create addable Cargo
-    //</summary>
+    ///<summary>
+    /// All methods to create addable Cargo
+    ///</summary>
+    
+    public static FuelCargo CreateNitrometan() => FuelCargoBuilder.Init()
+        .SetCode("Nitrometan")
+        .SetPrice(10)
+        .SetImagePath("item/nitrometan")
+        .AddKeyword(EKeyword.Nitromethane)
+        .Build();
+    
+    public static FuelCargo CreatePalnikSpawalniczy() => FuelCargoBuilder.Init()
+        .SetCode("Palnik Spawalniczy")
+        .SetPrice(10)
+        .SetImagePath("item/palnik_spawalniczy")
+        .AddKeyword(EKeyword.WeldingTorch)
+        .Build();
+    
+    public static FuelCargo CreatePootlenekAzotu() => FuelCargoBuilder.Init()
+        .SetCode("Pootlenek Azotu")
+        .SetPrice(10)
+        .SetImagePath("item/pootlenek_azotu")
+        .AddKeyword(EKeyword.NitrousOxide)
+        .Build();
+    public static CrewCargo CreateCyborg() => CrewCargoBuilder.Init()
+        .SetCode("Cyborg")
+        .SetPrice(10)
+        .SetImagePath("crew/Cyborg")
+        .AddKeyword(EKeyword.Cyborg)
+        .Build();
+    
+    public static CrewCargo CreateAndroid() => CrewCargoBuilder.Init()
+        .SetCode("Android")
+        .SetPrice(10)
+        .SetImagePath("crew/Android")
+        .AddKeyword(EKeyword.Android)
+        .Build();
+    
+    public static CrewCargo CreateMechanik() => CrewCargoBuilder.Init()
+        .SetCode("Mechanik")
+        .SetPrice(10)
+        .SetImagePath("crew/Mechanik")
+        .AddKeyword(EKeyword.Mechanic)
+        .Build();
+    
+    public static CrewCargo CreateRenegat() => CrewCargoBuilder.Init()
+        .SetCode("Renegat")
+        .SetPrice(10)
+        .SetImagePath("crew/Renegat")
+        .AddKeyword(EKeyword.Renegade)
+        .Build();
+    
+    public static CrewCargo CreatePustelnik() => CrewCargoBuilder.Init()
+        .SetCode("Pustelnik")
+        .SetPrice(10)
+        .SetImagePath("crew/Pustelnik")
+        .AddKeyword(EKeyword.Pustelnik)
+        .Build();
 
     public static StandardCargo CreateBiofuelGeneratorItem() => StandardCargoBuilder.Init()
         .SetCode("Biofuel Generator")
         .SetPrice(10)
-        .SetImagePath("biofuel_generator2")
+        .SetImagePath("items/biofuel_generator2")
         .AddKeyword(EKeyword.Biofuelgenerator)
         .Build();
 
     public static StandardCargo CreateNuclearGeneratorItem() => StandardCargoBuilder.Init()
         .SetCode("Nuclear Generator")
         .SetPrice(10)
-        .SetImagePath("nuclear_generator")
+        .SetImagePath("items/nuclear_generator")
         .AddKeyword(EKeyword.Nucleargenerator)
         .Build();
 
     public static StandardCargo CreateNuclearReactorItem() => StandardCargoBuilder.Init()
         .SetCode("Nuclear Reactor")
         .SetPrice(10)
-        .SetImagePath("radioactive")
+        .SetImagePath("items/radioactive")
         .AddKeyword(EKeyword.Nuclearreactor)
         .Build();
 
-    public static StandardCargo CreateArmorItem() => StandardCargoBuilder.Init()
+    public static ArmorCargo CreateArmorItem() => ArmorCargoBuilder.Init()
         .SetCode("Armor")
         .SetPrice(10)
-        .SetImagePath("armor")
+        .SetImagePath("items/armor")
         .AddKeyword(EKeyword.Armor)
         .Build();
 
     public static StandardCargo CreateChainDriveItem() => StandardCargoBuilder.Init()
         .SetCode("Chaindrive")
         .SetPrice(10)
-        .SetImagePath("chaindrive")
+        .SetImagePath("items/chaindrive")
         .AddKeyword(EKeyword.Tracks)
         .Build();
 
     public static StandardCargo CreateBagpiperItem() => StandardCargoBuilder.Init()
         .SetCode("Bagpiper")
         .SetPrice(10)
-        .SetImagePath("radioactive_star")
+        .SetImagePath("items/radioactive_star")
         .AddKeyword(EKeyword.Bagpiper)
         .Build();
 
     public static StandardCargo CreateCraneItem() => StandardCargoBuilder.Init()
         .SetCode("Crane")
         .SetPrice(10)
-        .SetImagePath("radioactive_crane")
+        .SetImagePath("items/radioactive_crane")
         .AddKeyword(EKeyword.Crane)
         .Build();
 
     public static StandardCargo CreateDroneItem() => StandardCargoBuilder.Init()
         .SetCode("Drone")
         .SetPrice(10)
-        .SetImagePath("dronestation")
+        .SetImagePath("items/dronestation")
         .AddKeyword(EKeyword.Drone)
         .Build();
 
     public static StandardCargo CreateMedicalbayItem() => StandardCargoBuilder.Init()
         .SetCode("Medicalbay")
         .SetPrice(10)
-        .SetImagePath("medical_bay")
+        .SetImagePath("items/medical_bay")
         .AddKeyword(EKeyword.Medicalbay)
         .Build();
 
-    public static StandardCargo CreateRailGunItem() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateRailGunItem() => WeaponCargoBuilder.Init()
         .SetCode("Rail Gun")
         .SetPrice(10)
-        .SetImagePath("green_weapon4")
+        .SetImagePath("items/green_weapon4")
         .AddKeyword(EKeyword.Railgun)
         .Build();
 
-    public static StandardCargo CreateTeslaGunItem() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateTeslaGunItem() => WeaponCargoBuilder.Init()
         .SetCode("Tesla Gun")
         .SetPrice(10)
-        .SetImagePath("green_weapon3")
+        .SetImagePath("items/green_weapon3")
         .AddKeyword(EKeyword.Teslagun)
         .Build();
 
-    public static StandardCargo CreateGunItem() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateGunItem() => WeaponCargoBuilder.Init()
         .SetCode("Gun")
         .SetPrice(10)
-        .SetImagePath("red_weapon1")
+        .SetImagePath("items/red_weapon1")
         .AddKeyword(EKeyword.Gun)
         .Build();
 
-    public static StandardCargo CreateGun2Item() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateGun2Item() => WeaponCargoBuilder.Init()
         .SetCode("Gun 2")
         .SetPrice(10)
-        .SetImagePath("green_weapon2")
+        .SetImagePath("items/green_weapon2")
         .AddKeyword(EKeyword.Gun)
         .Build();
 
-    public static StandardCargo CreateHeavyOrdnance2Item() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateHeavyOrdnance2Item() => WeaponCargoBuilder.Init()
         .SetCode("Heavy Ordnance 2")
         .SetPrice(10)
-        .SetImagePath("green_weapon2")
+        .SetImagePath("items/green_weapon2")
         .AddKeyword(EKeyword.HeavyOrdnance)
         .Build();
 
-    public static StandardCargo CreateHeavyOrdnance3Item() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateHeavyOrdnance3Item() => WeaponCargoBuilder.Init()
         .SetCode("Heavy Ordnance 3")
         .SetPrice(10)
-        .SetImagePath("green_weapon3")
+        .SetImagePath("items/green_weapon3")
         .AddKeyword(EKeyword.HeavyOrdnance)
         .Build();
 
-    public static StandardCargo CreateHeavyOrdnance4Item() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateHeavyOrdnance4Item() => WeaponCargoBuilder.Init()
         .SetCode("Heavy Ordnance 4")
         .SetPrice(10)
-        .SetImagePath("red_weapon4")
+        .SetImagePath("items/red_weapon4")
         .AddKeyword(EKeyword.HeavyOrdnance)
         .Build();
 
-    public static StandardCargo CreateGatlingGunItem() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateGatlingGunItem() => WeaponCargoBuilder.Init()
         .SetCode("Gatling Gun")
         .SetPrice(10)
-        .SetImagePath("red_weapon3")
+        .SetImagePath("items/red_weapon3")
         .AddKeyword(EKeyword.Gatlinggun)
         .Build();
 
-    public static StandardCargo CreateGatlingGun2Item() => StandardCargoBuilder.Init()
+    public static WeaponCargo CreateGatlingGun2Item() => WeaponCargoBuilder.Init()
         .SetCode("Gatling Gun")
         .SetPrice(10)
-        .SetImagePath("red_weapon2")
+        .SetImagePath("items/red_weapon2")
         .AddKeyword(EKeyword.Gatlinggun)
         .Build();
     
@@ -527,6 +550,14 @@ public static class Factory {
         CreateHeavyOrdnance3Item(),
         CreateHeavyOrdnance4Item(),
         CreateGatlingGunItem(),
-        CreateGatlingGun2Item()
+        CreateGatlingGun2Item(),
+        CreateCyborg(),
+        CreateAndroid(),
+        CreateMechanik(),
+        CreatePustelnik(),
+        CreateRenegat(),
+        CreateNitrometan(),
+        CreatePalnikSpawalniczy(),
+        CreatePootlenekAzotu()
     };
 }
